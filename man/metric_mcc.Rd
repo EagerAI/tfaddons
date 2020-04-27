@@ -38,7 +38,9 @@ prediction. The statistic is also known as
 the phi coefficient. MCC = (TP * TN) - (FP * FN) / ((TP + FP) * (TP + FN) * (TN + FP ) * (TN + FN))^(1/2) Usage:
 }
 \examples{
+
 \dontrun{
+
 actuals = tf$constant(list(1, 1, 1, 0), dtype=tf$float32)
 preds = tf$constant(list(1,0,1,1), dtype=tf$float32)
 # Matthews correlation coefficient
