@@ -29,7 +29,7 @@ If threshold is NULL, the argmax is converted to 1, and the rest 0.}
 
 \item{name}{(optional) String name of the metric instance.}
 
-\item{dtype}{Represents the type of the elements in a `Tensor`.}
+\item{dtype}{(optional) Data type of the metric result. Defaults to `tf$float32`.}
 }
 \value{
 F-1 Score: float
