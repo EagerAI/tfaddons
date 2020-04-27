@@ -61,7 +61,7 @@ metric_cohen_kappa = function( num_classes,
 #' true instances in each class.
 #' @param threshold Elements of y_pred above threshold are considered to be 1, and the rest 0.
 #' If threshold is NULL, the argmax is converted to 1, and the rest 0.
-#' @param dtype Represents the type of the elements in a `Tensor`.
+#' @param dtype (optional) Data type of the metric result.
 #' @param name (optional) String name of the metric instance.
 #' @return F-1 Score: float
 #'
@@ -113,7 +113,7 @@ metrics_f1score <- function(num_classes,
 #' Determines the weight given to the precision and recall. Default value is 1.
 #' @param threshold Elements of y_pred greater than threshold are converted to be 1,
 #' and the rest 0. If threshold is None, the argmax is converted to 1, and the rest 0.
-#' @param dtype Represents the type of the elements in a `Tensor`.
+#' @param dtype (optional) Data type of the metric result.
 #' @param name (optional) String name of the metric instance.
 #' @return F-Beta Score: float
 #'
@@ -169,6 +169,44 @@ metric_hamming_distance <- function(actuals, predictions) {
 }
 
 attr(metric_hamming_distance, "py_function_name") <- "hamming_distance"
+
+
+
+#' @title Hamming loss
+#'
+#' @description Computes hamming loss.
+#'
+#' @details Hamming loss is the fraction of wrong labels to the total number of labels.
+#' In multi-class classification, hamming loss is calculated as the hamming distance
+#' between `actual` and `predictions`. In multi-label classification, hamming loss
+#' penalizes only the individual labels.
+#'
+#' @param y_true actual target value
+#' @param y_pred predicted target value
+#' @param threshold Elements of `y_pred` greater than threshold are converted to be 1,
+#' and the rest 0. If threshold is None, the argmax is converted to 1, and the rest 0.
+#' @param mode multi-class or multi-label
+#' @param dtype (optional) Data type of the metric result.
+#' @param ... additional arguments that are passed on to function `fn`.`
+#'
+#' @export
+hamming_loss <- function(mode,
+                                name = 'hamming_loss',
+                                threshold = NULL,
+                                dtype = tf$float32,
+                                ...) {
+
+  args <- list(
+    mode,
+    name = 'hamming_loss',
+    threshold = NULL,
+    dtype = tf$float32,
+    ...
+  )
+
+  do.call(tfa$metrics$HammingLoss, args)
+
+}
 
 
 
