@@ -284,7 +284,9 @@ hamming_loss <- function(mode,
 #' @param dtype (Optional) Data type of the metric result. Defaults to `tf$float32`.
 #'
 #' @examples
+#'
 #' \dontrun{
+#'
 #' actuals = tf$constant(list(1, 1, 1, 0), dtype=tf$float32)
 #' preds = tf$constant(list(1,0,1,1), dtype=tf$float32)
 #' # Matthews correlation coefficient
@@ -316,6 +318,101 @@ metric_mcc <- function(num_classes = NULL,
   do.call(tfa$metrics$MatthewsCorrelationCoefficient, args)
 
 }
+
+
+
+#' @title MultiLabelConfusionMatrix
+#'
+#' @description Computes Multi-label confusion matrix.
+#'
+#' @details Class-wise confusion matrix is computed for the
+#' evaluation of classification. If multi-class input is provided, it will be treated
+#' as multilabel data. Consider classification problem with two classes
+#' (i.e num_classes=2). Resultant matrix `M` will be in the shape of (num_classes, 2, 2).
+#' Every class `i` has a dedicated 2*2 matrix that contains: - true negatives for class i in M(0,0)
+#' - false positives for class i in M(0,1)
+#' - false negatives for class i in M(1,0)
+#' - true positives for class i in M(1,1) ```python
+#' # multilabel confusion matrix
+#' y_true = tf$constant(list(as.integer(c(1, 0, 1)), as.integer(c(0, 1, 0))), dtype=tf$int32)
+#' y_pred = tf$constant(list(as.integer(c(1, 0, 0)), as.integer(c(0, 1, 1))), dtype=tf$int32)
+#' output = metric_multilabel_confusion_matrix(num_classes=3)
+#' output$update_state(y_true, y_pred)
+#' paste('Confusion matrix:', output$result())
+#' # Confusion matrix: [[[1 0] [0 1]] [[1 0] [0 1]] [[0 1] [1 0]]] # if multiclass input is provided
+#' y_true = tf$constant(list(as.integer(c(1, 0, 0)), as.integer(c(0, 1, 0))), dtype=tf$int32)
+#' y_pred = tf$constant(list(as.integer(c(1, 0, 0)), as.integer(c(0, 0, 1))), dtype=tf$int32)
+#' output = metric_multilabel_confusion_matrix(num_classes=3)
+#' output$update_state(y_true, y_pred)
+#' paste('Confusion matrix:', output$result())
+#' # Confusion matrix: [[[1 0] [0 1]] [[1 0] [1 0]] [[1 1] [0 0]]]
+#' ```
+#'
+#' @param num_classes Number of unique classes in the dataset.
+#' @param name (Optional) String name of the metric instance.
+#' @param dtype (Optional) Data type of the metric result. Defaults to `tf$int32`.
+#'
+#' @export
+metric_multilabel_confusion_matrix <- function(num_classes,
+                                               name = 'Multilabel_confusion_matrix',
+                                               dtype = tf$int32) {
+
+  args <- list(
+    num_classes = num_classes,
+    name = name,
+    dtype = dtype
+  )
+
+  if(!is.null(num_classes)) {
+    args$num_classes <- as.integer(num_classes)
+  }
+
+  do.call(tfa$metrics$MultiLabelConfusionMatrix, args)
+
+}
+
+
+#' @title RSquare
+#'
+#' This is also called as coefficient of determination. It tells how close
+#' are data to the fitted regression line. Highest score can be 1.0 and it
+#' indicates that the predictors perfectly accounts for variation in the target.
+#' Score 0.0 indicates that the predictors do not account for variation in the
+#' target. It can also be negative if the model is worse.
+#'
+#' @param name (Optional) String name of the metric instance.
+#' @param dtype (Optional) Data type of the metric result. Defaults to `tf$float32`.
+#'
+#'
+#'
+#'
+#'
+#' @examples
+#'
+#' \dontrun{
+#'
+#' actuals = tf$constant(c(1, 4, 3), dtype=tf$float32)
+#' preds = tf$constant(c(2, 4, 4), dtype=tf$float32)
+#' result = metric_rsquare()
+#' result$update_state(actuals, preds)
+#' paste('R^2 score is: ', r1$result()$numpy()) # 0.57142866
+#'
+#' }
+#'
+#' @export
+metric_rsquare <- function(name = 'r_square',
+                           dtype = tf$float32) {
+
+  args = list(
+    name = name,
+    dtype = dtype
+  )
+
+  do.call(tfa$metrics$RSquare, args)
+
+}
+
+
 
 
 
