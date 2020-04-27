@@ -154,12 +154,23 @@ metric_fbetascore <- function(num_classes,
 #' @param actuals actual target value
 #' @param predictions predicted value
 #'
+#' @examples
+#'
+#' \dontrun{
+#'
+#' actuals = tf$constant(as.integer(c(1, 1, 0, 0, 1, 0, 1, 0, 0, 1)), dtype=tf$int32)
+#' predictions = tf$constant(as.integer(c(1, 0, 0, 0, 1, 0, 0, 1, 0, 1)),dtype=tf$int32)
+#' result = metric_hamming_distance(actuals, predictions)
+#' paste('Hamming distance: ', result$numpy())
+#'
+#' }
+#'
 #' @return hamming distance: float
 #'
 #' @export
 metric_hamming_distance <- function(actuals, predictions) {
 
-  args <- args(
+  args <- list(
     actuals = actuals,
     predictions = predictions
   )
@@ -187,14 +198,43 @@ attr(metric_hamming_distance, "py_function_name") <- "hamming_distance"
 #' and the rest 0. If threshold is None, the argmax is converted to 1, and the rest 0.
 #' @param mode multi-class or multi-label
 #' @param dtype (optional) Data type of the metric result.
-#' @param ... additional arguments that are passed on to function `fn`.`
+#' @param ... additional arguments that are passed on to function `fn`.
 #'
+#' @examples
+#' \dontrun{
+#'
+#' # multi-class hamming loss
+#' hl = hamming_loss(mode='multiclass', threshold=0.6)
+#' actuals = tf$constant(list(as.integer(c(1, 0, 0, 0)),as.integer(c(0, 0, 1, 0)),
+#'                        as.integer(c(0, 0, 0, 1)),as.integer(c(0, 1, 0, 0))),
+#'                       dtype=tf$float32)
+#' predictions = tf$constant(list(c(0.8, 0.1, 0.1, 0),
+#'                            c(0.2, 0, 0.8, 0),
+#'                            c(0.05, 0.05, 0.1, 0.8),
+#'                            c(1, 0, 0, 0)),
+#'                           dtype=tf$float32)
+#' hl$update_state(actuals, predictions)
+#' paste('Hamming loss: ', hl$result()$numpy()) # 0.25
+#' # multi-label hamming loss
+#' hl = hamming_loss(mode='multilabel', threshold=0.8)
+#' actuals = tf$constant(list(as.integer(c(1, 0, 1, 0)),as.integer(c(0, 1, 0, 1)),
+#'                        as.integer(c(0, 0, 0,1))), dtype=tf$int32)
+#' predictions = tf$constant(list(c(0.82, 0.5, 0.90, 0),
+#'                            c(0, 1, 0.4, 0.98),
+#'                            c(0.89, 0.79, 0, 0.3)),
+#'                           dtype=tf$float32)
+#' hl$update_state(actuals, predictions)
+#' paste('Hamming loss: ', hl$result()$numpy()) # 0.16666667
+#'
+#' }
+#'
+#' @return  hamming loss: float
 #' @export
 hamming_loss <- function(mode,
-                                name = 'hamming_loss',
-                                threshold = NULL,
-                                dtype = tf$float32,
-                                ...) {
+                         name = 'hamming_loss',
+                         threshold = NULL,
+                         dtype = tf$float32,
+                         ...) {
 
   args <- list(
     mode,
