@@ -143,7 +143,32 @@ metric_fbetascore <- function(num_classes,
 
 }
 
+#' @title Hamming distance
+#'
+#' @description Computes hamming distance.
+#'
+#' @details Hamming distance is for comparing two binary strings.
+#' It is the number of bit positions in which two bits
+#' are different.
+#'
+#' @param actuals actual target value
+#' @param predictions predicted value
+#'
+#' @return hamming distance: float
+#'
+#' @export
+metric_hamming_distance <- function(actuals, predictions) {
 
+  args <- args(
+    actuals = actuals,
+    predictions = predictions
+  )
+
+  do.call(tfa$metrics$hamming_distance, args)
+
+}
+
+attr(metric_hamming_distance, "py_function_name") <- "hamming_distance"
 
 
 
