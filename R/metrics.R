@@ -36,6 +36,10 @@ metric_cohen_kappa = function( num_classes,
     dtype = dtype
   )
 
+  if(!is.null(num_classes)) {
+    args$num_classes <- as.integer(num_classes)
+  }
+
   do.call(tfa$metrics$CohenKappa, args)
 
 }
@@ -61,7 +65,7 @@ metric_cohen_kappa = function( num_classes,
 #' true instances in each class.
 #' @param threshold Elements of y_pred above threshold are considered to be 1, and the rest 0.
 #' If threshold is NULL, the argmax is converted to 1, and the rest 0.
-#' @param dtype (optional) Data type of the metric result.
+#' @param dtype (optional) Data type of the metric result. Defaults to `tf$float32`.
 #' @param name (optional) String name of the metric instance.
 #' @return F-1 Score: float
 #'
@@ -82,6 +86,10 @@ metrics_f1score <- function(num_classes,
     name = name,
     dtype = dtype
   )
+
+  if(!is.null(num_classes)) {
+    args$num_classes <- as.integer(num_classes)
+  }
 
   do.call(tfa$metrics$F1Score, args)
 
@@ -113,7 +121,7 @@ metrics_f1score <- function(num_classes,
 #' Determines the weight given to the precision and recall. Default value is 1.
 #' @param threshold Elements of y_pred greater than threshold are converted to be 1,
 #' and the rest 0. If threshold is None, the argmax is converted to 1, and the rest 0.
-#' @param dtype (optional) Data type of the metric result.
+#' @param dtype (optional) Data type of the metric result. Defaults to `tf$float32`.
 #' @param name (optional) String name of the metric instance.
 #' @return F-Beta Score: float
 #'
@@ -138,6 +146,10 @@ metric_fbetascore <- function(num_classes,
     dtype = dtype,
     ...
   )
+
+  if(!is.null(num_classes)) {
+    args$num_classes <- as.integer(num_classes)
+  }
 
   do.call(tfa$metrics$FBetaScore, args)
 
@@ -197,7 +209,7 @@ attr(metric_hamming_distance, "py_function_name") <- "hamming_distance"
 #' @param threshold Elements of `y_pred` greater than threshold are converted to be 1,
 #' and the rest 0. If threshold is None, the argmax is converted to 1, and the rest 0.
 #' @param mode multi-class or multi-label
-#' @param dtype (optional) Data type of the metric result.
+#' @param dtype (optional) Data type of the metric result. Defaults to `tf$float32`.
 #' @param ... additional arguments that are passed on to function `fn`.
 #'
 #' @examples
@@ -245,6 +257,63 @@ hamming_loss <- function(mode,
   )
 
   do.call(tfa$metrics$HammingLoss, args)
+
+}
+
+
+
+#' @title MatthewsCorrelationCoefficient
+#'
+#' @description Computes the Matthews Correlation Coefficient.
+#'
+#' @details The statistic is also known as the phi coefficient.
+#' The Matthews correlation coefficient (MCC) is used in
+#' machine learning as a measure of the quality of binary
+#' and multiclass classifications. It takes into account
+#' true and false positives and negatives and is generally
+#' regarded as a balanced measure which can be used even
+#' if the classes are of very different sizes. The correlation
+#' coefficient value of MCC is between -1 and +1. A
+#' coefficient of +1 represents a perfect prediction,
+#' 0 an average random prediction and -1 an inverse
+#' prediction. The statistic is also known as
+#' the phi coefficient. MCC = (TP * TN) - (FP * FN) / ((TP + FP) * (TP + FN) * (TN + FP ) * (TN + FN))^(1/2) Usage:
+#'
+#' @param num_classes Number of unique classes in the dataset.
+#' @param name (Optional) String name of the metric instance.
+#' @param dtype (Optional) Data type of the metric result. Defaults to `tf$float32`.
+#'
+#' @examples
+#' \dontrun{
+#' actuals = tf$constant(list(1, 1, 1, 0), dtype=tf$float32)
+#' preds = tf$constant(list(1,0,1,1), dtype=tf$float32)
+#' # Matthews correlation coefficient
+#' mcc = metric_mcc(num_classes=1)
+#' mcc$update_state(actuals, preds)
+#' paste('Matthews correlation coefficient is:', mcc$result()$numpy())
+#' # Matthews correlation coefficient is : -0.33333334
+#'
+#' }
+#'
+#'
+#' @return Matthews correlation coefficient: float
+#'
+#' @export
+metric_mcc <- function(num_classes = NULL,
+                       name = 'MatthewsCorrelationCoefficient',
+                       dtype = tf$float32) {
+
+  args <- list(
+    num_classes = num_classes,
+    name = name,
+    dtype = dtype
+  )
+
+  if(!is.null(num_classes)) {
+    args$num_classes <- as.integer(num_classes)
+  }
+
+  do.call(tfa$metrics$MatthewsCorrelationCoefficient, args)
 
 }
 
