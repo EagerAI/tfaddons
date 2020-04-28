@@ -36,6 +36,8 @@ and the rest 0. If threshold is None, the argmax is converted to 1, and the rest
 \item{name}{(optional) String name of the metric instance.}
 
 \item{dtype}{(optional) Data type of the metric result. Defaults to `tf$float32`.}
+
+\item{...}{additional parameters to pass}
 }
 \value{
 F-Beta Score: float

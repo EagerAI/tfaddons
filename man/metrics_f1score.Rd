@@ -6,8 +6,8 @@
 \usage{
 metrics_f1score(
   num_classes,
-  average = None,
-  threshold = None,
+  average = NULL,
+  threshold = NULL,
   name = "f1_score",
   dtype = tf$float32
 )

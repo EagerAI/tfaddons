@@ -21,14 +21,14 @@ metric_cohen_kappa(
 \item{weightage}{(optional) Weighting to be considered for calculating kappa statistics.
 A valid value is one of [None, 'linear', 'quadratic']. Defaults to `NULL`}
 
+\item{sparse_labels}{(bool) Valid only for multi-class scenario. If True, ground truth
+labels are expected tp be integers and not one-hot encoded}
+
 \item{regression}{(bool) If set, that means the problem is being treated as a regression
 problem where you are regressing the predictions. **Note:** If you are regressing for the
 values, the the output layer should contain a single unit.}
 
 \item{dtype}{(optional) Data type of the metric result. Defaults to `NULL`}
-
-\item{sparse_lables}{(bool) Valid only for multi-class scenario. If True, ground truth
-labels are expected tp be integers and not one-hot encoded}
 }
 \value{
 Input tensor or list of input tensors.

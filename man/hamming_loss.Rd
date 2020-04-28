@@ -15,16 +15,14 @@ hamming_loss(
 \arguments{
 \item{mode}{multi-class or multi-label}
 
+\item{name}{(optional) String name of the metric instance.}
+
 \item{threshold}{Elements of `y_pred` greater than threshold are converted to be 1,
 and the rest 0. If threshold is None, the argmax is converted to 1, and the rest 0.}
 
 \item{dtype}{(optional) Data type of the metric result. Defaults to `tf$float32`.}
 
 \item{...}{additional arguments that are passed on to function `fn`.}
-
-\item{y_true}{actual target value}
-
-\item{y_pred}{predicted target value}
 }
 \value{
 hamming loss: float
