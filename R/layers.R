@@ -383,12 +383,100 @@ layer_maxout <- function(object, num_units,
 }
 
 
+#' @title Project into the Poincare ball with norm <= 1.0 - epsilon
+#'
+#' @details https://en.wikipedia.org/wiki/Poincare_ball_model Used in Poincare Embeddings
+#' for Learning Hierarchical Representations Maximilian Nickel, Douwe Kiela
+#' https://arxiv.org/pdf/1705.08039.pdf For a 1-D tensor with axis = 0, computes
+#'
+#' @param object Model or layer object
+#' @param axis Axis along which to normalize.  A scalar or a vector of integers.
+#' @param epsilon A small deviation from the edge of the unit sphere for numerical stability.
+#' @param ... additional parameters to pass
+#'
+#'
+#' @importFrom keras create_layer
+#'
+#' @return A tensor
+#' @export
+layer_poincare_normalize <- function(object,
+                                     axis = 1,
+                                     epsilon = 1e-05,
+                                     ...) {
+  args = list(axis = as.integer(axis),
+              epsilon = epsilon,
+              ...)
+
+  create_layer(tfa$layers$PoincareNormalize, object, args)
+
+}
 
 
+#' @title Sparsemax activation function
+#'
+#' @details The output shape is the same as the input shape. https://arxiv.org/abs/1602.02068
+#'
+#' @param object Model or layer object
+#' @param axis Integer, axis along which the sparsemax normalization is applied.
+#' @param ... additional parameters to pass
+#'
+#' @importFrom keras create_layer
+#'
+#' @return A tensor
+#' @export
+layer_sparsemax <- function(object,
+                            axis = -1,
+                            ...) {
+  args = list(axis = as.integer(axis), ...)
+
+  create_layer(tfa$layers$PoincareNormalize, object, args)
+
+}
 
 
+#' @title Weight Normalization layer
+#'
+#' @details This wrapper reparameterizes a layer by decoupling the weight's magnitude and
+#' direction.
+#' This speeds up convergence by improving the conditioning of the optimization problem.
+#' Weight Normalization: A Simple Reparameterization to Accelerate Training of Deep Neural
+#' Networks: https://arxiv.org/abs/1602.07868 Tim Salimans, Diederik P. Kingma (2016)
+#' WeightNormalization wrapper works for keras and tf layers.
+#'
+#' @param object Model or layer object
+#' @param layer a layer instance.
+#' @param data_init If `TRUE` use data dependent variable initialization
+#' @param ... additional parameters to pass
+#'
+#' @examples
+#'
+#' \dontrun{
+#'
+#' model= keras_model_sequential() %>%
+#' layer_weight_normalization(
+#' layer_conv_2d(filters = 2, kernel_size = 2, activation = 'relu'),
+#' input_shape = c(32L, 32L, 3L))
+#' model
+#'
+#'
+#' }
+#'
+#' @importFrom keras create_layer
+#'
+#' @return A tensor
+#' @export
+layer_weight_normalization <- function(object,
+                                       layer,
+                                       data_init = TRUE,
+                                       ...) {
 
+  args = list(layer = layer,
+              data_init = data_init,
+              ...)
 
+  create_layer(tfa$layers$WeightNormalization, object, args)
+
+}
 
 
 
