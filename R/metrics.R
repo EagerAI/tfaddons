@@ -7,7 +7,7 @@
 #' @param num_classes Number of unique classes in your dataset.
 #' @param weightage (optional) Weighting to be considered for calculating kappa statistics.
 #' A valid value is one of [None, 'linear', 'quadratic']. Defaults to `NULL`
-#' @param sparse_lables (bool) Valid only for multi-class scenario. If True, ground truth
+#' @param sparse_labels (bool) Valid only for multi-class scenario. If True, ground truth
 #' labels are expected tp be integers and not one-hot encoded
 #' @param regression (bool) If set, that means the problem is being treated as a regression
 #' problem where you are regressing the predictions. **Note:** If you are regressing for the
@@ -74,8 +74,8 @@ metric_cohen_kappa = function( num_classes,
 #'
 #' @export
 metrics_f1score <- function(num_classes,
-                            average = None,
-                            threshold = None,
+                            average = NULL,
+                            threshold = NULL,
                             name = 'f1_score',
                             dtype = tf$float32) {
 
@@ -123,6 +123,7 @@ metrics_f1score <- function(num_classes,
 #' and the rest 0. If threshold is None, the argmax is converted to 1, and the rest 0.
 #' @param dtype (optional) Data type of the metric result. Defaults to `tf$float32`.
 #' @param name (optional) String name of the metric instance.
+#' @param ... additional parameters to pass
 #' @return F-Beta Score: float
 #'
 #' @section Raises:
@@ -204,12 +205,11 @@ attr(metric_hamming_distance, "py_function_name") <- "hamming_distance"
 #' between `actual` and `predictions`. In multi-label classification, hamming loss
 #' penalizes only the individual labels.
 #'
-#' @param y_true actual target value
-#' @param y_pred predicted target value
 #' @param threshold Elements of `y_pred` greater than threshold are converted to be 1,
 #' and the rest 0. If threshold is None, the argmax is converted to 1, and the rest 0.
 #' @param mode multi-class or multi-label
 #' @param dtype (optional) Data type of the metric result. Defaults to `tf$float32`.
+#' @param name (optional) String name of the metric instance.
 #' @param ... additional arguments that are passed on to function `fn`.
 #'
 #' @examples
