@@ -33,7 +33,7 @@
 #' @return A tensor
 #'
 #' @export
-layer_normalization <- function(object,
+layer_instance_normalization <- function(object,
                                 groups = 2,
                                 axis = -1,
                                 epsilon = 1e-3,
@@ -76,7 +76,12 @@ layer_normalization <- function(object,
 #' @details Defines the MultiHead Attention operation as defined in
 #' [Attention Is All You Need](https://arxiv.org/abs/1706.03762) which takes
 #' in a `query`, `key` and `value` tensors returns the dot-product attention
-#' between them:
+#' between them.
+#'
+#' @examples
+#'
+#' \dontrun{
+#'
 #' ```
 #' mha = layer_multi_head_attention(head_size=128, num_heads=128)
 #' query = tf$random$uniform(list(32L, 20L, 200L)) # (batch_size, query_elements, query_depth)
@@ -85,13 +90,15 @@ layer_normalization <- function(object,
 #' attention = mha(list(query, key, value)) # (batch_size, query_elements, value_depth)
 #' ```
 #'
-#' If `value` is not given then internally `value = key` will be used:
+#' # If `value` is not given then internally `value = key` will be used:
 #' ```
 #' mha = layer_multi_head_attention(head_size=128, num_heads=128)
 #' query = tf$random$uniform(list(32L, 20L, 200L)) # (batch_size, query_elements, query_depth)
 #' key = tf$random$uniform(list(32L, 15L, 300L)) # (batch_size, key_elements, key_depth)
 #' attention = mha(list(query, key)) # (batch_size, query_elements, value_depth)
 #' ```
+#'
+#' }
 #'
 #' @param object Model or layer object
 #' @param head_size int, dimensionality of the `query`, `key` and `value` tensors after the linear transformation.
