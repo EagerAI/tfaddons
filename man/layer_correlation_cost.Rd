@@ -18,23 +18,23 @@ layer_correlation_cost(
 \arguments{
 \item{object}{Model or layer object}
 
-\item{...}{additional parameters to pass}
-
-\item{kernel_size:}{An integer specifying the height and width of the
+\item{kernel_size}{An integer specifying the height and width of the
 patch used to compute the per-patch costs.}
 
-\item{max_displacement:}{An integer specifying the maximum search radius
+\item{max_displacement}{An integer specifying the maximum search radius
 for each position.}
 
-\item{stride_1:}{An integer specifying the stride length in the input.}
+\item{stride_1}{An integer specifying the stride length in the input.}
 
-\item{stride_2:}{An integer specifying the stride length in the patch.}
+\item{stride_2}{An integer specifying the stride length in the patch.}
 
-\item{pad:}{An integer specifying the paddings in height and width.}
+\item{pad}{An integer specifying the paddings in height and width.}
 
-\item{data_format:}{Specifies the data format. Possible values are:
+\item{data_format}{Specifies the data format. Possible values are:
 "channels_last" float [batch, height, width, channels] "channels_first"
 float [batch, channels, height, width] Defaults to "channels_last".}
+
+\item{...}{additional parameters to pass}
 }
 \value{
 A tensor
