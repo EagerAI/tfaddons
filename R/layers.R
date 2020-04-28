@@ -115,7 +115,7 @@ layer_instance_normalization <- function(object,
 #' @param bias_constraint constraint, constraint for the bias weights.
 #' @param ... additional parameters to pass
 #' @importFrom keras create_layer
-#'
+#' @return A tensor
 #' @export
 layer_multi_head_attention <- function(object, head_size, num_heads, output_size = NULL, dropout = 0.0,
                                        use_projection_bias = TRUE, return_attn_coef = FALSE,
@@ -146,6 +146,61 @@ layer_multi_head_attention <- function(object, head_size, num_heads, output_size
   create_layer(tfa$layers$MultiHeadAttention, object, args)
 
 }
+
+
+
+
+
+#' @title Correlation Cost Layer.
+#'
+#' @details This layer implements the correlation operation from FlowNet
+#' Learning Optical Flow with Convolutional Networks (Fischer et al.):
+#' https://arxiv.org/abs/1504.06
+#'
+#'
+#'
+#' @param object Model or layer object
+#' @param kernel_size: An integer specifying the height and width of the
+#' patch used to compute the per-patch costs.
+#' @param max_displacement: An integer specifying the maximum search radius
+#' for each position.
+#' @param stride_1: An integer specifying the stride length in the input.
+#' @param stride_2: An integer specifying the stride length in the patch.
+#' @param pad: An integer specifying the paddings in height and width.
+#' @param data_format: Specifies the data format. Possible values are:
+#' "channels_last" float [batch, height, width, channels] "channels_first"
+#' float [batch, channels, height, width] Defaults to "channels_last".
+#' @param ... additional parameters to pass
+#'
+#' @return A tensor
+#' @export
+layer_correlation_cost <- function(object,
+                                   kernel_size,
+                                   max_displacement,
+                                   stride_1,
+                                   stride_2,
+                                   pad,
+                                   data_format,
+                                   ...) {
+
+  args = list(
+    object = object,
+    kernel_size = as.integer(kernel_size),
+    max_displacement = as.integer(max_displacement),
+    stride_1 = as.integer(stride_1),
+    stride_2 = as.integer(stride_2),
+    pad = as.integer(pad),
+    data_format = data_format,
+    ...
+  )
+
+  create_layer(tfa$layers$CorrelationCost, object, args)
+
+}
+
+
+
+
 
 
 
