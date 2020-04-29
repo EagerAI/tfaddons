@@ -26,7 +26,8 @@ Imports:
     reticulate, 
     tensorflow,
     keras,
-    rstudioapi
+    rstudioapi,
+    purrr
 Suggests:
     knitr,
     rmarkdown
