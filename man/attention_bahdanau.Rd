@@ -5,6 +5,7 @@
 \title{Bahdanau Attention}
 \usage{
 attention_bahdanau(
+  object,
   units,
   memory = NULL,
   memory_sequence_length = NULL,
@@ -17,6 +18,8 @@ attention_bahdanau(
 )
 }
 \arguments{
+\item{object}{Model or layer object}
+
 \item{units}{The depth of the query mechanism.}
 
 \item{memory}{The memory to query; usually the output of an RNN encoder. This tensor
@@ -38,8 +41,6 @@ score to probabilities. The default is softmax which is tf.nn.softmax. Other opt
 \item{name}{Name to use when creating ops.}
 
 \item{...}{A list that contains other common arguments for layer creation.}
-
-\item{object}{Model or layer object}
 }
 \value{
 None

@@ -6,7 +6,6 @@
 \usage{
 attention_wrapper_state(
   object,
-  `_cls`,
   cell_state,
   attention,
   alignments,
