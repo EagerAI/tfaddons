@@ -216,7 +216,7 @@ attr(metric_hamming_distance, "py_function_name") <- "hamming_distance"
 #' \dontrun{
 #'
 #' # multi-class hamming loss
-#' hl = hamming_loss(mode='multiclass', threshold=0.6)
+#' hl = loss_hamming(mode='multiclass', threshold=0.6)
 #' actuals = tf$constant(list(as.integer(c(1, 0, 0, 0)),as.integer(c(0, 0, 1, 0)),
 #'                        as.integer(c(0, 0, 0, 1)),as.integer(c(0, 1, 0, 0))),
 #'                       dtype=tf$float32)
@@ -228,7 +228,7 @@ attr(metric_hamming_distance, "py_function_name") <- "hamming_distance"
 #' hl$update_state(actuals, predictions)
 #' paste('Hamming loss: ', hl$result()$numpy()) # 0.25
 #' # multi-label hamming loss
-#' hl = hamming_loss(mode='multilabel', threshold=0.8)
+#' hl = loss_hamming(mode='multilabel', threshold=0.8)
 #' actuals = tf$constant(list(as.integer(c(1, 0, 1, 0)),as.integer(c(0, 1, 0, 1)),
 #'                        as.integer(c(0, 0, 0,1))), dtype=tf$int32)
 #' predictions = tf$constant(list(c(0.82, 0.5, 0.90, 0),
@@ -242,7 +242,7 @@ attr(metric_hamming_distance, "py_function_name") <- "hamming_distance"
 #'
 #' @return  hamming loss: float
 #' @export
-hamming_loss <- function(mode,
+loss_hamming <- function(mode,
                          name = 'hamming_loss',
                          threshold = NULL,
                          dtype = tf$float32,

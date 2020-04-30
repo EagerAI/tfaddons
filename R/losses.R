@@ -17,7 +17,7 @@
 #' @return contrastive_loss: 1-D float `Tensor` with shape [batch_size].
 #'
 #' @export
-contrastive_loss <- function(y_true, y_pred, margin = 1.0) {
+loss_contrastive <- function(y_true, y_pred, margin = 1.0) {
 
   args = list(y_true = y_true,
               y_pred = y_pred,
@@ -26,7 +26,7 @@ contrastive_loss <- function(y_true, y_pred, margin = 1.0) {
 
 }
 
-attr(contrastive_loss, "py_function_name") <- "contrastive"
+attr(loss_contrastive, "py_function_name") <- "contrastive"
 
 
 #' @title Giou loss
@@ -41,7 +41,7 @@ attr(contrastive_loss, "py_function_name") <- "contrastive"
 #' @return GIoU loss float `Tensor`.
 #'
 #' @export
-giou_loss <- function(y_true, y_pred, mode = "giou") {
+loss_giou <- function(y_true, y_pred, mode = "giou") {
 
   args <- list(
     y_true = y_true,
@@ -53,7 +53,7 @@ giou_loss <- function(y_true, y_pred, mode = "giou") {
 
 }
 
-attr(giou_loss, "py_function_name") <- "giou"
+attr(loss_giou, "py_function_name") <- "giou"
 
 #' @title Lifted structured loss
 #'
@@ -64,7 +64,7 @@ attr(giou_loss, "py_function_name") <- "giou"
 #' @return lifted_loss: tf.float32 scalar.
 #'
 #' @export
-lifted_struct_loss <- function(labels, embeddings, margin = 1.0) {
+loss_lifted_struct <- function(labels, embeddings, margin = 1.0) {
 
   args <- list(labels = labels,
                embeddings = embeddings,
@@ -74,7 +74,7 @@ lifted_struct_loss <- function(labels, embeddings, margin = 1.0) {
 
 }
 
-attr(lifted_struct_loss, "py_function_name") <- "lifted_struct"
+attr(loss_lifted_struct, "py_function_name") <- "lifted_struct"
 
 
 #' @title npairs_loss
@@ -95,7 +95,7 @@ attr(lifted_struct_loss, "py_function_name") <- "lifted_struct"
 #' @return npairs_loss: float scalar.
 #'
 #' @export
-npairs_loss <- function(y_true, y_pred) {
+loss_npairs <- function(y_true, y_pred) {
 
   args <- list(y_true = y_true,
                y_pred = y_pred
@@ -105,7 +105,7 @@ npairs_loss <- function(y_true, y_pred) {
 
 }
 
-attr(npairs_loss, "py_function_name") <- "npairs"
+attr(loss_npairs, "py_function_name") <- "npairs"
 
 
 #' @title Npairs multilabel loss
@@ -136,7 +136,7 @@ attr(npairs_loss, "py_function_name") <- "npairs"
 #' @return npairs_multilabel_loss: float scalar.
 #'
 #' @export
-npairs_multilabel_loss <- function(y_true, y_pred) {
+loss_npairs_multilabel <- function(y_true, y_pred) {
 
   args <- list(
     y_true = y_true,
@@ -147,7 +147,7 @@ npairs_multilabel_loss <- function(y_true, y_pred) {
 
 }
 
-attr(npairs_multilabel_loss, "py_function_name") <- "npairs_multilabel"
+attr(loss_npairs_multilabel, "py_function_name") <- "npairs_multilabel"
 
 
 #' @title Pinball loss
@@ -181,7 +181,7 @@ attr(npairs_multilabel_loss, "py_function_name") <- "npairs_multilabel"
 #' - https://en.wikipedia.org/wiki/Quantile_regression - https://projecteuclid.org/download/pdfview_1/euclid.bj/1297173840
 #' @return pinball_loss: 1-D float `Tensor` with shape [batch_size].
 #' @export
-pinball_loss <- function(y_true, y_pred, tau = 0.1) {
+loss_pinball <- function(y_true, y_pred, tau = 0.1) {
 
   args <- list(
     y_true = y_true,
@@ -193,7 +193,7 @@ pinball_loss <- function(y_true, y_pred, tau = 0.1) {
 
 }
 
-attr(pinball_loss, "py_function_name") <- "pinball"
+attr(loss_pinball, "py_function_name") <- "pinball"
 
 
 #' @title Sigmoid focal crossentropy loss
@@ -207,7 +207,7 @@ attr(pinball_loss, "py_function_name") <- "pinball"
 #' otherwise, it is scalar.
 #' @param from_logits If logits are provided then convert the predictions into probabilities
 #' @export
-sigmoid_focal_crossentropy_loss <- function(y_true, y_pred, alpha = 0.25, gamma = 2.0, from_logits = FALSE) {
+loss_sigmoid_focal_crossentropy <- function(y_true, y_pred, alpha = 0.25, gamma = 2.0, from_logits = FALSE) {
 
   args <- list(
     y_true = y_true,
@@ -221,7 +221,7 @@ sigmoid_focal_crossentropy_loss <- function(y_true, y_pred, alpha = 0.25, gamma 
 
 }
 
-attr(sigmoid_focal_crossentropy_loss, "py_function_name") <- "sigmoid_focal_crossentropy"
+attr(loss_sigmoid_focal_crossentropy, "py_function_name") <- "sigmoid_focal_crossentropy"
 
 
 #' @title Sparsemax loss
@@ -242,7 +242,7 @@ attr(sigmoid_focal_crossentropy_loss, "py_function_name") <- "sigmoid_focal_cros
 #' @return A `Tensor`. Has the same type as `logits`.
 #'
 #' @export
-sparsemax_loss <- function(logits, sparsemax, labels, name = NULL) {
+loss_sparsemax <- function(logits, sparsemax, labels, name = NULL) {
 
   args <- list(
     logits = logits,
@@ -255,7 +255,7 @@ sparsemax_loss <- function(logits, sparsemax, labels, name = NULL) {
 
 }
 
-attr(sparsemax_loss, "py_function_name") <- "sparsemax"
+attr(loss_sparsemax, "py_function_name") <- "sparsemax"
 
 
 #' @title Triplet hard loss
@@ -270,7 +270,7 @@ attr(sparsemax_loss, "py_function_name") <- "sparsemax"
 #'
 #' @return triplet_loss: float scalar with dtype of y_pred.
 #' @export
-triplet_hard_loss <- function(y_true, y_pred, margin = 1.0, soft = FALSE) {
+loss_triplet_hard <- function(y_true, y_pred, margin = 1.0, soft = FALSE) {
 
   args <- list(
     y_true = y_true,
@@ -283,7 +283,7 @@ triplet_hard_loss <- function(y_true, y_pred, margin = 1.0, soft = FALSE) {
 
 }
 
-attr(triplet_hard_loss, "py_function_name") <- "triplet_hard"
+attr(loss_triplet_hard, "py_function_name") <- "triplet_hard"
 
 
 #' @title Triplet semihard loss
@@ -294,7 +294,7 @@ attr(triplet_hard_loss, "py_function_name") <- "triplet_hard"
 #' @param margin Float, margin term in the loss definition.
 #' @return triplet_loss: float scalar with dtype of y_pred.
 #' @export
-triplet_semihard_loss <- function(y_true, y_pred, margin = 1.0) {
+loss_triplet_semihard <- function(y_true, y_pred, margin = 1.0) {
 
   args <- list(
     y_true = y_true,
@@ -306,7 +306,7 @@ triplet_semihard_loss <- function(y_true, y_pred, margin = 1.0) {
 
 }
 
-attr(triplet_semihard_loss, "py_function_name") <- "triplet_semihard"
+attr(loss_triplet_semihard, "py_function_name") <- "triplet_semihard"
 
 
 
