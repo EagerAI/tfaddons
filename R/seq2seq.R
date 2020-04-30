@@ -107,13 +107,12 @@ attention_wrapper <- function(object,
 #' @importFrom keras create_layer
 #' @return None
 #' @export
-attention_wrapper_state <- function(object, `_cls`,
+attention_wrapper_state <- function(object,
                                     cell_state, attention,
                                     alignments, alignment_history,
                                     attention_state) {
 
   args <- list(
-    `_cls` = `_cls`,
     cell_state = cell_state,
     attention = attention,
     alignments = alignments,
@@ -162,7 +161,8 @@ attention_wrapper_state <- function(object, `_cls`,
 #'
 #'
 #' @export
-attention_bahdanau <- function(units,
+attention_bahdanau <- function(object,
+                               units,
                                memory = NULL,
                                memory_sequence_length = NULL,
                                normalize = FALSE,
