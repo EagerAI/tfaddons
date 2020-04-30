@@ -2,7 +2,7 @@
 #'
 #'
 #'
-#'
+#' @param object Model or layer object
 #' @param cell An instance of RNNCell.
 #' @param attention_mechanism A list of AttentionMechanism instances or a single instance.
 #' @param attention_layer_size A list of Python integers or a single Python integer, the
@@ -36,7 +36,7 @@
 #' attention function, which takes input (attention_mechanism, cell_output, attention_state, attention_layer)
 #' and outputs (attention, alignments, next_attention_state). If provided, the attention_layer_size should
 #' be the size of the outputs of attention_fn.
-#' @param ... Other keyword arguments for layer creation.
+#' @param ... Other keyword arguments to pass
 #' @importFrom purrr map
 #'
 #' @note If you are using the `decoder_beam_search` with a cell wrapped in `AttentionWrapper`, then
@@ -46,12 +46,13 @@
 #' is equal to `true_batch_size * beam_width`.
 #'  - The initial state created with `get_initial_state` above contains a `cell_state` value
 #'  containing properly tiled final state from the encoder.
-#'
+#' @importFrom keras create_layer
 #' @return None
 #'
 #'
 #' @export
-attention_wrapper <- function(cell,
+attention_wrapper <- function(object,
+                              cell,
                               attention_mechanism,
                               attention_layer_size = NULL,
                               alignment_history = FALSE,
@@ -83,9 +84,193 @@ attention_wrapper <- function(cell,
     args$attention_layer_size <- as.integer(as.character(attention_layer_size))
   }
 
-  do.call(tfa$seq2seq$AttentionWrapper, args)
+  create_layer(tfa$seq2seq$AttentionWrapper, object, args)
 
 }
+
+
+#' @title Attention Wrapper State
+#'
+#' @description `namedlist` storing the state of a `attention_wrapper`.
+#'
+#' @param object Model or layer object
+#' @param cell_state The state of the wrapped RNNCell at the previous time step.
+#' @param attention The attention emitted at the previous time step.
+#' @param alignments A single or tuple of Tensor(s) containing the alignments
+#' emitted at the previous time step for each attention mechanism.
+#' @param alignment_history (if enabled) a single or tuple of TensorArray(s)
+#' containing alignment matrices from all time steps for each attention mechanism.
+#' Call stack() on each to convert to a Tensor.
+#' @param attention_state A single or tuple of nested objects containing attention
+#' mechanism state for each attention mechanism. The objects may contain Tensors or
+#' TensorArrays.
+#' @importFrom keras create_layer
+#' @return None
+#' @export
+attention_wrapper_state <- function(object, `_cls`,
+                                    cell_state, attention,
+                                    alignments, alignment_history,
+                                    attention_state) {
+
+  args <- list(
+    `_cls` = `_cls`,
+    cell_state = cell_state,
+    attention = attention,
+    alignments = alignments,
+    alignment_history = alignment_history,
+    attention_state = attention_state
+  )
+
+  create_layer(tfa$seq2seq$AttentionWrapperState, object, args)
+
+}
+
+
+
+#' @title Bahdanau Attention
+#'
+#' @description Implements Bahdanau-style (additive) attention
+#'
+#' @details This attention has two forms. The first is Bahdanau attention, as described in:
+#' Dzmitry Bahdanau, Kyunghyun Cho, Yoshua Bengio. "Neural Machine Translation by Jointly
+#' Learning to Align and Translate." ICLR 2015. https://arxiv.org/abs/1409.0473 The second
+#' is the normalized form. This form is inspired by the weight normalization article:
+#' Tim Salimans, Diederik P. Kingma. "Weight Normalization: A Simple Reparameterization
+#' to Accelerate Training of Deep Neural Networks." https://arxiv.org/abs/1602.07868
+#' To enable the second form, construct the object with parameter `normalize=TRUE`.
+#'
+#'
+#' @param object Model or layer object
+#' @param units The depth of the query mechanism.
+#' @param memory The memory to query; usually the output of an RNN encoder. This tensor
+#' should be shaped [batch_size, max_time, ...].
+#' @param memory_sequence_length (optional): Sequence lengths for the batch entries in
+#' memory. If provided, the memory tensor rows are masked with zeros for values past the
+#' respective sequence lengths.
+#' @param normalize boolean. Whether to normalize the energy term.
+#' @param probability_fn (optional) string, the name of function to convert the attention
+#' score to probabilities. The default is softmax which is tf.nn.softmax. Other options is hardmax, which is hardmax() within this module. Any other value will result into validation error. Default to use softmax.
+#' @param kernel_initializer (optional), the name of the initializer for the attention kernel.
+#' @param dtype The data type for the query and memory layers of the attention mechanism.
+#' @param name Name to use when creating ops.
+#' @param ... A list that contains other common arguments for layer creation.
+#'
+#' @importFrom keras create_layer
+#'
+#' @return None
+#'
+#'
+#'
+#' @export
+attention_bahdanau <- function(units,
+                               memory = NULL,
+                               memory_sequence_length = NULL,
+                               normalize = FALSE,
+                               probability_fn = 'softmax',
+                               kernel_initializer = 'glorot_uniform',
+                               dtype = NULL,
+                               name = 'BahdanauAttention',
+                               ...) {
+  args = list(
+    units = as.integer(units),
+    memory = memory,
+    memory_sequence_length = memory_sequence_length,
+    normalize = normalize,
+    probability_fn = probability_fn,
+    kernel_initializer = kernel_initializer,
+    dtype = dtype,
+    name = name,
+    ...
+  )
+
+  if(!is.null(memory_sequence_length))
+    args$memory_sequence_length <- as.integer(memory_sequence_length)
+
+  create_layer(tfa$seq2seq$BahdanauAttention, object, args)
+
+}
+
+
+
+#' @title Bahdanau Monotonic Attention
+#'
+#' @description Monotonic attention mechanism with Bahadanau-style energy function.
+#' @details This type of attention enforces a monotonic constraint on the attention
+#' distributions; that is once the model attends to a given point in the memory it
+#' can't attend to any prior points at subsequence output timesteps. It achieves this
+#' by using the _monotonic_probability_fn instead of softmax to construct its attention
+#' distributions. Since the attention scores are passed through a sigmoid, a learnable
+#' scalar bias parameter is applied after the score function and before the sigmoid.
+#' Otherwise, it is equivalent to BahdanauAttention. This approach is proposed in
+#'
+#' Colin Raffel, Minh-Thang Luong, Peter J. Liu, Ron J. Weiss, Douglas Eck,
+#' "Online and Linear-Time Attention by Enforcing Monotonic Alignments."
+#' ICML 2017. https://arxiv.org/abs/1704.00784
+#'
+#'
+#'
+#'
+#' @param object Model or layer object
+#' @param units The depth of the query mechanism.
+#' @param memory The memory to query; usually the output of an RNN encoder. This tensor should be shaped [batch_size, max_time, ...].
+#' @param memory_sequence_length (optional): Sequence lengths for the batch entries in memory. If provided, the memory tensor rows are masked with zeros for values past the respective sequence lengths.
+#' @param normalize Python boolean. Whether to normalize the energy term.
+#' @param sigmoid_noise Standard deviation of pre-sigmoid noise. See the docstring for _monotonic_probability_fn for more information.
+#' @param sigmoid_noise_seed (optional) Random seed for pre-sigmoid noise.
+#' @param score_bias_init Initial value for score bias scalar. It's recommended to initialize this to a negative value when the length of the memory is large.
+#' @param mode How to compute the attention distribution. Must be one of 'recursive', 'parallel', or 'hard'. See the docstring for tfa.seq2seq.monotonic_attention for more information.
+#' @param kernel_initializer (optional), the name of the initializer for the attention kernel.
+#' @param dtype The data type for the query and memory layers of the attention mechanism.
+#' @param name Name to use when creating ops.
+#'
+#'
+#'
+#'
+#' @param ... A list that contains other common arguments for layer creation.
+#'
+#' @importFrom keras create_layer
+#'
+#' @return None
+#'
+#'
+#'
+#' @export
+layer_bahdanau_monotonic_attention <- function(object,
+                                               units,
+                                               memory = NULL,
+                                               memory_sequence_length = NULL,
+                                               normalize = FALSE,
+                                               sigmoid_noise = 0.0,
+                                               sigmoid_noise_seed = NULL,
+                                               score_bias_init = 0.0,
+                                               mode = 'parallel',
+                                               kernel_initializer = 'glorot_uniform',
+                                               dtype = NULL,
+                                               name = 'BahdanauMonotonicAttention',
+                                               ...) {
+  args =list(
+    units = as.integer(units),
+    memory = memory,
+    memory_sequence_length = memory_sequence_length,
+    normalize = normalize,
+    sigmoid_noise = sigmoid_noise,
+    sigmoid_noise_seed = sigmoid_noise_seed,
+    score_bias_init = score_bias_init,
+    mode = mode,
+    kernel_initializer = kernel_initializer,
+    dtype = dtype,
+    name = name,
+    ...
+  )
+
+  create_layer(tfa$seq2seq$BahdanauMonotonicAttention, object, args)
+}
+
+
+
+
+
+
 
 
 
