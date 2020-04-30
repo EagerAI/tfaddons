@@ -5,6 +5,7 @@
 \title{Attention Wrapper}
 \usage{
 attention_wrapper(
+  object,
   cell,
   attention_mechanism,
   attention_layer_size = NULL,
@@ -19,6 +20,8 @@ attention_wrapper(
 )
 }
 \arguments{
+\item{object}{Model or layer object}
+
 \item{cell}{An instance of RNNCell.}
 
 \item{attention_mechanism}{A list of AttentionMechanism instances or a single instance.}
@@ -62,7 +65,7 @@ attention function, which takes input (attention_mechanism, cell_output, attenti
 and outputs (attention, alignments, next_attention_state). If provided, the attention_layer_size should
 be the size of the outputs of attention_fn.}
 
-\item{...}{Other keyword arguments for layer creation.}
+\item{...}{Other keyword arguments to pass}
 }
 \value{
 None
