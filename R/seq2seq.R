@@ -268,9 +268,90 @@ layer_bahdanau_monotonic_attention <- function(object,
 
 
 
+#' @title Base Decoder
+#'
+#' @description An RNN Decoder that is based on a Keras layer.
+#'
+#'
+#'
+#' @param object Model or layer object
+#'
+#' @param cell An RNNCell instance.
+#' @param sampler A Sampler instance.
+#' @param output_layer (Optional) An instance of tf$layers$Layer, i.e., tf$layers$Dense.
+#' Optional layer to apply to the RNN output prior to storing the result or sampling.
+#'
+#'
+#' @param ... Other keyword arguments for layer creation.
+#' @importFrom keras create_layer
+#'
+#' @return None
+#' @export
+layer_base_decoder <- function(object,
+                               cell,
+                               sampler,
+                               output_layer = NULL,
+                               ...) {
+
+  args = list(
+    cell = cell,
+    sampler = sampler,
+    output_layer = output_layer,
+    ...
+  )
+
+  create_layer(tfa$seq2seq$BaseDecoder, object, args)
+
+}
 
 
 
+#' @title Basic Decoder
+#'
+#' @inheritParams layer_base_decoder
+#' @importFrom keras create_layer
+#'
+#' @return None
+#' @export
+layer_basic_decoder <- function(object,
+                               cell,
+                               sampler,
+                               output_layer = NULL,
+                               ...) {
+
+  args = list(
+    cell = cell,
+    sampler = sampler,
+    output_layer = output_layer,
+    ...
+  )
+
+  create_layer(tfa$seq2seq$BaseDecoder, object, args)
+
+}
+
+
+
+
+#' @title Basic decoder output
+#'
+#' @description BasicDecoderOutput(rnn_output, sample_id)
+#'
+#'
+#' @param rnn_output the output of RNN cell
+#' @param sample_id the `id` of the sample
+#'
+#' @export
+layer_basic_decoder_output <- function(rnn_output, sample_id) {
+
+  args <- list(
+    rnn_output = rnn_output,
+    sample_id = sample_id
+  )
+
+  do.call(tfa$seq2seq$BasicDecoderOutput, args)
+
+}
 
 
 
