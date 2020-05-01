@@ -15,5 +15,5 @@ layer_basic_decoder_output(rnn_output, sample_id)
 None
 }
 \description{
-BasicDecoderOutput(rnn_output, sample_id)
+Basic decoder output
 }

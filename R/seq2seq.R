@@ -335,7 +335,6 @@ layer_basic_decoder <- function(object,
 
 #' @title Basic decoder output
 #'
-#' @description BasicDecoderOutput(rnn_output, sample_id)
 #'
 #'
 #' @param rnn_output the output of RNN cell
@@ -415,8 +414,58 @@ layer_beam_search_decoder <- function(object,
 }
 
 
+#' @title Beam Search Decoder Output
+#'
+#'
+#'
+#' @param scores calculate the scores for each beam
+#' @param predicted_ids The final prediction. A tensor of shape
+#' `[batch_size, T, beam_width]` (or `[T, batch_size, beam_width]` if `output_time_major`
+#' is `TRUE`). Beams are ordered from best to worst.
+#' @param parent_ids The parent ids of shape `[max_time, batch_size, beam_width]`.
+#'
+#' @export
+layer_beam_search_decoder_output <- function(scores, predicted_ids, parent_ids) {
+
+  python_function_result <- tfa$seq2seq$BeamSearchDecoderOutput(
+    scores = scores,
+    predicted_ids = predicted_ids,
+    parent_ids = parent_ids
+  )
+
+  do.call(tfa$seq2seq$BeamSearchDecoderOutput, args)
+
+}
 
 
+
+
+#' @title Beam Search Decoder State
+#'
+#'
+#' @param _cls _cls
+#' @param cell_state cell_state
+#' @param log_probs log_probs
+#' @param finished finished
+#' @param lengths lengths
+#' @param accumulated_attention_probs accumulated_attention_probs
+#'
+#' @export
+layer_beam_search_decoder_state <- function(cell_state, log_probs,
+                                            finished, lengths,
+                                            accumulated_attention_probs) {
+
+  args <- list(
+    cell_state = cell_state,
+    log_probs = log_probs,
+    finished = finished,
+    lengths = lengths,
+    accumulated_attention_probs = accumulated_attention_probs
+  )
+
+  do.call(tfa$seq2seq$BeamSearchDecoderState, args)
+
+}
 
 
 
