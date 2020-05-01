@@ -11,7 +11,6 @@ optimizer_radam(
   epsilon = 1e-07,
   weight_decay = 0,
   amsgrad = FALSE,
-  sma_threshold = 5,
   total_steps = 0,
   warmup_proportion = 0.1,
   min_lr = 0,
@@ -37,8 +36,6 @@ a `tf$keras$optimizers$schedules$LearningRateSchedule` The learning rate.}
 \item{amsgrad}{boolean. Whether to apply AMSGrad variant of this algorithm from the paper
 "On the Convergence of Adam and beyond".}
 
-\item{sma_threshold}{A float value. The threshold for simple mean average.}
-
 \item{total_steps}{An integer. Total number of training steps. Enable warmup by setting a positive value.}
 
 \item{warmup_proportion}{A floating point value. The proportion of increasing steps.}
@@ -54,6 +51,8 @@ a `tf$keras$optimizers$schedules$LearningRateSchedule` The learning rate.}
 \item{decay}{is included for backward compatibility to allow time inverse decay of learning rate.}
 
 \item{lr}{is included for backward compatibility, recommended to use learning_rate instead.}
+
+\item{sma_threshold}{A float value. The threshold for simple mean average.}
 }
 \value{
 Optimizer for use with `keras::compile()`
