@@ -250,7 +250,7 @@ optimizer_radam <- function(learning_rate = 0.001,
   args$decay <- decay
   args$lr <- lr
 
-  do.call(tfa$optimizers$NovoGrad, args)
+  do.call(tfa$optimizers$RectifiedAdam, args)
 }
 
 attr(optimizer_radam, "py_function_name") <- "radam"
