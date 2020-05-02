@@ -318,14 +318,19 @@ decoder_base <- function(object,
 #'
 #' @inheritParams layer_base_decoder
 #' @importFrom keras create_layer
-#'
+#' @param cell An RNNCell instance.
+#' @param sampler A Sampler instance.
+#' @param output_layer (Optional) An instance of tf$layers$Layer,
+#' i.e., tf$layers$Dense. Optional layer to apply to the RNN output
+#' prior to storing the result or sampling.
+#' @param ... Other keyword arguments for layer creation.
 #' @return None
 #' @export
 decoder_basic <- function(object,
-                               cell,
-                               sampler,
-                               output_layer = NULL,
-                               ...) {
+                          cell,
+                          sampler,
+                          output_layer = NULL,
+                          ...) {
 
   args = list(
     cell = cell,
@@ -1108,7 +1113,7 @@ sampler_scheduled_output_training <- function(sampling_probability,
 
 #' @title Weighted cross-entropy loss for a sequence of logits.
 #'
-#' ... A list of parameters
+#' @param ... A list of parameters
 #'
 #' @return None
 #'

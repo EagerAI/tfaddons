@@ -2,17 +2,16 @@
 % Please edit documentation in R/seq2seq.R
 \name{loss_sequence}
 \alias{loss_sequence}
-\title{Weighted cross-entropy loss for a sequence of logits.
-
-... A list of parameters}
+\title{Weighted cross-entropy loss for a sequence of logits.}
 \usage{
 loss_sequence(...)
+}
+\arguments{
+\item{...}{A list of parameters}
 }
 \value{
 None
 }
 \description{
 Weighted cross-entropy loss for a sequence of logits.
-
-... A list of parameters
 }

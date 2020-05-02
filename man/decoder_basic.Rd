@@ -6,6 +6,17 @@
 \usage{
 decoder_basic(object, cell, sampler, output_layer = NULL, ...)
 }
+\arguments{
+\item{cell}{An RNNCell instance.}
+
+\item{sampler}{A Sampler instance.}
+
+\item{output_layer}{(Optional) An instance of tf$layers$Layer,
+i.e., tf$layers$Dense. Optional layer to apply to the RNN output
+prior to storing the result or sampling.}
+
+\item{...}{Other keyword arguments for layer creation.}
+}
 \value{
 None
 }
