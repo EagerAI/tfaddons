@@ -316,7 +316,6 @@ decoder_base <- function(object,
 
 #' @title Basic Decoder
 #'
-#' @inheritParams layer_base_decoder
 #' @importFrom keras create_layer
 #' @param object Model or layer object
 #' @param cell An RNNCell instance.
