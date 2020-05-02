@@ -1073,6 +1073,47 @@ sampler_scheduled_embedding_training <- function(sampling_probability,
 
 
 
+#' @title Scheduled Output Training Sampler
+#' @description A training sampler that adds scheduled sampling directly to outputs.
+#'
+#'
+#' @param sampling_probability A float32 scalar tensor: the probability of sampling
+#' from the outputs instead of reading directly from the inputs.
+#' @param time_major bool. Whether the tensors in inputs are time major. If False (default),
+#' they are assumed to be batch major.
+#' @param seed The sampling seed.
+#' @param next_inputs_fn (Optional) callable to apply to the RNN outputs to create the next
+#' input when sampling. If None (default), the RNN outputs will be used as the next inputs.
+#'
+#'
+#'
+#'
+#' @return False for sample_ids where no sampling took place; True elsewhere.
+#' @export
+sampler_scheduled_output_training <- function(sampling_probability,
+                                              time_major = FALSE,
+                                              seed = NULL,
+                                              next_inputs_fn = NULL) {
+
+  args = list(sampling_probability = sampling_probability,
+              time_major = time_major,
+              seed = seed,
+              next_inputs_fn = next_inputs_fn)
+
+  if(!is.null(seed))
+    args$seed <- as.integer(args$seed)
+
+  do.call(tfa$seq2seq$ScheduledOutputTrainingSampler, args)
+}
+
+
+
+
+
+
+
+
+
 
 
 
