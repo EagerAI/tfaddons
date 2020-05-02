@@ -318,6 +318,7 @@ decoder_base <- function(object,
 #'
 #' @inheritParams layer_base_decoder
 #' @importFrom keras create_layer
+#' @param object Model or layer object
 #' @param cell An RNNCell instance.
 #' @param sampler A Sampler instance.
 #' @param output_layer (Optional) An instance of tf$layers$Layer,

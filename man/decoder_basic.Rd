@@ -7,6 +7,8 @@
 decoder_basic(object, cell, sampler, output_layer = NULL, ...)
 }
 \arguments{
+\item{object}{Model or layer object}
+
 \item{cell}{An RNNCell instance.}
 
 \item{sampler}{A Sampler instance.}
