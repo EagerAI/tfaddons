@@ -467,6 +467,233 @@ layer_beam_search_decoder_state <- function(cell_state, log_probs,
 
 }
 
+#' @title Base abstract class that allows the user to customize sampling.
+#'
+#'
+#'
+#'
+#'
+#' @param initialize_fn callable that returns (finished, next_inputs) for the first iteration.
+#' @param sample_fn callable that takes (time, outputs, state) and emits tensor sample_ids.
+#' @param next_inputs_fn callable that takes (time, outputs, state, sample_ids) and emits
+#' (finished, next_inputs, next_state).
+#' @param sample_ids_shape Either a list of integers, or a 1-D Tensor of type int32, the
+#' shape of each value in the sample_ids batch. Defaults to a scalar.
+#' @param sample_ids_dtype The dtype of the sample_ids tensor. Defaults to int32.
+#'
+#'
+#'
+#' @return None
+#'
+#'
+#' @export
+layer_custom_sampler <- function(initialize_fn,
+                                 sample_fn,
+                                 next_inputs_fn,
+                                 sample_ids_shape = NULL,
+                                 sample_ids_dtype = NULL) {
+
+  args = list(
+    initialize_fn,
+    sample_fn,
+    next_inputs_fn,
+    sample_ids_shape = NULL,
+    sample_ids_dtype = NULL
+  )
+
+  do.call(tfa$seq2seq$CustomSampler, args)
+}
+
+
+#' @title An RNN Decoder abstract interface object.
+#'
+#' @details
+#' - inputs: (structure of) tensors and TensorArrays that is passed as input to the RNNCell
+#' composing the decoder, at each time step.
+#' - state: (structure of) tensors and TensorArrays that is passed to the RNNCell instance as the state.
+#' - finished: boolean tensor telling whether each sequence in the batch is finished.
+#' - training: boolean whether it should behave in training mode or in inference mode.
+#' - outputs: Instance of BasicDecoderOutput. Result of the decoding, at each time step.
+#'
+#'
+#' @param ... arguments to pass
+#'
+#' @return None
+#' @export
+layer_decoder <- function(...) {
+  args = list(...)
+
+  do.call(tfa$seq2seq$Decoder, args)
+}
+
+#' @title Dynamic decode
+#'
+#' @description Perform dynamic decoding with `decoder`.
+#'
+#' @details Calls `initialize()` once and `step()` repeatedly on the Decoder object.
+#'
+#' @param decoder A `Decoder` instance.
+#' @param output_time_major boolean. Default: `FALSE` (batch major). If `TRUE`, outputs
+#' are returned as time major tensors (this mode is faster). Otherwise, outputs are returned
+#' as batch major tensors (this adds extra time to the computation).
+#' @param impute_finished boolean. If `TRUE`, then states for batch entries which are
+#' marked as finished get copied through and the corresponding outputs get zeroed out. This
+#' causes some slowdown at each time step, but ensures that the final state and outputs have
+#' the correct values and that backprop ignores time steps that were marked as finished.
+#' @param maximum_iterations `int32` scalar, maximum allowed number of decoding steps. Default
+#' is `NULL` (decode until the decoder is fully done).
+#' @param parallel_iterations Argument passed to `tf$while_loop`.
+#' @param swap_memory Argument passed to `tf$while_loop`.
+#' @param training boolean. Indicates whether the layer should behave in training mode or
+#' in inference mode. Only relevant when `dropout` or `recurrent_dropout` is used.
+#' @param scope Optional variable scope to use.
+#' ... A list, other keyword arguments for
+#' dynamic_decode. It might contain arguments for `BaseDecoder` to initialize, which takes
+#' all tensor inputs during `call()`.
+#'
+#' @return `(final_outputs, final_state, final_sequence_lengths)`.
+#'
+#' @section Raises:
+#' TypeError: if `decoder` is not an instance of `Decoder`. ValueError: if `maximum_iterations`
+#' is provided but is not a scalar.
+#'
+#' @export
+layer_dynamic_decode <- function(decoder, output_time_major = FALSE,
+                           impute_finished = FALSE, maximum_iterations = NULL,
+                           parallel_iterations = 32L, swap_memory = FALSE,
+                           training = NULL, scope = NULL, ...) {
+
+  args <- list(
+    decoder = decoder,
+    output_time_major = output_time_major,
+    impute_finished = impute_finished,
+    maximum_iterations = maximum_iterations,
+    parallel_iterations = parallel_iterations,
+    swap_memory = swap_memory,
+    training = training,
+    scope = scope,
+    ...
+  )
+
+  if(!is.null(maximum_iterations))
+    args$maximum_iterations <- as.integer(maximum_iterations)
+
+  do.call(tfa$seq2seq$dynamic_decode, args)
+
+}
+
+
+
+#' @title Final Beam Search Decoder Output
+#'
+#' @description Final outputs returned by the beam search after all decoding is finished.
+#'
+#'
+#' @param predicted_ids The final prediction. A tensor of shape `[batch_size, T, beam_width]`
+#' (or `[T, batch_size, beam_width]` if `output_time_major` is TRUE). Beams are ordered from
+#' best to worst.
+#' @param beam_search_decoder_output An instance of `BeamSearchDecoderOutput` that describes
+#' the state of the beam search.
+#'
+#' @export
+layer_final_beam_search_decoder_output <- function(predicted_ids, beam_search_decoder_output) {
+
+  args <- list(
+    predicted_ids = predicted_ids,
+    beam_search_decoder_output = beam_search_decoder_output
+  )
+
+  do.call(tfa$seq2seq$FinalBeamSearchDecoderOutput, args)
+
+}
+
+
+
+#' @title Gather tree
+#'
+#'
+#' @param step_ids requires the step id
+#' @param parent_ids The parent ids of shape `[max_time, batch_size, beam_width]`.
+#' @param max_sequence_lengths get max_sequence_length across all beams for each batch.
+#' @param end_token `int32` scalar, the token that marks end of decoding.
+#'
+#'
+#' @return None
+#' @export
+layer_gather_tree <- function(step_ids, parent_ids,
+                              max_sequence_lengths, end_token) {
+
+  args = list(
+    step_ids = step_ids, parent_ids = parent_ids,
+    max_sequence_lengths = max_sequence_lengths,
+    end_token = end_token
+  )
+
+  if(!is.null(max_sequence_lengths))
+    args$max_sequence_lengths <- as.integer(max_sequence_lengths)
+
+  if(!is.null(end_token))
+    args$end_token <- as.integer(end_token)
+
+  do.call(tfa$seq2seq$gather_tree, args)
+
+}
+
+
+#' @title Gather tree from array
+#'
+#' @description Calculates the full beams for `TensorArray`s.
+#'
+#'
+#' @param t A stacked `TensorArray` of size `max_time` that contains `Tensor`s of
+#' shape `[batch_size, beam_width, s]` or `[batch_size * beam_width, s]` where `s`
+#' is the depth shape.
+#' @param parent_ids The parent ids of shape `[max_time, batch_size, beam_width]`.
+#' @param sequence_length The sequence length of shape `[batch_size, beam_width]`.
+#'
+#' @return A `Tensor` which is a stacked `TensorArray` of the same size and type as
+#' `t` and where beams are sorted in each `Tensor` according to `parent_ids`.
+#'
+#' @export
+layer_gather_tree_from_array <- function(t, parent_ids, sequence_length) {
+
+  python_function_result <- tfa$seq2seq$gather_tree_from_array(
+    t = t,
+    parent_ids = parent_ids,
+    sequence_length = as.integer(sequence_length)
+  )
+
+  do.call(tfa$seq2seq$gather_tree_from_array, args)
+
+}
+
+
+#' @title Greedy Embedding Sampler
+#'
+#' @description A sampler for use during inference.
+#'
+#' @details Uses the argmax of the output (treated as logits) and passes the result through
+#' an embedding layer to get the next input.
+#' @param embedding_fn A optional callable that takes a vector tensor of ids (argmax ids),
+#' or the params argument for embedding_lookup. The returned tensor will be passed to the
+#' decoder input. Default to use tf$nn$embedding_lookup.
+#'
+#'
+#'
+#'
+#'
+#' @return None
+layer_greedy_embedding_sampler <- function(embedding_fn = NULL) {
+
+  args = list(
+    embedding_fn = embedding_fn
+  )
+
+  do.call(tfa$seq2seq$GreedyEmbeddingSampler, args)
+
+}
+
+
 
 
 
