@@ -79,9 +79,9 @@ attention_wrapper <- function(object,
   )
 
   if(is.list(attention_layer_size)) {
-    args$attention_layer_size <- map(attention_layer_size, ~ as.character(.) %>% as.integer)
+    args$attention_layer_size <- map(args$attention_layer_size, ~ as.character(.) %>% as.integer)
   } else if(is.vector(attention_layer_size)) {
-    args$attention_layer_size <- as.integer(as.character(attention_layer_size))
+    args$attention_layer_size <- as.integer(as.character(args$attention_layer_size))
   }
 
   create_layer(tfa$seq2seq$AttentionWrapper, object, args)
@@ -148,7 +148,9 @@ attention_wrapper_state <- function(object,
 #' respective sequence lengths.
 #' @param normalize boolean. Whether to normalize the energy term.
 #' @param probability_fn (optional) string, the name of function to convert the attention
-#' score to probabilities. The default is softmax which is tf.nn.softmax. Other options is hardmax, which is hardmax() within this module. Any other value will result into validation error. Default to use softmax.
+#' score to probabilities. The default is softmax which is tf.nn.softmax. Other options is hardmax,
+#' which is hardmax() within this module. Any other value will result into validation
+#' error. Default to use softmax.
 #' @param kernel_initializer (optional), the name of the initializer for the attention kernel.
 #' @param dtype The data type for the query and memory layers of the attention mechanism.
 #' @param name Name to use when creating ops.
@@ -212,13 +214,19 @@ attention_bahdanau <- function(object,
 #'
 #' @param object Model or layer object
 #' @param units The depth of the query mechanism.
-#' @param memory The memory to query; usually the output of an RNN encoder. This tensor should be shaped [batch_size, max_time, ...].
-#' @param memory_sequence_length (optional): Sequence lengths for the batch entries in memory. If provided, the memory tensor rows are masked with zeros for values past the respective sequence lengths.
+#' @param memory The memory to query; usually the output of an RNN encoder. This tensor
+#' should be shaped [batch_size, max_time, ...].
+#' @param memory_sequence_length (optional): Sequence lengths for the batch entries in memory.
+#' If provided, the memory tensor rows are masked with zeros for values past the respective
+#' sequence lengths.
 #' @param normalize Python boolean. Whether to normalize the energy term.
-#' @param sigmoid_noise Standard deviation of pre-sigmoid noise. See the docstring for _monotonic_probability_fn for more information.
+#' @param sigmoid_noise Standard deviation of pre-sigmoid noise. See the docstring for
+#' `_monotonic_probability_fn` for more information.
 #' @param sigmoid_noise_seed (optional) Random seed for pre-sigmoid noise.
-#' @param score_bias_init Initial value for score bias scalar. It's recommended to initialize this to a negative value when the length of the memory is large.
-#' @param mode How to compute the attention distribution. Must be one of 'recursive', 'parallel', or 'hard'. See the docstring for tfa.seq2seq.monotonic_attention for more information.
+#' @param score_bias_init Initial value for score bias scalar. It's recommended to initialize
+#' this to a negative value when the length of the memory is large.
+#' @param mode How to compute the attention distribution. Must be one of 'recursive',
+#' 'parallel', or 'hard'. See the docstring for tfa.seq2seq.monotonic_attention for more information.
 #' @param kernel_initializer (optional), the name of the initializer for the attention kernel.
 #' @param dtype The data type for the query and memory layers of the attention mechanism.
 #' @param name Name to use when creating ops.
@@ -358,7 +366,7 @@ layer_basic_decoder_output <- function(rnn_output, sample_id) {
 #' @note If you are using the `BeamSearchDecoder` with a cell wrapped in
 #' `AttentionWrapper`, then you must ensure that:
 #'  - The encoder output has been tiled to `beam_width` via
-#'  `tfa.seq2seq.tile_batch` (NOT `tf.tile`).
+#'  `tile_batch()` (NOT `tf$tile`).
 #'  - The `batch_size` argument passed to the `get_initial_state` method of
 #'  this wrapper is equal to `true_batch_size * beam_width`.
 #'  - The initial state created with `get_initial_state` above contains a
@@ -443,7 +451,6 @@ layer_beam_search_decoder_output <- function(scores, predicted_ids, parent_ids) 
 #' @title Beam Search Decoder State
 #'
 #'
-#' @param _cls _cls
 #' @param cell_state cell_state
 #' @param log_probs log_probs
 #' @param finished finished
@@ -547,7 +554,7 @@ layer_decoder <- function(...) {
 #' @param training boolean. Indicates whether the layer should behave in training mode or
 #' in inference mode. Only relevant when `dropout` or `recurrent_dropout` is used.
 #' @param scope Optional variable scope to use.
-#' ... A list, other keyword arguments for
+#' @param ... A list, other keyword arguments for
 #' dynamic_decode. It might contain arguments for `BaseDecoder` to initialize, which takes
 #' all tensor inputs during `call()`.
 #'
@@ -576,7 +583,7 @@ layer_dynamic_decode <- function(decoder, output_time_major = FALSE,
   )
 
   if(!is.null(maximum_iterations))
-    args$maximum_iterations <- as.integer(maximum_iterations)
+    args$maximum_iterations <- as.integer(args$maximum_iterations)
 
   do.call(tfa$seq2seq$dynamic_decode, args)
 
@@ -630,10 +637,10 @@ layer_gather_tree <- function(step_ids, parent_ids,
   )
 
   if(!is.null(max_sequence_lengths))
-    args$max_sequence_lengths <- as.integer(max_sequence_lengths)
+    args$max_sequence_lengths <- as.integer(args$max_sequence_lengths)
 
   if(!is.null(end_token))
-    args$end_token <- as.integer(end_token)
+    args$end_token <- as.integer(args$end_token)
 
   do.call(tfa$seq2seq$gather_tree, args)
 
@@ -657,7 +664,7 @@ layer_gather_tree <- function(step_ids, parent_ids,
 #' @export
 layer_gather_tree_from_array <- function(t, parent_ids, sequence_length) {
 
-  python_function_result <- tfa$seq2seq$gather_tree_from_array(
+  args <- list(
     t = t,
     parent_ids = parent_ids,
     sequence_length = as.integer(sequence_length)
@@ -694,7 +701,324 @@ layer_greedy_embedding_sampler <- function(embedding_fn = NULL) {
 }
 
 
+#' @title Hardmax
+#'
+#' @description Returns batched one-hot vectors.
+#'
+#' @details The depth index containing the `1` is that of the maximum logit value.
+#'
+#' @param logits A batch tensor of logit values.
+#' @param name Name to use when creating ops.
+#'
+#' @return A batched one-hot tensor.
+#'
+#' @export
+layer_hardmax <- function(logits, name = NULL) {
 
+  args <- list(
+    logits = logits,
+    name = name
+  )
+
+  do.call(tfa$seq2seq$hardmax, args)
+
+}
+
+
+#' @title Inference Sampler
+#'
+#'
+#' @details A helper to use during inference with a custom sampling function.
+#'
+#'
+#' @param sample_fn A callable that takes outputs and emits tensor sample_ids.
+#' @param sample_shape Either a list of integers, or a 1-D Tensor of type int32,
+#' the shape of the each sample in the batch returned by sample_fn.
+#' @param sample_dtype the dtype of the sample returned by sample_fn.
+#' @param end_fn A callable that takes sample_ids and emits a bool vector shaped
+#' [batch_size] indicating whether each sample is an end token.
+#' @param next_inputs_fn (Optional) A callable that takes sample_ids and returns
+#' the next batch of inputs. If not provided, sample_ids is used as the next batch of inputs.
+#' @param ... A list that contains other common arguments for layer creation.
+#'
+#' @return None
+#' @export
+layer_inference_sample <- function(sample_fn,
+                                   sample_shape,
+                                   sample_dtype = tf$int32,
+                                   end_fn,
+                                   next_inputs_fn = NULL,
+                                   ...) {
+  args = list(
+    sample_fn = sample_fn,
+    sample_shape = sample_shape,
+    sample_dtype = sample_dtype,
+    end_fn = end_fn,
+    next_inputs_fn = next_inputs_fn,
+    ...
+  )
+
+  do.call(tfa$seq2seq$InferenceSampler, args)
+
+}
+
+
+#' @title Implements Luong-style (multiplicative) attention scoring.
+#'
+#' @details This attention has two forms. The first is standard Luong attention,
+#' as described in:
+#' Minh-Thang Luong, Hieu Pham, Christopher D. Manning. Effective Approaches to
+#' Attention-based Neural Machine Translation. EMNLP 2015.
+#' The second is the scaled form inspired partly by the normalized form of Bahdanau
+#' attention.
+#' To enable the second form, construct the object with parameter `scale=TRUE`.
+#'
+#' @param object Model or layer object
+#' @param units The depth of the attention mechanism.
+#' @param memory The memory to query; usually the output of an RNN encoder. This tensor should be shaped [batch_size, max_time, ...].
+#' @param memory_sequence_length (optional): Sequence lengths for the batch entries in memory. If provided, the memory tensor rows are masked with zeros for values past the respective sequence lengths.
+#' @param scale boolean. Whether to scale the energy term.
+#' @param probability_fn (optional) string, the name of function to convert the attention score to probabilities. The default is softmax which is tf.nn.softmax. Other options is hardmax, which is hardmax() within this module. Any other value will result intovalidation error. Default to use softmax.
+#' @param dtype The data type for the memory layer of the attention mechanism.
+#' @param name Name to use when creating ops.
+#' @param ... A list that contains other common arguments for layer creation.
+#'
+#'
+#' @importFrom keras create_layer
+#' @return None
+#' @export
+attention_luong <- function(object,
+                            units,
+                            memory = NULL,
+                            memory_sequence_length = NULL,
+                            scale = FALSE,
+                            probability_fn = 'softmax',
+                            dtype = NULL,
+                            name = 'LuongAttention',
+                            ...) {
+
+  args = list(
+    units = as.integer(units),
+    memory = memory,
+    memory_sequence_length = memory_sequence_length,
+    scale = scale,
+    probability_fn = probability_fn,
+    dtype = dtype,
+    name =  name,
+    ...
+  )
+
+  if(!is.null(memory_sequence_length))
+    args$memory_sequence_length <- as.integer(args$memory_sequence_length)
+
+  create_layer(tfa$seq2seq$LuongAttention, object, args)
+}
+
+
+#' @title Monotonic attention mechanism with Luong-style energy function.
+#'
+#' @details This type of attention enforces a monotonic constraint on the attention
+#' distributions; that is once the model attends to a given point in the memory it
+#' can't attend to any prior points at subsequence output timesteps. It achieves
+#' this by using the _monotonic_probability_fn instead of softmax to construct its
+#' attention distributions. Otherwise, it is equivalent to LuongAttention.
+#' This approach is proposed in
+#' [Colin Raffel, Minh-Thang Luong, Peter J. Liu, Ron J. Weiss, Douglas Eck, "Online and
+#' Linear-Time Attention by Enforcing Monotonic Alignments." ICML 2017.](https://arxiv.org/abs/1704.00784)
+#'
+#'
+#'
+#' @param object Model or layer object
+#' @param units The depth of the query mechanism.
+#' @param memory The memory to query; usually the output of an RNN encoder. This
+#' tensor should be shaped [batch_size, max_time, ...].
+#' @param memory_sequence_length (optional): Sequence lengths for the batch entries
+#' in memory. If provided, the memory tensor rows are masked with zeros for values
+#' past the respective sequence lengths.
+#' @param scale boolean. Whether to scale the energy term.
+#' @param sigmoid_noise Standard deviation of pre-sigmoid noise. See the docstring
+#' for `_monotonic_probability_fn` for more information.
+#' @param sigmoid_noise_seed (optional) Random seed for pre-sigmoid noise.
+#' @param score_bias_init Initial value for score bias scalar. It's recommended to
+#' initialize this to a negative value when the length of the memory is large.
+#' @param mode How to compute the attention distribution. Must be one of 'recursive',
+#' 'parallel', or 'hard'. See the docstring for tfa.seq2seq.monotonic_attention for
+#' more information.
+#' @param dtype The data type for the query and memory layers of the attention mechanism.
+#' @param name Name to use when creating ops.
+#' @param ... A list that contains other common arguments for layer creation.
+#'
+#'
+#' @importFrom keras create_layer
+#' @return None
+#' @export
+attention_luong_monotonic <- function(object,
+                                      units,
+                                      memory = NULL,
+                                      memory_sequence_length = NULL,
+                                      scale = FALSE,
+                                      sigmoid_noise = 0.0,
+                                      sigmoid_noise_seed = NULL,
+                                      score_bias_init = 0.0,
+                                      mode = 'parallel',
+                                      dtype = NULL,
+                                      name = 'LuongMonotonicAttention',
+                                      ...) {
+
+  args = list(
+    units  = as.integer(units),
+    memory = memory,
+    memory_sequence_length = memory_sequence_length,
+    scale = scale,
+    sigmoid_noise = sigmoid_noise,
+    sigmoid_noise_seed = sigmoid_noise_seed,
+    score_bias_init = score_bias_init,
+    mode = mode,
+    dtype = dtype,
+    name = name,
+    ...
+  )
+
+  if(!is.null(memory_sequence_length))
+    args$memory_sequence_length <- as.integer(args$memory_sequence_length)
+  if(!is.null(sigmoid_noise_seed))
+    args$sigmoid_noise_seed <- as.integer(args$sigmoid_noise_seed)
+
+  create_layer(tfa$seq2seq$LuongMonotonicAttention, object, args)
+}
+
+#' @title Monotonic attention
+#'
+#' @description Compute monotonic attention distribution from choosing probabilities.
+#'
+#' @details Monotonic attention implies that the input sequence is processed in an
+#' explicitly left-to-right manner when generating the output sequence. In
+#' addition, once an input sequence element is attended to at a given output
+#' timestep, elements occurring before it cannot be attended to at subsequent
+#' output timesteps. This function generates attention distributions
+#' according to these assumptions. For more information, see `Online and
+#' Linear-Time Attention by Enforcing Monotonic Alignments`.
+#'
+#' @param p_choose_i Probability of choosing input sequence/memory element i.
+#' Should be of shape (batch_size, input_sequence_length), and should all be
+#' in the range [0, 1].
+#' @param previous_attention The attention distribution from the previous output
+#' timestep. Should be of shape (batch_size, input_sequence_length). For the first
+#' output timestep, preevious_attention[n] should be [1, 0, 0, ..., 0] for all n
+#' in [0, ... batch_size - 1].
+#' @param mode How to compute the attention distribution. Must be one of 'recursive',
+#' 'parallel', or 'hard'.  'recursive' uses tf$scan to recursively compute the
+#' distribution. This is slowest but is exact, general, and does not suffer from
+#' numerical instabilities.  'parallel' uses parallelized cumulative-sum and
+#' cumulative-product operations to compute a closed-form solution to the recurrence
+#' relation defining the attention distribution. This makes it more efficient than
+#' 'recursive', but it requires numerical checks which make the distribution non-exact.
+#' This can be a problem in particular when input_sequence_length is long and/or p_choose_i
+#' has entries very close to 0 or 1. * 'hard' requires that the probabilities in p_choose_i
+#' are all either 0 or 1, and subsequently uses a more efficient and exact solution.
+#'
+#' @return A tensor of shape (batch_size, input_sequence_length) representing
+#' the attention distributions for each sequence in the batch.
+#'
+#' @section Raises:
+#' ValueError: mode is not one of 'recursive', 'parallel', 'hard'.
+#'
+#' @export
+attention_monotonic <- function(p_choose_i, previous_attention, mode) {
+
+  args<- list(
+    p_choose_i = p_choose_i,
+    previous_attention = previous_attention,
+    mode = mode
+  )
+
+  do.call(tfa$seq2seq$monotonic_attention, args)
+
+}
+
+
+#' @title Safe cumprod
+#'
+#' @description Computes cumprod of x in logspace using cumsum to avoid underflow.
+#'
+#' @details The cumprod function and its gradient can result in numerical instabilities
+#' when its argument has very small and/or zero values. As long as the
+#' argument is all positive, we can instead compute the cumulative product as
+#' exp(cumsum(log(x))). This function can be called identically to
+#' tf$cumprod.
+#'
+#' @param x Tensor to take the cumulative product of.
+#' @param ... Passed on to cumsum; these are identical to those in cumprod
+#' @return Cumulative product of x.
+#'
+#' @export
+safe_cumprod <- function(x, ...) {
+
+  args <- list(
+    x = x,
+    ...
+  )
+
+  do.call(tfa$seq2seq$safe_cumprod, args)
+
+}
+
+
+#' @title Sample Embedding Sampler
+#'
+#'
+#'
+#' @description  A sampler for use during inference.
+#' @details Uses sampling (from a distribution) instead of argmax and passes
+#' the result through an embedding layer to get the next input.
+#'
+#'
+#' @param embedding_fn (Optional) A callable that takes a vector tensor of ids (argmax ids),
+#' or the params argument for embedding_lookup. The returned tensor will be passed to the
+#' decoder input.
+#' @param softmax_temperature (Optional) float32 scalar, value to divide the logits by
+#' before computing the softmax. Larger values (above 1.0) result in more random samples,
+#' while smaller values push the sampling distribution towards the argmax. Must be strictly
+#' greater than 0. Defaults to 1.0.
+#' @param seed (Optional) The sampling seed.
+#'
+#'
+#'
+#'
+#'
+#' @return None
+#' @export
+layer_sample_embedding_sampler <- function(embedding_fn = NULL,
+                                           softmax_temperature = NULL,
+                                           seed = NULL) {
+
+  args = list(embedding_fn = embedding_fn,
+              softmax_temperature = softmax_temperature,
+              seed = seed)
+
+  if(!is.null(seed))
+    args$seed <- as.integer(args$seed)
+
+  do.call(tfa$seq2seq$SampleEmbeddingSampler,args)
+
+}
+
+
+#' @title Sampler
+#' @description Interface for implementing sampling in seq2seq decoders.
+#'
+#'
+#'
+#'
+#' @param ... parametr to pass batch_size, initialize, next_inputs, sample, sample_ids_dtype, sample_ids_shape
+#'
+#' @return None
+#' @export
+layer_sampler <- function(...) {
+  args = list(...)
+
+  do.call(tfa$seq2seq$Sampler, args)
+}
 
 
 
