@@ -1106,8 +1106,18 @@ sampler_scheduled_output_training <- function(sampling_probability,
   do.call(tfa$seq2seq$ScheduledOutputTrainingSampler, args)
 }
 
+#' @title Weighted cross-entropy loss for a sequence of logits.
+#'
+#' ... A list of parameters
+#'
+#' @return None
+#'
+#' @export
+loss_sequence <- function(...) {
+  args = list(...)
 
-
+  do.call(tfa$seq2seq$SequenceLoss, args)
+}
 
 
 
