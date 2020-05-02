@@ -243,19 +243,19 @@ attention_bahdanau <- function(object,
 #'
 #'
 #' @export
-layer_bahdanau_monotonic_attention <- function(object,
-                                               units,
-                                               memory = NULL,
-                                               memory_sequence_length = NULL,
-                                               normalize = FALSE,
-                                               sigmoid_noise = 0.0,
-                                               sigmoid_noise_seed = NULL,
-                                               score_bias_init = 0.0,
-                                               mode = 'parallel',
-                                               kernel_initializer = 'glorot_uniform',
-                                               dtype = NULL,
-                                               name = 'BahdanauMonotonicAttention',
-                                               ...) {
+attention_bahdanau_monotonic <- function(object,
+                                         units,
+                                         memory = NULL,
+                                         memory_sequence_length = NULL,
+                                         normalize = FALSE,
+                                         sigmoid_noise = 0.0,
+                                         sigmoid_noise_seed = NULL,
+                                         score_bias_init = 0.0,
+                                         mode = 'parallel',
+                                         kernel_initializer = 'glorot_uniform',
+                                         dtype = NULL,
+                                         name = 'BahdanauMonotonicAttention',
+                                         ...) {
   args =list(
     units = as.integer(units),
     memory = memory,
@@ -295,7 +295,7 @@ layer_bahdanau_monotonic_attention <- function(object,
 #'
 #' @return None
 #' @export
-layer_base_decoder <- function(object,
+decoder_base <- function(object,
                                cell,
                                sampler,
                                output_layer = NULL,
@@ -321,7 +321,7 @@ layer_base_decoder <- function(object,
 #'
 #' @return None
 #' @export
-layer_basic_decoder <- function(object,
+decoder_basic <- function(object,
                                cell,
                                sampler,
                                output_layer = NULL,
@@ -349,7 +349,7 @@ layer_basic_decoder <- function(object,
 #' @param sample_id the `id` of the sample
 #' @return None
 #' @export
-layer_basic_decoder_output <- function(rnn_output, sample_id) {
+decoder_basic_output <- function(rnn_output, sample_id) {
 
   args <- list(
     rnn_output = rnn_output,
@@ -396,7 +396,7 @@ layer_basic_decoder_output <- function(rnn_output, sample_id) {
 #'
 #' @return None
 #' @export
-layer_beam_search_decoder <- function(object,
+decoder_beam_search <- function(object,
                                       cell,
                                       beam_width,
                                       embedding_fn = NULL,
@@ -433,7 +433,7 @@ layer_beam_search_decoder <- function(object,
 #' @param parent_ids The parent ids of shape `[max_time, batch_size, beam_width]`.
 #'
 #' @export
-layer_beam_search_decoder_output <- function(scores, predicted_ids, parent_ids) {
+decoder_beam_search_output <- function(scores, predicted_ids, parent_ids) {
 
   python_function_result <- tfa$seq2seq$BeamSearchDecoderOutput(
     scores = scores,
@@ -458,7 +458,7 @@ layer_beam_search_decoder_output <- function(scores, predicted_ids, parent_ids) 
 #' @param accumulated_attention_probs accumulated_attention_probs
 #'
 #' @export
-layer_beam_search_decoder_state <- function(cell_state, log_probs,
+decoder_beam_search_state <- function(cell_state, log_probs,
                                             finished, lengths,
                                             accumulated_attention_probs) {
 
@@ -494,7 +494,7 @@ layer_beam_search_decoder_state <- function(cell_state, log_probs,
 #'
 #'
 #' @export
-layer_custom_sampler <- function(initialize_fn,
+sampler_custom <- function(initialize_fn,
                                  sample_fn,
                                  next_inputs_fn,
                                  sample_ids_shape = NULL,
@@ -527,7 +527,7 @@ layer_custom_sampler <- function(initialize_fn,
 #'
 #' @return None
 #' @export
-layer_decoder <- function(...) {
+decoder <- function(...) {
   args = list(...)
 
   do.call(tfa$seq2seq$Decoder, args)
@@ -565,7 +565,7 @@ layer_decoder <- function(...) {
 #' is provided but is not a scalar.
 #'
 #' @export
-layer_dynamic_decode <- function(decoder, output_time_major = FALSE,
+decode_dynamic <- function(decoder, output_time_major = FALSE,
                            impute_finished = FALSE, maximum_iterations = NULL,
                            parallel_iterations = 32L, swap_memory = FALSE,
                            training = NULL, scope = NULL, ...) {
@@ -603,7 +603,7 @@ layer_dynamic_decode <- function(decoder, output_time_major = FALSE,
 #' the state of the beam search.
 #'
 #' @export
-layer_final_beam_search_decoder_output <- function(predicted_ids, beam_search_decoder_output) {
+decoder_final_beam_search_output <- function(predicted_ids, beam_search_decoder_output) {
 
   args <- list(
     predicted_ids = predicted_ids,
@@ -627,7 +627,7 @@ layer_final_beam_search_decoder_output <- function(predicted_ids, beam_search_de
 #'
 #' @return None
 #' @export
-layer_gather_tree <- function(step_ids, parent_ids,
+gather_tree <- function(step_ids, parent_ids,
                               max_sequence_lengths, end_token) {
 
   args = list(
@@ -662,7 +662,7 @@ layer_gather_tree <- function(step_ids, parent_ids,
 #' `t` and where beams are sorted in each `Tensor` according to `parent_ids`.
 #'
 #' @export
-layer_gather_tree_from_array <- function(t, parent_ids, sequence_length) {
+gather_tree_from_array <- function(t, parent_ids, sequence_length) {
 
   args <- list(
     t = t,
@@ -690,7 +690,7 @@ layer_gather_tree_from_array <- function(t, parent_ids, sequence_length) {
 #'
 #'
 #' @return None
-layer_greedy_embedding_sampler <- function(embedding_fn = NULL) {
+sampler_greedy_embedding <- function(embedding_fn = NULL) {
 
   args = list(
     embedding_fn = embedding_fn
@@ -713,7 +713,7 @@ layer_greedy_embedding_sampler <- function(embedding_fn = NULL) {
 #' @return A batched one-hot tensor.
 #'
 #' @export
-layer_hardmax <- function(logits, name = NULL) {
+hardmax <- function(logits, name = NULL) {
 
   args <- list(
     logits = logits,
@@ -743,7 +743,7 @@ layer_hardmax <- function(logits, name = NULL) {
 #'
 #' @return None
 #' @export
-layer_inference_sample <- function(sample_fn,
+sampler_inference <- function(sample_fn,
                                    sample_shape,
                                    sample_dtype = tf$int32,
                                    end_fn,
@@ -988,7 +988,7 @@ safe_cumprod <- function(x, ...) {
 #'
 #' @return None
 #' @export
-layer_sample_embedding_sampler <- function(embedding_fn = NULL,
+sampler_sample_embedding <- function(embedding_fn = NULL,
                                            softmax_temperature = NULL,
                                            seed = NULL) {
 
@@ -1014,7 +1014,7 @@ layer_sample_embedding_sampler <- function(embedding_fn = NULL,
 #'
 #' @return None
 #' @export
-layer_sampler <- function(...) {
+sampler <- function(...) {
   args = list(...)
 
   do.call(tfa$seq2seq$Sampler, args)
@@ -1023,7 +1023,53 @@ layer_sampler <- function(...) {
 
 
 
+#' @title A training sampler that adds scheduled sampling
+#'
+#'
+#'
+#'
+#'
+#' @param sampling_probability A float32 0-D or 1-D tensor: the probability of sampling
+#' categorically from the output ids instead of reading directly from the inputs.
+#' @param embedding_fn A callable that takes a vector tensor of ids (argmax ids), or the
+#' params argument for embedding_lookup.
+#' @param time_major bool. Whether the tensors in inputs are time major. If `FALSE`
+#' (default), they are assumed to be batch major.
+#' @param seed The sampling seed.
+#' @param scheduling_seed The schedule decision rule sampling seed.
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#' @return Returns -1s for sample_ids where no sampling took place; valid sample id values elsewhere.
+#' @export
+sampler_scheduled_embedding_training <- function(sampling_probability,
+                                                 embedding_fn = NULL,
+                                                 time_major = FALSE,
+                                                 seed  = NULL,
+                                                 scheduling_seed  = NULL) {
 
+
+  args = list(
+    sampling_probability = sampling_probability,
+    embedding_fn = embedding_fn,
+    time_major = time_major,
+    seed  = seed,
+    scheduling_seed  = scheduling_seed
+  )
+
+  if(!is.null(seed))
+    args$seed <- as.integer(args$seed)
+  if(!is.null(scheduling_seed))
+    args$scheduling_seed <- as.integer(args$scheduling_seed)
+
+  do.call(tfa$seq2seq$ScheduledEmbeddingTrainingSampler, args)
+}
 
 
 
