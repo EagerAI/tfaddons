@@ -13,7 +13,7 @@ install_tfaddons <- function(version = NULL, ..., restart_session = TRUE) {
   if (is.null(version))
     module_string <- paste0("tensorflow-addons==", '0.9.1')
   else
-    module_string <- paste0("ktensorflow-addons==", version)
+    module_string <- paste0("tensorflow-addons==", version)
 
   invisible(py_config())
   py_install(packages = paste(module_string), pip = TRUE, ...)
