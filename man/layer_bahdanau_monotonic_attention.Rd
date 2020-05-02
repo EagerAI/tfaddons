@@ -25,19 +25,25 @@ layer_bahdanau_monotonic_attention(
 
 \item{units}{The depth of the query mechanism.}
 
-\item{memory}{The memory to query; usually the output of an RNN encoder. This tensor should be shaped [batch_size, max_time, ...].}
+\item{memory}{The memory to query; usually the output of an RNN encoder. This tensor
+should be shaped [batch_size, max_time, ...].}
 
-\item{memory_sequence_length}{(optional): Sequence lengths for the batch entries in memory. If provided, the memory tensor rows are masked with zeros for values past the respective sequence lengths.}
+\item{memory_sequence_length}{(optional): Sequence lengths for the batch entries in memory.
+If provided, the memory tensor rows are masked with zeros for values past the respective
+sequence lengths.}
 
 \item{normalize}{Python boolean. Whether to normalize the energy term.}
 
-\item{sigmoid_noise}{Standard deviation of pre-sigmoid noise. See the docstring for _monotonic_probability_fn for more information.}
+\item{sigmoid_noise}{Standard deviation of pre-sigmoid noise. See the docstring for
+`_monotonic_probability_fn` for more information.}
 
 \item{sigmoid_noise_seed}{(optional) Random seed for pre-sigmoid noise.}
 
-\item{score_bias_init}{Initial value for score bias scalar. It's recommended to initialize this to a negative value when the length of the memory is large.}
+\item{score_bias_init}{Initial value for score bias scalar. It's recommended to initialize
+this to a negative value when the length of the memory is large.}
 
-\item{mode}{How to compute the attention distribution. Must be one of 'recursive', 'parallel', or 'hard'. See the docstring for tfa.seq2seq.monotonic_attention for more information.}
+\item{mode}{How to compute the attention distribution. Must be one of 'recursive',
+'parallel', or 'hard'. See the docstring for tfa.seq2seq.monotonic_attention for more information.}
 
 \item{kernel_initializer}{(optional), the name of the initializer for the attention kernel.}
 

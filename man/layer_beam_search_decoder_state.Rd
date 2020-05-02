@@ -22,8 +22,6 @@ layer_beam_search_decoder_state(
 \item{lengths}{lengths}
 
 \item{accumulated_attention_probs}{accumulated_attention_probs}
-
-\item{_cls}{_cls}
 }
 \description{
 Beam Search Decoder State

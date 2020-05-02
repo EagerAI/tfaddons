@@ -52,7 +52,7 @@ BeamSearch sampling decoder
 If you are using the `BeamSearchDecoder` with a cell wrapped in
 `AttentionWrapper`, then you must ensure that:
  - The encoder output has been tiled to `beam_width` via
- `tfa.seq2seq.tile_batch` (NOT `tf.tile`).
+ `tile_batch()` (NOT `tf$tile`).
  - The `batch_size` argument passed to the `get_initial_state` method of
  this wrapper is equal to `true_batch_size * beam_width`.
  - The initial state created with `get_initial_state` above contains a

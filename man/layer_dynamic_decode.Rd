@@ -38,8 +38,9 @@ is `NULL` (decode until the decoder is fully done).}
 \item{training}{boolean. Indicates whether the layer should behave in training mode or
 in inference mode. Only relevant when `dropout` or `recurrent_dropout` is used.}
 
-\item{scope}{Optional variable scope to use.
-... A list, other keyword arguments for
+\item{scope}{Optional variable scope to use.}
+
+\item{...}{A list, other keyword arguments for
 dynamic_decode. It might contain arguments for `BaseDecoder` to initialize, which takes
 all tensor inputs during `call()`.}
 }

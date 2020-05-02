@@ -32,7 +32,9 @@ respective sequence lengths.}
 \item{normalize}{boolean. Whether to normalize the energy term.}
 
 \item{probability_fn}{(optional) string, the name of function to convert the attention
-score to probabilities. The default is softmax which is tf.nn.softmax. Other options is hardmax, which is hardmax() within this module. Any other value will result into validation error. Default to use softmax.}
+score to probabilities. The default is softmax which is tf.nn.softmax. Other options is hardmax,
+which is hardmax() within this module. Any other value will result into validation
+error. Default to use softmax.}
 
 \item{kernel_initializer}{(optional), the name of the initializer for the attention kernel.}
 
