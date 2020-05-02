@@ -1,0 +1,62 @@
+on: [push, pull_request]
+
+name: R-CMD
+
+jobs:
+  R-CMD:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (TF ${{ matrix.config.tf }}) (TENSORFLOW-ADDONS ${{ matrix.config.tensorflow-addons }})
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - { os: windows-latest, tf: '2.0.0', tensorflow-addons: '0.9.1'}
+        - { os: macOS-latest, tf: '2.0.0', tensorflow-addons: '0.9.1'}
+        - { os: ubuntu-16.04,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest", tf: '2.0.0', tensorflow-addons: '0.9.1'}
+        - { os: windows-latest, tf: '2.1.0', tensorflow-addons: '0.9.1'}
+        - { os: macOS-latest, tf: '2.1.0', tensorflow-addons: '0.9.1'}
+        - { os: ubuntu-16.04,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest", tf: '2.1.0', tensorflow-addons: '0.9.1'}
+        - { os: windows-latest, tf: 'nightly', tensorflow-addons: '0.9.1'}
+        - { os: macOS-latest, tf: 'nightly', tensorflow-addons: '0.9.1'}
+        - { os: ubuntu-16.04,  cran: "https://demo.rstudiopm.com/all/__linux__/xenial/latest", tf: 'nightly', tensorflow-addons: '0.9.1'}
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      TF_VERSION: ${{ matrix.config.tf }}
+      TENSORFLOW_ADDONS_VERSION: ${{ matrix.config.tensorflow-addons }}
+      PIP_NO_WARN_SCRIPT_LOCATION: false
+      RETICULATE_AUTOCONFIGURE: 'FALSE'
+      CRAN: ${{ matrix.config.cran }}
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: r-lib/actions/setup-r@master
+
+      - uses: r-lib/actions/setup-pandoc@master
+
+      - name: Install deps
+        run: |
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_deps(dependencies = TRUE)"
+          Rscript -e "remotes::install_cran('rcmdcheck')"
+
+      - name: Install Python
+        run: |
+          Rscript -e "remotes::install_github('rstudio/reticulate')"
+          Rscript -e "try(reticulate::install_miniconda())"
+          Rscript -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.10')"
+      - name: Install TensorFlow
+        run: |
+          Rscript -e "remotes::install_local()"
+          Rscript -e "tensorflow::install_tensorflow(version = Sys.getenv('TF_VERSION'))"
+          Rscript -e "reticulate::py_install(c('setuptools', 'wheel', 'requests'), pip = TRUE)"
+          Rscript -e "tfaddons::install_tfaddons()"
+      - name: Check
+        continue-on-error: ${{ matrix.config.allow_failure }}
+
+
+
+        run: Rscript -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning', check_dir = 'check')"
