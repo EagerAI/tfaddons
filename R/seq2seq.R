@@ -1120,8 +1120,59 @@ loss_sequence <- function(...) {
 }
 
 
+#' @title Tile batch
+#'
+#' @description Tile the batch dimension of a (possibly nested structure of) tensor(s)
+#'
+#' @details t. For each tensor t in a (possibly nested structure) of tensors,
+#' this function takes a tensor t shaped `[batch_size, s0, s1, ...]` composed
+#' of minibatch entries `t[0], ..., t[batch_size - 1]` and tiles it to have a
+#' shape `[batch_size * multiplier, s0, s1, ...]` composed of minibatch
+#' entries `t[0], t[0], ..., t[1], t[1], ...` where each minibatch entry is
+#' repeated `multiplier` times.
+#'
+#' @param t `Tensor` shaped `[batch_size, ...]`.
+#' @param multiplier Python int.
+#' @param name Name scope for any created operations.
+#'
+#' @return A (possibly nested structure of) `Tensor` shaped `[batch_size * multiplier, ...]`.
+#'
+#' @section Raises:
+#' ValueError: if tensor(s) `t` do not have a statically known rank or the rank is < 1.
+#'
+#' @export
+tile_batch <- function(t, multiplier, name = NULL) {
+
+  args <- list(
+    t = t,
+    multiplier = as.integer(multiplier),
+    name = name
+  )
+
+  do.call(tfa$seq2seq$tile_batch, args)
+
+}
 
 
+#' @title A Sampler for use during training.
+#'
+#'
+#' @description Only reads inputs.
+#'
+#'
+#'
+#'
+#' @param time_major bool. Whether the tensors in inputs are time major.
+#' If `FALSE` (default), they are assumed to be batch major.
+#'
+#'
+#' @return None
+#' @export
+sampler_training <- function(time_major = FALSE) {
+  args = list(time_major = time_major)
+
+  do.call(tfa$seq2seq$TrainingSampler, args)
+}
 
 
 
