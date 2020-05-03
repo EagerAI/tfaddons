@@ -382,8 +382,8 @@ metric_multilabel_confusion_matrix <- function(num_classes,
 #'
 #' @param name (Optional) String name of the metric instance.
 #' @param dtype (Optional) Data type of the metric result. Defaults to `tf$float32`.
-#'
-#'
+#' @param ... additional arguments to pass
+#' @param multioutput one of the following: "raw_values", "uniform_average", "variance_weighted"
 #'
 #'
 #'
@@ -401,11 +401,15 @@ metric_multilabel_confusion_matrix <- function(num_classes,
 #'
 #' @export
 metric_rsquare <- function(name = 'r_square',
-                           dtype = tf$float32) {
+                           dtype = tf$float32,
+                           ...,
+                           multioutput = 'uniform_average') {
 
   args = list(
     name = name,
-    dtype = dtype
+    dtype = dtype,
+    ...,
+    multioutput = multioutput
   )
 
   do.call(tfa$metrics$RSquare, args)

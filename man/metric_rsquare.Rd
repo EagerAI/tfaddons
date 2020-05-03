@@ -10,12 +10,21 @@ indicates that the predictors perfectly accounts for variation in the target.
 Score 0.0 indicates that the predictors do not account for variation in the
 target. It can also be negative if the model is worse.}
 \usage{
-metric_rsquare(name = "r_square", dtype = tf$float32)
+metric_rsquare(
+  name = "r_square",
+  dtype = tf$float32,
+  ...,
+  multioutput = "uniform_average"
+)
 }
 \arguments{
 \item{name}{(Optional) String name of the metric instance.}
 
 \item{dtype}{(Optional) Data type of the metric result. Defaults to `tf$float32`.}
+
+\item{...}{additional arguments to pass}
+
+\item{multioutput}{one of the following: "raw_values", "uniform_average", "variance_weighted"}
 }
 \description{
 RSquare
