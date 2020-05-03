@@ -14,7 +14,7 @@ build_model <- function(metric) {
                     metrics = metric)
 
   history = model %>% fit(as.matrix(iris[1:4]),
-                          to_categorical(iris[,4]),
+                          tf$keras$utils$to_categorical(iris[,4]),
                           epochs = 2,
                           validation_split = 0.2,
                           verbose = 1 )
