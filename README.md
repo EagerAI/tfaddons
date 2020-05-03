@@ -98,7 +98,6 @@ model %>% fit(
   epochs = 1,
   validation_split = 0.2
 )
-
 ```
 
 ```
