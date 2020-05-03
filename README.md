@@ -67,7 +67,7 @@ model %>% compile(
   optimizer = optimizer_radam(),
   # apply sparse max loss
   loss = loss_sparsemax(),
-  # choose multilabel conf matrix
+  # choose cohen kappa metric
   metrics = metric_cohen_kappa(10)
 )
 
@@ -83,7 +83,8 @@ model %>% fit(
 
 ```
 Train on 48000 samples, validate on 12000 samples
-48000/48000 [==============================] - 24s 510us/sample - loss: 0.1193 - cohen_kappa: 0.8074 - val_loss: 0.0583 - val_cohen_kappa: 0.9104
+48000/48000 [==============================] - 24s 510us/sample - loss: 0.1193 - cohen_kappa: 0.8074 - 
+val_loss: 0.0583 - val_cohen_kappa: 0.9104
 ```
 
 ## Callbacks
