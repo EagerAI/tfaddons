@@ -4,16 +4,20 @@
 \alias{loss_sparsemax}
 \title{Sparsemax loss}
 \usage{
-loss_sparsemax(logits, sparsemax, labels, name = NULL)
+loss_sparsemax(
+  from_logits = TRUE,
+  reduction = tf$keras$losses$Reduction$SUM_OVER_BATCH_SIZE,
+  name = "sparsemax_loss"
+)
 }
 \arguments{
-\item{logits}{A `Tensor`. Must be one of the following types: `float32`, `float64`.}
+\item{from_logits}{Whether y_pred is expected to be a logits tensor.
+Default is True, meaning y_pred is the logits.}
 
-\item{sparsemax}{A `Tensor`. Must have the same type as `logits`.}
+\item{reduction}{(Optional) Type of tf$keras$losses$Reduction to apply
+to loss. Default value is SUM_OVER_BATCH_SIZE.}
 
-\item{labels}{A `Tensor`. Must have the same type as `logits`.}
-
-\item{name}{A name for the operation (optional). Returns: A `Tensor`. Has the same type as `logits`.}
+\item{name}{Optional name for the op.}
 }
 \value{
 A `Tensor`. Has the same type as `logits`.

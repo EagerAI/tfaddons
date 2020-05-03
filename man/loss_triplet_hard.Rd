@@ -4,18 +4,16 @@
 \alias{loss_triplet_hard}
 \title{Triplet hard loss}
 \usage{
-loss_triplet_hard(y_true, y_pred, margin = 1, soft = FALSE)
+loss_triplet_hard(margin = 1, soft = FALSE, name = NULL, ...)
 }
 \arguments{
-\item{y_true}{1-D integer `Tensor` with shape [batch_size] of
-multiclass integer labels.}
+\item{margin}{Float, margin term in the loss definition. Default value is 1.0.}
 
-\item{y_pred}{2-D float `Tensor` of embedding vectors. Embeddings should
-be l2 normalized.}
+\item{soft}{Boolean, if set, use the soft margin version. Default value is False.}
 
-\item{margin}{Float, margin term in the loss definition.}
+\item{name}{Optional name for the op.}
 
-\item{soft}{Boolean, if set, use the soft margin version.}
+\item{...}{additional arguments to pass}
 }
 \value{
 triplet_loss: float scalar with dtype of y_pred.

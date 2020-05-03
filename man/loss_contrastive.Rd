@@ -4,14 +4,19 @@
 \alias{loss_contrastive}
 \title{Contrastive loss}
 \usage{
-loss_contrastive(y_true, y_pred, margin = 1)
+loss_contrastive(
+  margin = 1,
+  reduction = tf$keras$losses$Reduction$SUM_OVER_BATCH_SIZE,
+  name = "contrasitve_loss"
+)
 }
 \arguments{
-\item{y_true}{1-D integer Tensor with shape [batch_size] of binary labels indicating positive vs negative pair.}
+\item{margin}{Float, margin term in the loss definition. Default value is 1.0.}
 
-\item{y_pred}{1-D float Tensor with shape [batch_size] of distances between two embedding matrices.}
+\item{reduction}{(Optional) Type of tf$keras$losses$Reduction to apply.
+Default value is SUM_OVER_BATCH_SIZE.}
 
-\item{margin}{margin term in the loss definition.}
+\item{name}{(Optional) name for the loss.}
 }
 \value{
 contrastive_loss: 1-D float `Tensor` with shape [batch_size].

@@ -4,23 +4,28 @@
 \alias{loss_pinball}
 \title{Pinball loss}
 \usage{
-loss_pinball(y_true, y_pred, tau = 0.1)
+loss_pinball(
+  tau = 0.5,
+  reduction = tf$keras$losses$Reduction$AUTO,
+  name = "pinball_loss"
+)
 }
 \arguments{
-\item{y_true}{Ground truth values. shape = `[batch_size, d0, .. dN]`}
-
-\item{y_pred}{The predicted values. shape = `[batch_size, d0, .. dN]`}
-
 \item{tau}{(Optional) Float in [0, 1] or a tensor taking values in [0, 1] and
-shape = `[d0,..., dn]`.  It defines the slope of the pinball loss. In
-the context of quantile regression, the value of tau determines the
-conditional quantile level. When tau = 0.5, this amounts to l1
-regression, an estimator of the conditional median (0.5 quantile).
-tau: (Optional) Float in [0, 1] or a tensor taking values in [0, 1] and
-shape = `[d0,..., dn]`.  It defines the slope of the pinball loss. In
-the context of quantile regression, the value of tau determines the
-conditional quantile level. When tau = 0.5, this amounts to l1
-regression, an estimator of the conditional median (0.5 quantile).}
+shape = [d0,..., dn]. It defines the slope of the pinball loss. In the context
+of quantile regression, the value of tau determines the conditional quantile
+level. When tau = 0.5, this amounts to l1 regression, an estimator of the
+conditional median (0.5 quantile).}
+
+\item{reduction}{(Optional) Type of tf.keras.losses.Reduction to apply to loss.
+Default value is AUTO. AUTO indicates that the reduction option will be determined
+by the usage context. For almost all cases this defaults to SUM_OVER_BATCH_SIZE.
+When used with tf.distribute.Strategy, outside of built-in training loops such as
+tf$keras compile and fit, using AUTO or SUM_OVER_BATCH_SIZE will raise an error.
+Please see https://www.tensorflow.org/alpha/tutorials/distribute/training_loops
+for more details on this.}
+
+\item{name}{Optional name for the op.}
 }
 \value{
 pinball_loss: 1-D float `Tensor` with shape [batch_size].
@@ -40,7 +45,7 @@ loss = pinball_loss([0., 0., 1., 1.], [1., 1., 1., 0.], tau=.1) # loss = max(0.1
 }
 \section{Usage}{
 
-```python_loss = pinball_loss([0., 0., 1., 1.], [1., 1., 1., 0.], tau=.1)
+```python_loss = pinball_loss([0., 0., 1., 1.], [1., 1., 1., 0.], tau=.1) ````
 }
 
 \section{References}{

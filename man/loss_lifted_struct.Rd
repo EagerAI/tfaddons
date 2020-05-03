@@ -4,18 +4,24 @@
 \alias{loss_lifted_struct}
 \title{Lifted structured loss}
 \usage{
-loss_lifted_struct(labels, embeddings, margin = 1)
+loss_lifted_struct(margin = 1, name = NULL, ...)
 }
 \arguments{
-\item{labels}{1-D tf.int32 Tensor with shape [batch_size] of multiclass integer labels.}
-
-\item{embeddings}{2-D float Tensor of embedding vectors. Embeddings should not be l2 normalized.}
-
 \item{margin}{Float, margin term in the loss definition.}
+
+\item{name}{Optional name for the op.}
+
+\item{...}{additional parameters to pass}
 }
 \value{
-lifted_loss: tf.float32 scalar.
+lifted_loss: tf$float32 scalar.
 }
 \description{
 Computes the lifted structured loss.
+}
+\details{
+The loss encourages the positive distances (between a pair of embeddings
+with the same labels) to be smaller than any negative distances (between a pair of
+embeddings with different labels) in the mini-batch in a way that is differentiable
+with respect to the embedding vectors. See: https://arxiv.org/abs/1511.06452
 }

@@ -5,23 +5,24 @@
 \title{Sigmoid focal crossentropy loss}
 \usage{
 loss_sigmoid_focal_crossentropy(
-  y_true,
-  y_pred,
+  from_logits = FALSE,
   alpha = 0.25,
   gamma = 2,
-  from_logits = FALSE
+  reduction = tf$keras$losses$Reduction$NONE,
+  name = "sigmoid_focal_crossentropy"
 )
 }
 \arguments{
-\item{y_true}{true targets tensor.}
-
-\item{y_pred}{predictions tensor.}
+\item{from_logits}{If logits are provided then convert the predictions into probabilities}
 
 \item{alpha}{balancing factor.}
 
 \item{gamma}{modulating factor.}
 
-\item{from_logits}{If logits are provided then convert the predictions into probabilities}
+\item{reduction}{(Optional) Type of tf$keras$losses$Reduction to apply.
+Default value is SUM_OVER_BATCH_SIZE.}
+
+\item{name}{(Optional) name for the loss.}
 }
 \value{
 Weighted loss float `Tensor`. If `reduction` is `NONE`,this has the same shape as `y_true`;

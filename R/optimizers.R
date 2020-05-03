@@ -308,7 +308,7 @@ optimizer_yogi <- function(learning_rate = 0.01,
   args$decay <- decay
   args$lr <- lr
 
-  do.call(tfa$optimizers$NovoGrad, args)
+  do.call(tfa$optimizers$Yogi, args)
 }
 
 attr(optimizer_yogi, "py_function_name") <- "yogi"

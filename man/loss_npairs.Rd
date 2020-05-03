@@ -2,14 +2,12 @@
 % Please edit documentation in R/losses.R
 \name{loss_npairs}
 \alias{loss_npairs}
-\title{npairs_loss}
+\title{Npairs loss}
 \usage{
-loss_npairs(y_true, y_pred)
+loss_npairs(name = "npairs_loss")
 }
 \arguments{
-\item{y_true}{1-D integer Tensor with shape [batch_size] of multi-class labels.}
-
-\item{y_pred}{2-D float Tensor with shape [batch_size, batch_size] of similarity matrix between embedding matrices.}
+\item{name}{Optional name for the op.}
 }
 \value{
 npairs_loss: float scalar.
@@ -21,9 +19,12 @@ Computes the npairs loss between `y_true` and `y_pred`.
 Npairs loss expects paired data where a pair is composed of samples from
 the same labels and each pairs in the minibatch have different labels.
 The loss takes each row of the pair-wise similarity matrix, `y_pred`,
-as logits and the remapped multi-class labels, `y_true`, as labels. The similarity matrix `y_pred` between two embedding matrices `a` and `b`
-with shape `[batch_size, hidden_size]` can be computed as follows: ```python
+as logits and the remapped multi-class labels, `y_true`, as labels. The
+similarity matrix `y_pred` between two embedding matrices `a` and `b`
+with shape `[batch_size, hidden_size]` can be computed as follows:
+```
 # y_pred = a * b^T
 y_pred = tf$matmul(a, b, transpose_a=FALSE, transpose_b=TRUE)
-``` See: http://www.nec-labs.com/uploads/images/Department-Images/MediaAnalytics/papers/nips16_npairmetriclearning.pdf
+```
+See: http://www.nec-labs.com/uploads/images/Department-Images/MediaAnalytics/papers/nips16_npairmetriclearning.pdf
 }

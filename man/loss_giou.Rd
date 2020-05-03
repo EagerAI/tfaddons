@@ -2,22 +2,27 @@
 % Please edit documentation in R/losses.R
 \name{loss_giou}
 \alias{loss_giou}
-\title{Giou loss}
+\title{Implements the GIoU loss function.}
 \usage{
-loss_giou(y_true, y_pred, mode = "giou")
+loss_giou(
+  mode = "giou",
+  reduction = tf$keras$losses$Reduction$AUTO,
+  name = "giou_loss"
+)
 }
 \arguments{
-\item{y_true}{true targets tensor. The coordinates of the each bounding box in boxes are
-encoded as [y_min, x_min, y_max, x_max].}
-
-\item{y_pred}{predictions tensor. The coordinates of the each bounding box in boxes are
-encoded as [y_min, x_min, y_max, x_max].}
-
 \item{mode}{one of ['giou', 'iou'], decided to calculate GIoU or IoU loss.}
+
+\item{reduction}{(Optional) Type of tf$keras$losses$Reduction to apply.
+Default value is SUM_OVER_BATCH_SIZE.}
+
+\item{name}{A name for the operation (optional).}
 }
 \value{
 GIoU loss float `Tensor`.
 }
 \description{
-Giou loss
+GIoU loss was first introduced in the [Generalized Intersection over Union:
+A Metric and A Loss for Bounding Box Regression](https://giou.stanford.edu/GIoU.pdf).
+GIoU is an enhancement for models which use IoU in object detection.
 }
