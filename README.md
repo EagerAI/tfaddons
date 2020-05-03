@@ -34,8 +34,9 @@ devtools::install_github('henry090/tfaddons')
 
 Here's how to build a sequential model with ```keras``` using additional features from ```tfaddons``` package.
 
-```
+Import and prepare MNIST dataset.
 
+```
 library(keras)
 library(tfaddons)
 
@@ -51,7 +52,11 @@ x_train <- array_reshape(x_train, c(nrow(x_train), 28, 28, 1))
 x_train <- x_train / 255
 
 y_train <- to_categorical(y_train, 10)
+```
 
+Using the Sequential API, define the model architecture.
+
+```
 # Build a sequential model
 model = keras_model_sequential() %>% 
   layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
@@ -70,7 +75,11 @@ model %>% compile(
   # choose cohen kappa metric
   metrics = metric_cohen_kappa(10)
 )
+```
 
+Train the Keras model.
+
+```
 model %>% fit(
   x_train, y_train,
   batch_size = 128,
@@ -79,7 +88,6 @@ model %>% fit(
 )
 
 ```
-
 
 ```
 Train on 48000 samples, validate on 12000 samples
@@ -95,8 +103,10 @@ One can stop training after certain time. For this purpose, ```seconds``` parame
 model %>% fit(
   x_train, y_train,
   batch_size = 128,
-  epochs = 1,
-  validation_split = 0.2
+  epochs = 4,
+  validation_split = 0.2,
+  verbose = 0,
+  callbacks = callback_time_stopping(seconds = 6, verbose = 1)
 )
 ```
 
