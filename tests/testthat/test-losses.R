@@ -16,15 +16,26 @@ test_loss <- function(name) {
 }
 
 
-test_loss("loss_contrastive") # passes
-test_loss("loss_npairs")
+test_loss("loss_contrastive")
 test_loss("loss_pinball") # passes
-test_loss("loss_npairs_multilabel") # passes
-test_loss("loss_sigmoid_focal_crossentropy") # passes
+test_loss("loss_sigmoid_focal_crossentropy")
 test_loss("loss_triplet_hard")
 test_loss("loss_triplet_semihard")
 test_loss("loss_giou")
 test_loss("loss_lifted_struct")
 test_loss("loss_sparsemax")
+
+sys = switch(Sys.info()[['sysname']],
+             Windows= {paste("windows.")},
+             Linux  = {paste("linux.")},
+             Darwin = {paste("mac")})
+
+if (!sys %in% 'windows' & !tensorflow::tf_version() %in% "2.1") {
+  test_loss("loss_npairs")
+  test_loss("loss_npairs_multilabel")
+}
+
+
+
 
 
