@@ -30,7 +30,7 @@ sys = switch(Sys.info()[['sysname']],
              Linux  = {paste("linux.")},
              Darwin = {paste("mac")})
 
-if (!sys %in% 'windows' & !tensorflow::tf_version() %in% "2.1") {
+if (!(sys == 'windows') & !(tensorflow::tf_version() == "2.1")) {
   test_loss("loss_npairs")
   test_loss("loss_npairs_multilabel")
 }
