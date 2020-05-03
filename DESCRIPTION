@@ -27,9 +27,10 @@ Imports:
     tensorflow,
     keras,
     rstudioapi,
-    purrr,
-    testthat
+    purrr
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    dplyr,
+    testthat
 VignetteBuilder: knitr
