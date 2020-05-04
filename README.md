@@ -155,7 +155,7 @@ model %>% compile(
   loss = loss_triplet_semihard())
 ```
 
-Then, with ```tfdatasets``` package we can *cast* our dataset and ```fit`` the  model.
+With ```tfdatasets``` package we can *cast* our dataset and then ```fit```.
 
 ```
 library(tfdatasets)
