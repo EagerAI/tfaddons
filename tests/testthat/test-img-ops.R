@@ -7,7 +7,7 @@ download.file('https://tensorflow.org/images/tf_logo.png','tf_logo.png')
 img_path = paste( getwd() ,'tf_logo.png', sep = '/')
 
 img_raw = tf$io$read_file(img_path)
-img = tf$io$decode_image(img_raw)
+img = tf$io$decode_png(img_raw)
 img = tf$image$convert_image_dtype(img, tf$float32)
 img = tf$image$resize(img, c(500L,500L))
 bw_img = 1.0 - tf$image$rgb_to_grayscale(img)
@@ -49,7 +49,7 @@ test_succeeds('img_adjust_hsv_in_yiq', {
 
 
 test_succeeds('img_dense_image_warp', {
-  input_img = tf$image$convert_image_dtype(tf$expand_dims(img, 0L), tf$dtypes$float32)
+  input_img = tf$expand_dims(img, 0L)
   flow_shape = list(1L, as.integer(input_img$shape[[2]]), as.integer(input_img$shape[[3]]), 2L)
   init_flows = tf$random$normal(flow_shape) * 2.0
   dense_img_warp = img_dense_image_warp(input_img, init_flows)
