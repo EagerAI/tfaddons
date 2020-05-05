@@ -3,13 +3,13 @@ context("image_ops")
 source("utils.R")
 
 test_succeeds('img_read', {
-  dir.create('data')
-  download.file('https://tensorflow.org/images/tf_logo.png',file.path("data", basename('tf_logo.png')))
+  #dir.create('data')
+  #download.file('https://tensorflow.org/images/tf_logo.png',file.path("data", basename('tf_logo.png')))
 
-  img_path = paste( 'data' ,'tf_logo.png', sep = '/')
+  #img_path = paste( 'data' ,'tf_logo.png', sep = '/')
 
-  img_path = gsub(img_path, replacement = '/',pattern = '\\',fixed=TRUE)
-
+  #img_path = gsub(img_path, replacement = '/',pattern = '\\',fixed=TRUE)
+  img_path = tf$keras$utils$get_file('tensorflow.png','https://tensorflow.org/images/tf_logo.png')
   img_raw = tf$io$read_file(img_path)
   img = tf$io$decode_png(img_raw)
   img = tf$image$convert_image_dtype(img, tf$float32)
