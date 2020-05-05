@@ -10,6 +10,7 @@ img_raw = tf$io$read_file(img_path)
 img = tf$io$decode_image(img_raw)
 img = tf$image$convert_image_dtype(img, tf$float32)
 img = tf$image$resize(img, c(500L,500L))
+bw_img = 1.0 - tf$image$rgb_to_grayscale(img)
 
 
 test_succeeds('img_mean_filter2d', {
