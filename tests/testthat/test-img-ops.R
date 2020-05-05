@@ -2,12 +2,11 @@ context("image_ops")
 
 source("utils.R")
 
+test_succeeds('img_read', {
+  dir.create('data')
+  download.file('https://tensorflow.org/images/tf_logo.png',file.path("data", basename('tf_logo.png')))
 
-
-test_succeeds_skip_win('img_read', {
-  download.file('https://tensorflow.org/images/tf_logo.png','tf_logo.png')
-
-  img_path = paste( getwd() ,'tf_logo.png', sep = '/')
+  img_path = paste( 'data' ,'tf_logo.png', sep = '/')
 
   img_path = gsub(img_path, replacement = '/',pattern = '\\',fixed=TRUE)
 
@@ -19,24 +18,24 @@ test_succeeds_skip_win('img_read', {
 })
 
 
-test_succeeds_skip_win('img_mean_filter2d', {
+test_succeeds('img_mean_filter2d', {
   mean = img_mean_filter2d(img,filter_shape = 11)
 })
 
-test_succeeds_skip_win('img_median_filter2d', {
+test_succeeds('img_median_filter2d', {
   median = img_median_filter2d(img,filter_shape = 11)
 })
 
-test_succeeds_skip_win('img_rotate', {
+test_succeeds('img_rotate', {
   rotate = img_rotate(img, tf$constant(pi/8))
 })
 
-test_succeeds_skip_win('img_transform', {
+test_succeeds('img_transform', {
   transform = img_transform(img, c(1.0, 1.0, -250, 0.0, 1.0, 0.0, 0.0, 0.0))
 })
 
 
-test_succeeds_skip_win('img_random_hsv_in_yiq', {
+test_succeeds('img_random_hsv_in_yiq', {
   delta = 0.5
   lower_saturation = 0.1
   upper_saturation = 0.9
@@ -46,36 +45,31 @@ test_succeeds_skip_win('img_random_hsv_in_yiq', {
 })
 
 
-test_succeeds_skip_win('img_adjust_hsv_in_yiq', {
+test_succeeds('img_adjust_hsv_in_yiq', {
   delta = 0.5
   saturation = 0.3
   value = 0.6
   adj_hsvinyiq = img_adjust_hsv_in_yiq(img, delta, saturation, value)
 })
 
-sys = switch(Sys.info()[['sysname']],
-             Windows= {paste("windows.")},
-             Linux  = {paste("linux.")},
-             Darwin = {paste("mac")})
 
-if (!(sys == 'mac') & !(tensorflow::tf_version() == "2.1")) {
 
-  test_succeeds_skip_win('img_dense_image_warp', {
-    input_img = tf$expand_dims(img, 0L)
+test_succeeds('img_dense_image_warp', {
+  input_img = tf$expand_dims(img, 0L)
+
+  if(as.integer(input_img$shape[[2]]) == as.integer(input_img$shape[[3]])) {
     flow_shape = list(1L, as.integer(input_img$shape[[2]]), as.integer(input_img$shape[[3]]), 2L)
     init_flows = tf$random$normal(flow_shape) * 2.0
     dense_img_warp = img_dense_image_warp(input_img, init_flows)
     dense_img_warp = tf$squeeze(dense_img_warp, 0)
-  })
+  }
 
-}
-
-
+})
 
 
-test_succeeds_skip_win('img_euclidean_dist_transform', {
+
+test_succeeds('img_euclidean_dist_transform', {
   gray = tf$image$convert_image_dtype(bw_img,tf$uint8)
-  # The op expects a batch of images, so add a batch dimension
   gray = tf$expand_dims(gray, 0L)
   eucid = img_euclidean_dist_transform(gray)
   eucid = tf$squeeze(eucid, c(0,-1))

@@ -22,18 +22,6 @@ test_succeeds <- function(desc, expr) {
 
 
 
-test_succeeds_skip_win <- function(desc, expr) {
-  sys = switch(Sys.info()[['sysname']],
-               Windows= {paste("windows.")},
-               Linux  = {paste("linux.")},
-               Darwin = {paste("mac")})
-  if(!sys=='windows') {
-    test_that(desc, {
-      skip_if_no_tfaddons()
-      skip_if_no_tf_version("2.0")
-      expect_error(force(expr), NA)
-    })
-  }
-}
+
 
 
