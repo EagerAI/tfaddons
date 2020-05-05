@@ -6,6 +6,8 @@ download.file('https://tensorflow.org/images/tf_logo.png','tf_logo.png')
 
 img_path = paste( getwd() ,'tf_logo.png', sep = '/')
 
+img_path = gsub(img_path, replacement = '/',pattern = '\\',fixed=TRUE)
+
 img_raw = tf$io$read_file(img_path)
 img = tf$io$decode_png(img_raw)
 img = tf$image$convert_image_dtype(img, tf$float32)
@@ -47,14 +49,23 @@ test_succeeds('img_adjust_hsv_in_yiq', {
   adj_hsvinyiq = img_adjust_hsv_in_yiq(img, delta, saturation, value)
 })
 
+sys = switch(Sys.info()[['sysname']],
+             Windows= {paste("windows.")},
+             Linux  = {paste("linux.")},
+             Darwin = {paste("mac")})
 
-test_succeeds('img_dense_image_warp', {
-  input_img = tf$expand_dims(img, 0L)
-  flow_shape = list(1L, as.integer(input_img$shape[[2]]), as.integer(input_img$shape[[3]]), 2L)
-  init_flows = tf$random$normal(flow_shape) * 2.0
-  dense_img_warp = img_dense_image_warp(input_img, init_flows)
-  dense_img_warp = tf$squeeze(dense_img_warp, 0)
-})
+if (!(sys == 'mac') & !(tensorflow::tf_version() == "2.1")) {
+
+  test_succeeds('img_dense_image_warp', {
+    input_img = tf$expand_dims(img, 0L)
+    flow_shape = list(1L, as.integer(input_img$shape[[2]]), as.integer(input_img$shape[[3]]), 2L)
+    init_flows = tf$random$normal(flow_shape) * 2.0
+    dense_img_warp = img_dense_image_warp(input_img, init_flows)
+    dense_img_warp = tf$squeeze(dense_img_warp, 0)
+  })
+
+}
+
 
 
 
