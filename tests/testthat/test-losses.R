@@ -30,6 +30,7 @@ sys = switch(Sys.info()[['sysname']],
              Linux  = {paste("linux.")},
              Darwin = {paste("mac")})
 
+# TensorFlow 2.1 does not support "loss_npairs" and "loss_npairs_multilabel" losses! Skip them.
 if (!(sys == 'windows') & !(tensorflow::tf_version() == "2.1")) {
   test_loss("loss_npairs")
   test_loss("loss_npairs_multilabel")

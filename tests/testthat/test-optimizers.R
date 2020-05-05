@@ -33,26 +33,22 @@ test_succeeds('optimizer_conditional_gradient', {
     )
 })
 
+test_optimizer_decay <- function(name) {
+  optimizer_fn <- eval(parse(text = name))
+  test_succeeds(name, {
+    keras_model_sequential() %>%
+      layer_dense(32, input_shape = c(784)) %>%
+      compile(
+        optimizer = optimizer_fn(weight_decay = 1e-3),
+        loss='binary_crossentropy',
+        metrics='accuracy'
+      )
+  })
+}
 
-test_succeeds('optimizer_decay_adamw', {
-  keras_model_sequential() %>%
-    layer_dense(32, input_shape = c(784)) %>%
-    compile(
-      optimizer = optimizer_decay_adamw(weight_decay = 1e-3),
-      loss='binary_crossentropy',
-      metrics='accuracy'
-    )
-})
 
-test_succeeds('optimizer_decay_sgdw', {
-  keras_model_sequential() %>%
-    layer_dense(32, input_shape = c(784)) %>%
-    compile(
-      optimizer = optimizer_decay_sgdw(weight_decay = 1e-3),
-      loss='binary_crossentropy',
-      metrics='accuracy'
-    )
-})
+test_optimizer_decay("optimizer_decay_adamw")
+test_optimizer_decay("optimizer_decay_sgdw")
 
 
 
