@@ -429,7 +429,7 @@ layer_sparsemax <- function(object,
                             ...) {
   args = list(axis = as.integer(axis), ...)
 
-  create_layer(tfa$layers$PoincareNormalize, object, args)
+  create_layer(tfa$layers$Sparsemax, object, args)
 
 }
 
