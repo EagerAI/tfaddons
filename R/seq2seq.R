@@ -339,7 +339,7 @@ decoder_basic <- function(object,
     ...
   )
 
-  create_layer(tfa$seq2seq$BaseDecoder, object, args)
+  create_layer(tfa$seq2seq$BasicDecoder, object, args)
 
 }
 
