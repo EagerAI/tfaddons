@@ -3,3 +3,4 @@
 ^LICENSE$
 ^images$
 ^\.github/workflows$
+^vignettes$
