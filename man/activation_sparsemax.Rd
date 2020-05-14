@@ -9,16 +9,18 @@ activation_sparsemax(logits, axis = -1L)
 \arguments{
 \item{logits}{Input tensor.}
 
-\item{axis}{Integer, axis along which the sparsemax operation is applied. Returns: Tensor, output of sparsemax transformation. Has the same type and shape as `logits`. Raises:}
+\item{axis}{Integer, axis along which the sparsemax operation is applied.}
 }
 \value{
-Tensor, output of sparsemax transformation. Has the same type and shape as `logits`. Raises: ValueError: In case `dim(logits) == 1`.
+Tensor, output of sparsemax transformation. Has the same type and shape as
+`logits`. Raises: ValueError: In case `dim(logits) == 1`.
 }
 \description{
 Sparsemax activation function [1].
 }
 \details{
-For each batch `i` and class `j` we have $$sparsemax[i, j] = max(logits[i, j] - tau(logits[i, :]), 0)$$ [1]: https://arxiv.org/abs/1602.02068
+For each batch `i` and class `j` we have $$sparsemax[i, j] =
+max(logits[i, j] - tau(logits[i, :]), 0)$$ [1]: https://arxiv.org/abs/1602.02068
 }
 \section{Raises}{
 

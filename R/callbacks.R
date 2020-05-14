@@ -112,7 +112,7 @@ callback_tqdm_progress_bar <- function(metrics_separator = ' - ',
 #'
 #' @section For example: if `filepath` is `weights.{epoch:02d}-{val_loss:.2f}.hdf5`,:
 #' then the model checkpoints will be saved with the epoch number and the validation loss in the filename.
-#'
+#' @return None
 #' @export
 callback_average_model_checkpoint <- function(filepath, update_weights,
                                               monitor = "val_loss", verbose = 0,

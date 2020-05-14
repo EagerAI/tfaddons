@@ -695,6 +695,7 @@ gather_tree_from_array <- function(t, parent_ids, sequence_length) {
 #'
 #'
 #' @return None
+#' @export
 sampler_greedy_embedding <- function(embedding_fn = NULL) {
 
   args = list(
@@ -1178,8 +1179,6 @@ sampler_training <- function(time_major = FALSE) {
 
   do.call(tfa$seq2seq$TrainingSampler, args)
 }
-
-
 
 
 

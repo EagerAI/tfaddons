@@ -24,7 +24,7 @@ activation_rrelu(
 \item{seed}{`int`, this sets the operation-level seed. Returns:}
 }
 \value{
-result: A `Tensor`. Has the same type as `x`.
+A `Tensor`. Has the same type as `x`.
 }
 \description{
 rrelu function.

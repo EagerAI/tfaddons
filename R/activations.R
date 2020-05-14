@@ -5,7 +5,8 @@
 #' @details Computes gaussian error linear:
 #' `0.5 * x * (1 + tanh(sqrt(2 / pi) * (x + 0.044715 * x^3)))` or
 #' `x * P(X <= x) = 0.5 * x * (1 + erf(x / sqrt(2)))`, where P(X) ~ N(0, 1),
-#' depending on whether approximation is enabled. See [Gaussian Error Linear Units (GELUs)](https://arxiv.org/abs/1606.08415)
+#' depending on whether approximation is enabled.
+#' See [Gaussian Error Linear Units (GELUs)](https://arxiv.org/abs/1606.08415)
 #' and [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805).
 #'
 #' @param x A `Tensor`. Must be one of the following types: `float16`, `float32`, `float64`.
@@ -70,7 +71,6 @@ attr(activation_hardshrink, "py_function_name") <- "hardshrink"
 #' See [LiSHT: Non-Parameteric Linearly Scaled Hyperbolic Tangent Activation Function for Neural Networks](https://arxiv.org/abs/1901.05894).
 #'
 #' @param x A `Tensor`. Must be one of the following types: `float16`, `float32`, `float64`.
-#' Returns: A `Tensor`. Has the same type as `x`.
 #'
 #' @return A `Tensor`. Has the same type as `x`.
 #'
@@ -129,7 +129,7 @@ attr(activation_mish, "py_function_name") <- "mish"
 #' @param training `bool`, indicating whether the `call` is meant for training or inference.
 #' @param seed `int`, this sets the operation-level seed. Returns:
 #'
-#' @return result: A `Tensor`. Has the same type as `x`.
+#' @return A `Tensor`. Has the same type as `x`.
 #'
 #' @section Computes rrelu function:
 #' `x if x > 0 else random(lower, upper) * x` or `x if x > 0 else x * (lower + upper) / 2` depending on
@@ -192,12 +192,14 @@ attr(activation_softshrink, "py_function_name") <- "softshrink"
 #'
 #' @description Sparsemax activation function [1].
 #'
-#' @details For each batch `i` and class `j` we have $$sparsemax[i, j] = max(logits[i, j] - tau(logits[i, :]), 0)$$ [1]: https://arxiv.org/abs/1602.02068
+#' @details For each batch `i` and class `j` we have $$sparsemax[i, j] =
+#' max(logits[i, j] - tau(logits[i, :]), 0)$$ [1]: https://arxiv.org/abs/1602.02068
 #'
 #' @param logits Input tensor.
-#' @param axis Integer, axis along which the sparsemax operation is applied. Returns: Tensor, output of sparsemax transformation. Has the same type and shape as `logits`. Raises:
+#' @param axis Integer, axis along which the sparsemax operation is applied.
 #'
-#' @return Tensor, output of sparsemax transformation. Has the same type and shape as `logits`. Raises: ValueError: In case `dim(logits) == 1`.
+#' @return Tensor, output of sparsemax transformation. Has the same type and shape as
+#' `logits`. Raises: ValueError: In case `dim(logits) == 1`.
 #'
 #' @section Raises:
 #' ValueError: In case `dim(logits) == 1`.
@@ -221,7 +223,7 @@ attr(activation_sparsemax, "py_function_name") <- "sparsemax"
 #' @description Applies the element-wise function: x - tanh(x)
 #'
 #'
-#' @param x x
+#' @param x A `Tensor`. Must be one of the following types: `float16`, `float32`, `float64`.
 #'
 #' @return A `Tensor`. Has the same type as `features`.
 #'

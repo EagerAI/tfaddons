@@ -7,7 +7,7 @@
 activation_tanhshrink(x)
 }
 \arguments{
-\item{x}{x}
+\item{x}{A `Tensor`. Must be one of the following types: `float16`, `float32`, `float64`.}
 }
 \value{
 A `Tensor`. Has the same type as `features`.

@@ -55,7 +55,7 @@ img_adjust_hsv_in_yiq <- function(image, delta_hue = 0, scale_saturation = 1, sc
 #' or (num_rows, num_columns) (HW), or (num_channels, num_rows, num_columns).
 #' @param factor A floating point value or Tensor of type tf.float32 above 0.0.
 #'
-#' @return A blended image Tensor of tf.float32.
+#' @return A blended image Tensor of tf$float32.
 #'
 #' @export
 img_blend <- function(image1, image2, factor) {
@@ -136,7 +136,7 @@ img_connected_components <- function(images,
 #' inputs with shape `(batch_size, ..., channels)` while `channels_first` corresponds
 #' to inputs with shape `(batch_size, channels, ...)`.
 #'
-#' @return An image Tensor. Raises: InvalidArgumentError: if mask_size can't be divisible by 2.
+#' @return An image Tensor.
 #' @importFrom purrr map
 #' @section Raises:
 #' InvalidArgumentError: if mask_size can't be divisible by 2.
@@ -512,7 +512,7 @@ img_median_filter2d <- function(image,
 #' with shape `(batch_size, ..., channels)` while `channels_first` corresponds to inputs
 #' with shape `(batch_size, channels, ...)`.
 #'
-#' @return An image Tensor. Raises: InvalidArgumentError: if mask_size can't be divisible by 2.
+#' @return An image Tensor.
 #' @importFrom purrr map
 #' @section Raises:
 #' InvalidArgumentError: if mask_size can't be divisible by 2.
@@ -650,7 +650,7 @@ img_resampler <- function(data,
 }
 
 
-#' @title rotate
+#' @title Rotate
 #'
 #' @description Rotate image(s) counterclockwise by the passed angle(s) in radians.
 #'

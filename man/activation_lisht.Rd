@@ -7,8 +7,7 @@
 activation_lisht(x)
 }
 \arguments{
-\item{x}{A `Tensor`. Must be one of the following types: `float16`, `float32`, `float64`.
-Returns: A `Tensor`. Has the same type as `x`.}
+\item{x}{A `Tensor`. Must be one of the following types: `float16`, `float32`, `float64`.}
 }
 \value{
 A `Tensor`. Has the same type as `x`.
