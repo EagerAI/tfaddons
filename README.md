@@ -26,12 +26,23 @@ Addons provide the following features which are compatible with ```keras``` libr
 - seq2seq
 - text
 
-Currently, the package is under development. But it could be installed from github:
+## Installation
+
+Requirements:
+
+- TensorFlow 2.X
+
+The dev version:
 
 ```
 devtools::install_github('henry090/tfaddons')
 ```
 
+Later, you need to install the python module *tensorflow-addons*:
+
+```
+tfaddons::install_tfaddons()
+```
 
 ## Usage: the basics
 
