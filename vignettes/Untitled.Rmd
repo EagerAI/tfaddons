@@ -1,3 +1,15 @@
+---
+title: "NMT"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Neural Machine Translation
+
+```{r eval=F}
 
 library(tensorflow)
 library(keras)
@@ -228,3 +240,5 @@ for (i in 1:sum(epochs + 1)) {
   }
 
 }
+
+```
