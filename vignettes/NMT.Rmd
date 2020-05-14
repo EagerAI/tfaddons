@@ -1,9 +1,9 @@
 ---
-title: "Bayesian Optimization"
+title: "Neural Machine Translation"
 output:
   rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Bayesian Optimization}
+  %\VignetteIndexEntry{Neural Machine Translation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -12,7 +12,6 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Neural Machine Translation
 
 ```{r eval=F}
 
