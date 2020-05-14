@@ -34,6 +34,7 @@ callback_time_stopping <- function(seconds = 86400, verbose = 0){
 #' @param metrics_separator (string) Custom separator between metrics. Defaults to ' - '
 #' @param overall_bar_format (string format) Custom bar format for overall (outer) progress
 #' bar, see https://github.com/tqdm/tqdm#parameters for more detail.
+#' By default: '{l_bar}{bar} {n_fmt}/{total_fmt} ETA: {remaining}s,  {rate_fmt}{postfix}'
 #' @param epoch_bar_format (string format) Custom bar format for epoch (inner) progress bar,
 #' see https://github.com/tqdm/tqdm#parameters for more detail.
 #' @param update_per_second (int) Maximum number of updates in the epochs bar per second, this
@@ -54,7 +55,7 @@ callback_time_stopping <- function(seconds = 86400, verbose = 0){
 #'
 #' @export
 callback_tqdm_progress_bar <- function(metrics_separator = ' - ',
-                                       overall_bar_format = '{l_bar}{bar} {n_fmt}/{total_fmt} ETA: {remaining}s,  {rate_fmt}{postfix}',
+                                       overall_bar_format = NULL,
                                        epoch_bar_format = '{n_fmt}/{total_fmt}{bar} ETA: {remaining}s - {desc}',
                                        update_per_second = 10,
                                        leave_epoch_progress = TRUE,
@@ -72,6 +73,9 @@ callback_tqdm_progress_bar <- function(metrics_separator = ' - ',
     show_epoch_progress = show_epoch_progress,
     show_overall_progress = show_overall_progress
   )
+
+  if(is.null(overall_bar_format))
+    args$overall_bar_format <- '{l_bar}{bar} {n_fmt}/{total_fmt} ETA: {remaining}s,  {rate_fmt}{postfix}'
 
   do.call(tfa$callbacks$TQDMProgressBar, args)
 

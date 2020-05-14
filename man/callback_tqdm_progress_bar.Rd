@@ -6,8 +6,7 @@
 \usage{
 callback_tqdm_progress_bar(
   metrics_separator = " - ",
- 
-    overall_bar_format = "{l_bar}{bar} {n_fmt}/{total_fmt} ETA: {remaining}s,  {rate_fmt}{postfix}",
+  overall_bar_format = NULL,
   epoch_bar_format = "{n_fmt}/{total_fmt}{bar} ETA: {remaining}s - {desc}",
   update_per_second = 10,
   leave_epoch_progress = TRUE,
@@ -20,7 +19,8 @@ callback_tqdm_progress_bar(
 \item{metrics_separator}{(string) Custom separator between metrics. Defaults to ' - '}
 
 \item{overall_bar_format}{(string format) Custom bar format for overall (outer) progress
-bar, see https://github.com/tqdm/tqdm#parameters for more detail.}
+bar, see https://github.com/tqdm/tqdm#parameters for more detail.
+By default: '{l_bar}{bar} {n_fmt}/{total_fmt} ETA: {remaining}s,  {rate_fmt}{postfix}'}
 
 \item{epoch_bar_format}{(string format) Custom bar format for epoch (inner) progress bar,
 see https://github.com/tqdm/tqdm#parameters for more detail.}
