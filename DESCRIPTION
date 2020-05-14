@@ -9,11 +9,11 @@ Authors@R: c(
 Maintainer: Turgut Abdullayev <turqut.a.314@gmail.com>
 Description: 'TensorFlow SIG Addons' <https://www.tensorflow.org/addons> is a repository 
              of community contributions that conform to well-established API patterns, 
-             but implement new functionality not available in core TensorFlow. 
-             TensorFlow natively supports a large number of operators, layers, metrics, 
+             but implement new functionality not available in core 'TensorFlow'. 
+             'TensorFlow' natively supports a large number of operators, layers, metrics, 
              losses, optimizers, and more. However, in a fast moving field like ML, 
              there are many interesting new developments that cannot be integrated into 
-             core TensorFlow (because their broad applicability is not yet clear, or 
+             core 'TensorFlow' (because their broad applicability is not yet clear, or 
              it is mostly used by a smaller subset of the community).
 License: Apache License 2.0
 URL: https://github.com/henry090/tfaddons
