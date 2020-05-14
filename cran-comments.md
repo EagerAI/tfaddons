@@ -10,6 +10,6 @@ This is a first submission of 'tfaddons' 0.9.1
 
 ## R CMD check results
 
-There were no ERRORs, WARNINGs. There was 1 NOTE:
+There were no ERRORs, WARNINGs, NOTEs.
 
 

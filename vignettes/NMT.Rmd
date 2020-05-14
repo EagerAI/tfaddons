@@ -1,6 +1,11 @@
 ---
-title: "NMT"
-output: html_document
+title: "Bayesian Optimization"
+output:
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Bayesian Optimization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
