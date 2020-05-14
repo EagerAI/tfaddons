@@ -1,11 +1,11 @@
 ---
 title: "Neural Machine Translation"
-output:
-  rmarkdown::html_vignette
+author: "Turgut Abdullayev"
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Neural Machine Translation}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}

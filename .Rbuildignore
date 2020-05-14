@@ -3,6 +3,8 @@
 ^LICENSE$
 ^images$
 ^\.github/workflows$
-^vignettes$
-^cran-comments.md$
+^cran-comments\.md$
 ^CRAN-RELEASE$
+^docs$
+^pkgdown$
+^NEWS\.md$
