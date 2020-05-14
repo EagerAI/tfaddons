@@ -21,7 +21,8 @@ Gaussian Error Linear Unit.
 Computes gaussian error linear:
 `0.5 * x * (1 + tanh(sqrt(2 / pi) * (x + 0.044715 * x^3)))` or
 `x * P(X <= x) = 0.5 * x * (1 + erf(x / sqrt(2)))`, where P(X) ~ N(0, 1),
-depending on whether approximation is enabled. See [Gaussian Error Linear Units (GELUs)](https://arxiv.org/abs/1606.08415)
+depending on whether approximation is enabled.
+See [Gaussian Error Linear Units (GELUs)](https://arxiv.org/abs/1606.08415)
 and [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805).
 }
 \section{Computes gaussian error linear}{

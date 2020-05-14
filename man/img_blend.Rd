@@ -16,7 +16,7 @@ or (num_rows, num_columns) (HW), or (num_channels, num_rows, num_columns).}
 \item{factor}{A floating point value or Tensor of type tf.float32 above 0.0.}
 }
 \value{
-A blended image Tensor of tf.float32.
+A blended image Tensor of tf$float32.
 }
 \description{
 Blend image1 and image2 using 'factor'.

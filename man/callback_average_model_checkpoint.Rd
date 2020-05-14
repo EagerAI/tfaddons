@@ -48,6 +48,9 @@ Defaults to `'epoch'`}
 
 \item{...}{Additional arguments for backwards compatibility. Possible key is `period`.}
 }
+\value{
+None
+}
 \description{
 Save the model after every epoch.
 }

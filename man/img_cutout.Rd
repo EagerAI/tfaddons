@@ -31,7 +31,7 @@ inputs with shape `(batch_size, ..., channels)` while `channels_first` correspon
 to inputs with shape `(batch_size, channels, ...)`.}
 }
 \value{
-An image Tensor. Raises: InvalidArgumentError: if mask_size can't be divisible by 2.
+An image Tensor.
 }
 \description{
 Apply cutout (https://arxiv.org/abs/1708.04552) to images.

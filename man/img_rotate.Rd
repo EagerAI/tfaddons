@@ -2,7 +2,7 @@
 % Please edit documentation in R/image_ops.R
 \name{img_rotate}
 \alias{img_rotate}
-\title{rotate}
+\title{Rotate}
 \usage{
 img_rotate(images, angles, interpolation = "NEAREST", name = NULL)
 }
