@@ -4,3 +4,4 @@
 ^images$
 ^\.github/workflows$
 ^vignettes$
+^cran-comments.md$
