@@ -11,8 +11,6 @@ skip_if_no_tf_version <- function(required_version) {
   if (tensorflow::tf_version() < required_version)
     skip(paste0("Needs TF version >= ", required_version))
 
-  if (required_version == '2.2')
-    skip(paste0("Needs TF version < ", required_version))
 }
 
 
