@@ -5,3 +5,4 @@
 ^\.github/workflows$
 ^vignettes$
 ^cran-comments.md$
+^CRAN-RELEASE$

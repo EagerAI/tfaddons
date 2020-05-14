@@ -12,10 +12,16 @@ skip_if_no_tf_version <- function(required_version) {
     skip(paste0("Needs TF version >= ", required_version))
 }
 
+skip_if_tf_version_2.2 <- function(required_version) {
+  if (tensorflow::tf_version() == required_version)
+    skip(paste0("Skip TF version == ", required_version))
+}
+
 test_succeeds <- function(desc, expr) {
   test_that(desc, {
     skip_if_no_tfaddons()
     skip_if_no_tf_version("2.0")
+    skip_if_tf_version_2.2("2.2")
     expect_error(force(expr), NA)
   })
 }

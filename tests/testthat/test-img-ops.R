@@ -2,7 +2,7 @@ context("image_ops")
 
 source("utils.R")
 
-state = tensorflow::tf_version() == '2.1.0' | tensorflow::tf_version() == '2.0'
+#state = tensorflow::tf_version() == '2.1.0' | tensorflow::tf_version() == '2.0'
 
 test_succeeds('img_read', {
   #dir.create('data')
@@ -28,39 +28,31 @@ test_succeeds('img_median_filter2d', {
   median = img_median_filter2d(img,filter_shape = 11)
 })
 
-if(state) {
-  test_succeeds('img_rotate', {
-    rotate = img_rotate(img, tf$constant(pi/8))
-  })
-}
+test_succeeds('img_rotate', {
+  rotate = img_rotate(img, tf$constant(pi/8))
+})
 
-if(state) {
-  test_succeeds('img_transform', {
-    transform = img_transform(img, c(1.0, 1.0, -250, 0.0, 1.0, 0.0, 0.0, 0.0))
-  })
-}
+test_succeeds('img_transform', {
+  transform = img_transform(img, c(1.0, 1.0, -250, 0.0, 1.0, 0.0, 0.0, 0.0))
+})
 
 
-if(state) {
-  test_succeeds('img_random_hsv_in_yiq', {
-    delta = 0.5
-    lower_saturation = 0.1
-    upper_saturation = 0.9
-    lower_value = 0.2
-    upper_value = 0.8
-    rand_hsvinyiq = img_random_hsv_in_yiq(img, delta, lower_saturation, upper_saturation, lower_value, upper_value)
-  })
-}
+test_succeeds('img_random_hsv_in_yiq', {
+  delta = 0.5
+  lower_saturation = 0.1
+  upper_saturation = 0.9
+  lower_value = 0.2
+  upper_value = 0.8
+  rand_hsvinyiq = img_random_hsv_in_yiq(img, delta, lower_saturation, upper_saturation, lower_value, upper_value)
+})
 
 
-if (state) {
-  test_succeeds('img_adjust_hsv_in_yiq', {
-    delta = 0.5
-    saturation = 0.3
-    value = 0.6
-    adj_hsvinyiq = img_adjust_hsv_in_yiq(img, delta, saturation, value)
-  })
-}
+test_succeeds('img_adjust_hsv_in_yiq', {
+  delta = 0.5
+  saturation = 0.3
+  value = 0.6
+  adj_hsvinyiq = img_adjust_hsv_in_yiq(img, delta, saturation, value)
+})
 
 
 
@@ -78,14 +70,12 @@ test_succeeds('img_dense_image_warp', {
 
 
 
-if (state) {
-  test_succeeds('img_euclidean_dist_transform', {
-    gray = tf$image$convert_image_dtype(bw_img,tf$uint8)
-    gray = tf$expand_dims(gray, 0L)
-    eucid = img_euclidean_dist_transform(gray)
-    eucid = tf$squeeze(eucid, c(0,-1))
-  })
-}
+test_succeeds('img_euclidean_dist_transform', {
+  gray = tf$image$convert_image_dtype(bw_img,tf$uint8)
+  gray = tf$expand_dims(gray, 0L)
+  eucid = img_euclidean_dist_transform(gray)
+  eucid = tf$squeeze(eucid, c(0,-1))
+})
 
 
 
