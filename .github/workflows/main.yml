@@ -49,7 +49,7 @@ jobs:
         run: |
           Rscript -e "remotes::install_local()"
           Rscript -e "tensorflow::install_tensorflow(version = Sys.getenv('TF_VERSION'))"
-          Rscript -e "reticulate::py_install(c('setuptools', 'wheel', 'requests'), pip = TRUE)"
+          Rscript -e "reticulate::py_install(c('setuptools', 'wheel', 'requests', 'tqdm'), pip = TRUE)"
           Rscript -e "tfaddons::install_tfaddons()"
       - name: Check
         continue-on-error: ${{ matrix.config.allow_failure }}
