@@ -25,12 +25,12 @@ RoxygenNote: 7.1.0
 Imports:
     reticulate, 
     tensorflow,
-    keras,
     rstudioapi,
+    keras,
     purrr
 Suggests:
     knitr,
     rmarkdown,
-    dplyr,
-    testthat
+    testthat,
+    dplyr
 VignetteBuilder: knitr
