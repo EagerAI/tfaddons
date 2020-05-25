@@ -6,7 +6,7 @@ The `tfaddons` package provides R wrappers to [TensorFlow Addons](https://www.te
 
 __TensorFlow Addons__ is a repository of contributions that conform to well-established API patterns, but implement new functionality not available in core TensorFlow. TensorFlow natively supports a large number of operators, layers, metrics, losses, and optimizers. However, in a fast moving field like ML, there are many interesting new developments that cannot be integrated into core TensorFlow (because their broad applicability is not yet clear, or it is mostly used by a smaller subset of the community).
 
-[![Actions Status](https://github.com/henry090/tfaddons/workflows/R-CMD/badge.svg)](https://github.com/henry090/tfaddons)
+[![Actions Status](https://github.com/henry090/tfaddons/workflows/tfaddons/badge.svg)](https://github.com/henry090/tfaddons)
 [![CRAN](https://www.r-pkg.org/badges/version/tfaddons?color=darkgreen)](https://cran.r-project.org/package=tfaddons)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Last commit](https://img.shields.io/github/last-commit/henry090/tfaddons.svg)](https://github.com/henry090/tfaddons/commits/master)
