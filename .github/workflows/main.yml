@@ -1,12 +1,12 @@
 on: [push, pull_request]
 
-name: R-CMD
+name: tfaddons
 
 jobs:
   R-CMD:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (TF ${{ matrix.config.tf }}) (TENSORFLOW-ADDONS ${{ matrix.config.tensorflow-addons }})
+    name: ${{ matrix.config.os }} (TF ${{ matrix.config.tf }}) (ADDONS ${{ matrix.config.tensorflow-addons }})
 
     strategy:
       fail-fast: false
