@@ -1,7 +1,7 @@
 Package: tfaddons
 Type: Package
 Title: Interface to 'TensorFlow SIG Addons' 
-Version: 0.9.1
+Version: 0.10.0
 Authors@R: c(
   person("Turgut", "Abdullayev", role = c("aut", "cre"),
          email = "turqut.a.314@gmail.com")
