@@ -151,31 +151,6 @@ img_flat_transforms_to_matrices <- function(transforms, name = NULL) {
 }
 
 
-#' @title Compose transforms
-#'
-#' @description Composes the transforms tensors.
-#'
-#'
-#' @param transforms List of image projective transforms to be composed.
-#' Each transform is length 8 (single transform) or shape (N, 8) (batched transforms).
-#' The shapes of all inputs must be equal, and at least one input must be given.
-#' @param name The name for the op.
-#'
-#' @return A composed transform tensor. When passed to `transform` op, equivalent to
-#' applying each of the given transforms to the image in order.
-#'
-#' @export
-img_compose_transforms <- function(transforms, name = NULL) {
-
-  args <- list(
-    transforms = transforms,
-    name = name
-  )
-
-  do.call(tfa$image$transform_ops$compose_transforms, args)
-
-}
-
 
 #' @title Matrices to flat transforms
 #'

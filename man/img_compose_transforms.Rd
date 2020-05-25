@@ -5,8 +5,6 @@
 \title{Compose transforms}
 \usage{
 img_compose_transforms(transforms, name = NULL)
-
-img_compose_transforms(transforms, name = NULL)
 }
 \arguments{
 \item{transforms}{List of image projective transforms to be composed.
@@ -18,12 +16,7 @@ The shapes of all inputs must be equal, and at least one input must be given.}
 \value{
 A composed transform tensor. When passed to `transform` op, equivalent to
 applying each of the given transforms to the image in order.
-
-A composed transform tensor. When passed to `transform` op, equivalent to
-applying each of the given transforms to the image in order.
 }
 \description{
-Composes the transforms tensors.
-
 Composes the transforms tensors.
 }
