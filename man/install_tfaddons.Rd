@@ -7,7 +7,7 @@
 install_tfaddons(version = NULL, ..., restart_session = TRUE)
 }
 \arguments{
-\item{version}{for specific version of `TensorFlow SIG Addons`, e.g. "0.9.1"}
+\item{version}{for specific version of `TensorFlow SIG Addons`, e.g. "0.10.0"}
 
 \item{...}{other arguments passed to [reticulate::py_install()].}
 
