@@ -78,6 +78,46 @@ test_succeeds('img_euclidean_dist_transform', {
 })
 
 
+test_succeeds('img_angles_to_projective_transforms', {
+  tfaddons::img_angles_to_projective_transforms(1,500,500)
+})
+
+
+test_succeeds('img_blend', {
+  tfaddons::img_blend(img,img,1)
+})
+
+
+test_succeeds('img_equalize', {
+  tfaddons::img_equalize(img)
+})
+
+
+
+test_succeeds('img_to_4D', {
+  tfaddons::img_to_4D(img)
+})
+
+
+test_succeeds('img_from_4D', {
+  tfaddons::img_from_4D(tfaddons::img_to_4D(img),ndims = -1)
+})
+
+test_succeeds('img_get_ndims', {
+  tfaddons::img_get_ndims(img)
+})
+
+
+
+test_succeeds('img_matrices_to_flat_transforms', {
+  tfaddons::img_matrices_to_flat_transforms(matrix(1:9))
+})
+
+
+
+
+
+
 
 
 
