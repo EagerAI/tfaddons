@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfaddons</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -221,7 +221,22 @@ in a `query`, `key` and `value` tensors returns the dot-product attention
 between them.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+
+<span class='no'>mha</span> <span class='kw'>=</span> <span class='fu'>layer_multi_head_attention</span>(<span class='kw'>head_size</span><span class='kw'>=</span><span class='fl'>128</span>, <span class='kw'>num_heads</span><span class='kw'>=</span><span class='fl'>128</span>)
+<span class='no'>query</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>random</span>$<span class='fu'>uniform</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>32L</span>, <span class='fl'>20L</span>, <span class='fl'>200L</span>)) <span class='co'># (batch_size, query_elements, query_depth)</span>
+<span class='no'>key</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>random</span>$<span class='fu'>uniform</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>32L</span>, <span class='fl'>15L</span>, <span class='fl'>300L</span>)) <span class='co'># (batch_size, key_elements, key_depth)</span>
+<span class='no'>value</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>random</span>$<span class='fu'>uniform</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>32L</span>, <span class='fl'>15L</span>, <span class='fl'>400L</span>)) <span class='co'># (batch_size, key_elements, value_depth)</span>
+<span class='no'>attention</span> <span class='kw'>=</span> <span class='fu'>mha</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>query</span>, <span class='no'>key</span>, <span class='no'>value</span>)) <span class='co'># (batch_size, query_elements, value_depth)</span>
+
+<span class='co'># If `value` is not given then internally `value = key` will be used:</span>
+<span class='no'>mha</span> <span class='kw'>=</span> <span class='fu'>layer_multi_head_attention</span>(<span class='kw'>head_size</span><span class='kw'>=</span><span class='fl'>128</span>, <span class='kw'>num_heads</span><span class='kw'>=</span><span class='fl'>128</span>)
+<span class='no'>query</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>random</span>$<span class='fu'>uniform</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>32L</span>, <span class='fl'>20L</span>, <span class='fl'>200L</span>)) <span class='co'># (batch_size, query_elements, query_depth)</span>
+<span class='no'>key</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>random</span>$<span class='fu'>uniform</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>32L</span>, <span class='fl'>15L</span>, <span class='fl'>300L</span>)) <span class='co'># (batch_size, key_elements, key_depth)</span>
+<span class='no'>attention</span> <span class='kw'>=</span> <span class='fu'>mha</span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>query</span>, <span class='no'>key</span>)) <span class='co'># (batch_size, query_elements, value_depth)</span>
+
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

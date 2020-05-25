@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfaddons</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -176,6 +176,14 @@ do not necessarily have to be the same type.</p>
 
 <p>ValueError: if height &lt; 2 or width &lt; 2 or the inputs have the wrong number of dimensions.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>flow_shape</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1L</span>, <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>input_img</span>$<span class='no'>shape</span><span class='kw'>[[</span><span class='fl'>2</span>]]), <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>input_img</span>$<span class='no'>shape</span><span class='kw'>[[</span><span class='fl'>3</span>]]), <span class='fl'>2L</span>)
+<span class='no'>init_flows</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>random</span>$<span class='fu'>normal</span>(<span class='no'>flow_shape</span>) * <span class='fl'>2.0</span>
+<span class='no'>dense_img_warp</span> <span class='kw'>=</span> <span class='fu'>img_dense_image_warp</span>(<span class='no'>input_img</span>, <span class='no'>init_flows</span>)
+<span class='no'>dense_img_warp</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='fu'>squeeze</span>(<span class='no'>dense_img_warp</span>, <span class='fl'>0</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

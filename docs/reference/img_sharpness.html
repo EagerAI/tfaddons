@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shear y-axis — img_shear_y • tfaddons</title>
+<title>Sharpness — img_sharpness • tfaddons</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Shear y-axis — img_shear_y" />
-<meta property="og:description" content="Perform shear operation on an image (y-axis)" />
+<meta property="og:title" content="Sharpness — img_sharpness" />
+<meta property="og:description" content="Change sharpness of image(s)" />
 
 
 
@@ -123,37 +123,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Shear y-axis</h1>
-    <small class="dont-index">Source: <a href='https://github.com/henry090/tfaddons/blob/master/R/image_ops.R'><code>R/image_ops.R</code></a></small>
-    <div class="hidden name"><code>img_shear_y.Rd</code></div>
+    <h1>Sharpness</h1>
+    <small class="dont-index">Source: <a href='https://github.com/henry090/tfaddons/blob/master/R/image_ops_.R'><code>R/image_ops_.R</code></a></small>
+    <div class="hidden name"><code>img_sharpness.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Perform shear operation on an image (y-axis)</p>
+    <p>Change sharpness of image(s)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>img_shear_y</span>(<span class='no'>image</span>, <span class='no'>level</span>, <span class='no'>replace</span>)</pre>
+    <pre class="usage"><span class='fu'>img_sharpness</span>(<span class='no'>image</span>, <span class='no'>factor</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>image</th>
-      <td><p>A 3D image Tensor.</p></td>
+      <td><p>an image</p></td>
     </tr>
     <tr>
-      <th>level</th>
-      <td><p>A float denoting shear element along x-axis</p></td>
-    </tr>
-    <tr>
-      <th>replace</th>
-      <td><p>A one or three value 1D tensor to fill empty pixels.</p></td>
+      <th>factor</th>
+      <td><p>A floating point value or Tensor above 0.0.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Transformed image along X or Y axis, with space outside image filled with replace.</p>
+    <p>Image(s) with the same type and shape as `images`, sharper.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

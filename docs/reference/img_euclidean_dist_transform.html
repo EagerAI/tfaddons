@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfaddons</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -164,6 +164,20 @@ will be filled with the max value of the `dtype`.</p>
 <p>TypeError: If `image` is not tf.uint8, or `dtype` is not floating point.
 ValueError: If `image` more than one channel, or `image` is not of rank between 2 and 4.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>img_path</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>keras</span>$<span class='no'>utils</span>$<span class='fu'>get_file</span>(<span class='st'>'tensorflow.png'</span>,<span class='st'>'https://tensorflow.org/images/tf_logo.png'</span>)
+<span class='no'>img_raw</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>io</span>$<span class='fu'>read_file</span>(<span class='no'>img_path</span>)
+<span class='no'>img</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>io</span>$<span class='fu'>decode_png</span>(<span class='no'>img_raw</span>)
+<span class='no'>img</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>image</span>$<span class='fu'>convert_image_dtype</span>(<span class='no'>img</span>, <span class='no'>tf</span>$<span class='no'>float32</span>)
+<span class='no'>img</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>image</span>$<span class='fu'>resize</span>(<span class='no'>img</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>500L</span>,<span class='fl'>500L</span>))
+<span class='no'>bw_img</span> <span class='kw'>=</span> <span class='fl'>1.0</span> - <span class='no'>tf</span>$<span class='no'>image</span>$<span class='fu'>rgb_to_grayscale</span>(<span class='no'>img</span>)
+<span class='no'>gray</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='no'>image</span>$<span class='fu'>convert_image_dtype</span>(<span class='no'>bw_img</span>,<span class='no'>tf</span>$<span class='no'>uint8</span>)
+<span class='no'>gray</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='fu'>expand_dims</span>(<span class='no'>gray</span>, <span class='fl'>0L</span>)
+<span class='no'>eucid</span> <span class='kw'>=</span> <span class='fu'>img_euclidean_dist_transform</span>(<span class='no'>gray</span>)
+<span class='no'>eucid</span> <span class='kw'>=</span> <span class='no'>tf</span>$<span class='fu'>squeeze</span>(<span class='no'>eucid</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>,-<span class='fl'>1</span>))
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

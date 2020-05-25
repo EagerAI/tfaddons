@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tfaddons</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -165,6 +165,15 @@ and [BERT: Pre-training of Deep Bidirectional Transformers for Language Understa
 <p>`0.5 * x * (1 + tanh(sqrt(2 / pi) * (x + 0.044715 * x^3)))` or `x * P(X &lt;= x) = 0.5 * x * (1 + erf(x / sqrt(2)))`,
 where P(X) ~ N(0, 1), depending on whether approximation is enabled.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>keras</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tfaddons</span>)
+<span class='no'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/keras/man/keras_model_sequential.html'>keras_model_sequential</a></span>() <span class='kw'>%&gt;%</span>
+<span class='fu'><a href='https://rdrr.io/pkg/keras/man/layer_conv_2d.html'>layer_conv_2d</a></span>(<span class='kw'>filters</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>kernel_size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>3</span>),<span class='kw'>input_shape</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>28</span>,<span class='fl'>28</span>,<span class='fl'>1</span>),
+              <span class='kw'>activation</span> <span class='kw'>=</span> <span class='no'>activation_gelu</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
