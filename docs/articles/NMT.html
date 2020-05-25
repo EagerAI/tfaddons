@@ -124,9 +124,9 @@
 <span class="no">text_cleaner</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">text</span>){
   <span class="no">text</span> <span class="kw">=</span> <span class="no">text</span> <span class="kw">%&gt;%</span>
     <span class="co"># replace non ascii</span>
-    <span class="kw pkg">textclean</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/replace_non_ascii.html">replace_non_ascii</a></span>() <span class="kw">%&gt;%</span>
+    <span class="kw pkg">textclean</span><span class="kw ns">::</span><span class="fu">replace_non_ascii</span>() <span class="kw">%&gt;%</span>
     <span class="co"># remove all non relevant symbols (letters, spaces, and apostrophes are retained)</span>
-    <span class="kw pkg">textclean</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/textclean/man/strip.html">strip</a></span>(<span class="kw">apostrophe.remove</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
+    <span class="kw pkg">textclean</span><span class="kw ns">::</span><span class="fu">strip</span>(<span class="kw">apostrophe.remove</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'&lt;start&gt; '</span>, <span class="no">.</span>, <span class="st">' &lt;end&gt;'</span>)
 }
 
@@ -286,8 +286,6 @@
 
   })
   <span class="co">#Returns the list of all layer variables / weights.</span>
-  <span class="co">#variables = encoderNetwork$trainable_variables + decoderNetwork$trainable_variables</span>
-  <span class="co">#variables = tf$math$add(encoderNetwork$trainable_variables, decoderNetwork$trainable_variables)</span>
   <span class="no">variables</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">encoderNetwork</span>$<span class="no">trainable_variables</span>, <span class="no">decoderNetwork</span>$<span class="no">trainable_variables</span>)
   <span class="co"># differentiate loss wrt variables</span>
   <span class="no">gradients</span> <span class="kw">=</span> <span class="no">tape</span>$<span class="fu">gradient</span>(<span class="no">loss</span>, <span class="no">variables</span>)
