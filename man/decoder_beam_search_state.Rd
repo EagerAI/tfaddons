@@ -23,6 +23,9 @@ decoder_beam_search_state(
 
 \item{accumulated_attention_probs}{accumulated_attention_probs}
 }
+\value{
+None
+}
 \description{
 Beam Search Decoder State
 }

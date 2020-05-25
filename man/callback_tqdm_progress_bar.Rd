@@ -45,3 +45,19 @@ TQDM Progress Bar
 \details{
 TQDM Progress Bar for Tensorflow Keras.
 }
+\examples{
+
+\dontrun{
+model \%>\% fit(
+x_train, y_train,
+batch_size = 128,
+epochs = 4,
+validation_split = 0.2,
+verbose = 0,
+callbacks = callback_tqdm_progress_bar()
+)
+}
+
+
+
+}

@@ -66,21 +66,17 @@ between them.
 
 \dontrun{
 
-```
 mha = layer_multi_head_attention(head_size=128, num_heads=128)
 query = tf$random$uniform(list(32L, 20L, 200L)) # (batch_size, query_elements, query_depth)
 key = tf$random$uniform(list(32L, 15L, 300L)) # (batch_size, key_elements, key_depth)
 value = tf$random$uniform(list(32L, 15L, 400L)) # (batch_size, key_elements, value_depth)
 attention = mha(list(query, key, value)) # (batch_size, query_elements, value_depth)
-```
 
 # If `value` is not given then internally `value = key` will be used:
-```
 mha = layer_multi_head_attention(head_size=128, num_heads=128)
 query = tf$random$uniform(list(32L, 20L, 200L)) # (batch_size, query_elements, query_depth)
 key = tf$random$uniform(list(32L, 15L, 300L)) # (batch_size, key_elements, key_depth)
 attention = mha(list(query, key)) # (batch_size, query_elements, value_depth)
-```
 
 }
 

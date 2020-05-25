@@ -16,9 +16,12 @@ sample_categorical(
 
 \item{dtype}{dtype}
 
-\item{sample_shape}{sample_shape}
+\item{sample_shape}{the shape of sample}
 
-\item{seed}{seed}
+\item{seed}{random seed: integer}
+}
+\value{
+a Tensor
 }
 \description{
 Samples from categorical distribution.

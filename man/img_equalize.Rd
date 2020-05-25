@@ -24,3 +24,10 @@ Image(s) with the same type and shape as `images`, equalized.
 \description{
 Equalize image(s)
 }
+\examples{
+
+\dontrun{
+img_equalize(img)
+}
+
+}

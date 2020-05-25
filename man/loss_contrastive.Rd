@@ -35,3 +35,16 @@ as follows: ```python
 y_pred = tf$linalg.norm(a - b, axis=1)
 ``` See: http://yann.lecun.com/exdb/publis/pdf/hadsell-chopra-lecun-06.pdf
 }
+\examples{
+
+\dontrun{
+keras_model_sequential() \%>\%
+  layer_dense(4, input_shape = c(784)) \%>\%
+  compile(
+    optimizer = 'sgd',
+    loss=loss_contrastive(),
+    metrics='accuracy'
+  )
+}
+
+}

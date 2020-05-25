@@ -15,7 +15,17 @@
 #' @param name (optional) String name of the metric instance
 #' @param dtype (optional) Data type of the metric result. Defaults to `NULL`
 #'
+#' @examples
 #'
+#' \dontrun{
+#' model = keras_model_sequential() %>%
+#'   layer_dense(units = 10, input_shape = ncol(iris) - 1,activation = activation_lisht) %>%
+#'   layer_dense(units = 3)
+#'
+#' model %>% compile(loss = 'categorical_crossentropy',
+#'                   optimizer = optimizer_radam(),
+#'                   metrics = metric_cohen_kappa(3))
+#' }
 #'
 #'
 #'
@@ -68,6 +78,18 @@ metric_cohen_kappa = function( num_classes,
 #' @param dtype (optional) Data type of the metric result. Defaults to `tf$float32`.
 #' @param name (optional) String name of the metric instance.
 #' @return F-1 Score: float
+#'
+#' @examples
+#'
+#' \dontrun{
+#' model = keras_model_sequential() %>%
+#'   layer_dense(units = 10, input_shape = ncol(iris) - 1,activation = activation_lisht) %>%
+#'   layer_dense(units = 3)
+#'
+#' model %>% compile(loss = 'categorical_crossentropy',
+#'                   optimizer = optimizer_radam(),
+#'                   metrics = metrics_f1score(3))
+#' }
 #'
 #' @section Raises:
 #' ValueError: If the `average` has values other than [NULL, micro, macro, weighted].
@@ -164,7 +186,7 @@ metric_fbetascore <- function(num_classes,
 #' It is the number of bit positions in which two bits
 #' are different.
 #'
-#' @param actuals actual target value
+#' @param actuals actual value
 #' @param predictions predicted value
 #'
 #' @examples
@@ -351,7 +373,7 @@ metric_mcc <- function(num_classes = NULL,
 #' @param num_classes Number of unique classes in the dataset.
 #' @param name (Optional) String name of the metric instance.
 #' @param dtype (Optional) Data type of the metric result. Defaults to `tf$int32`.
-#'
+#' @return MultiLabelConfusionMatrix: float
 #' @export
 metric_multilabel_confusion_matrix <- function(num_classes,
                                                name = 'Multilabel_confusion_matrix',
@@ -398,7 +420,7 @@ metric_multilabel_confusion_matrix <- function(num_classes,
 #' paste('R^2 score is: ', r1$result()$numpy()) # 0.57142866
 #'
 #' }
-#'
+#' @return r squared score: float
 #' @export
 metric_rsquare <- function(name = 'r_square',
                            dtype = tf$float32,

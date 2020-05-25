@@ -436,7 +436,7 @@ decoder_beam_search <- function(object,
 #' `[batch_size, T, beam_width]` (or `[T, batch_size, beam_width]` if `output_time_major`
 #' is `TRUE`). Beams are ordered from best to worst.
 #' @param parent_ids The parent ids of shape `[max_time, batch_size, beam_width]`.
-#'
+#' @return None
 #' @export
 decoder_beam_search_output <- function(scores, predicted_ids, parent_ids) {
 
@@ -461,7 +461,7 @@ decoder_beam_search_output <- function(scores, predicted_ids, parent_ids) {
 #' @param finished finished
 #' @param lengths lengths
 #' @param accumulated_attention_probs accumulated_attention_probs
-#'
+#' @return None
 #' @export
 decoder_beam_search_state <- function(cell_state, log_probs,
                                             finished, lengths,
@@ -606,7 +606,7 @@ decode_dynamic <- function(decoder, output_time_major = FALSE,
 #' best to worst.
 #' @param beam_search_decoder_output An instance of `BeamSearchDecoderOutput` that describes
 #' the state of the beam search.
-#'
+#' @return None
 #' @export
 decoder_final_beam_search_output <- function(predicted_ids, beam_search_decoder_output) {
 
@@ -1094,7 +1094,7 @@ sampler_scheduled_embedding_training <- function(sampling_probability,
 #'
 #'
 #'
-#' @return False for sample_ids where no sampling took place; True elsewhere.
+#' @return FALSE for sample_ids where no sampling took place; TRUE elsewhere.
 #' @export
 sampler_scheduled_output_training <- function(sampling_probability,
                                               time_major = FALSE,

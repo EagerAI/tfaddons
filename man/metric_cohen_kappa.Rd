@@ -41,3 +41,18 @@ The score lies in the range [-1, 1]. A score of -1 represents complete
 disagreement between two raters whereas a score of 1 represents complete agreement
 between the two raters. A score of 0 means agreement by chance.
 }
+\examples{
+
+\dontrun{
+model = keras_model_sequential() \%>\%
+  layer_dense(units = 10, input_shape = ncol(iris) - 1,activation = activation_lisht) \%>\%
+  layer_dense(units = 3)
+
+model \%>\% compile(loss = 'categorical_crossentropy',
+                  optimizer = optimizer_radam(),
+                  metrics = metric_cohen_kappa(3))
+}
+
+
+
+}

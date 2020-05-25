@@ -28,3 +28,20 @@ TypeError: If `image` is not tf.uint8, or `dtype` is not floating point.
 ValueError: If `image` more than one channel, or `image` is not of rank between 2 and 4.
 }
 
+\examples{
+
+\dontrun{
+img_path = tf$keras$utils$get_file('tensorflow.png','https://tensorflow.org/images/tf_logo.png')
+img_raw = tf$io$read_file(img_path)
+img = tf$io$decode_png(img_raw)
+img = tf$image$convert_image_dtype(img, tf$float32)
+img = tf$image$resize(img, c(500L,500L))
+bw_img = 1.0 - tf$image$rgb_to_grayscale(img)
+gray = tf$image$convert_image_dtype(bw_img,tf$uint8)
+gray = tf$expand_dims(gray, 0L)
+eucid = img_euclidean_dist_transform(gray)
+eucid = tf$squeeze(eucid, c(0,-1))
+}
+
+
+}

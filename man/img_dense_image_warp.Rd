@@ -40,3 +40,14 @@ do not necessarily have to be the same type.
 ValueError: if height < 2 or width < 2 or the inputs have the wrong number of dimensions.
 }
 
+\examples{
+
+\dontrun{
+flow_shape = list(1L, as.integer(input_img$shape[[2]]), as.integer(input_img$shape[[3]]), 2L)
+init_flows = tf$random$normal(flow_shape) * 2.0
+dense_img_warp = img_dense_image_warp(input_img, init_flows)
+dense_img_warp = tf$squeeze(dense_img_warp, 0)
+}
+
+
+}

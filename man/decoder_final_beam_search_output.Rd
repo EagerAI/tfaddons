@@ -14,6 +14,9 @@ best to worst.}
 \item{beam_search_decoder_output}{An instance of `BeamSearchDecoderOutput` that describes
 the state of the beam search.}
 }
+\value{
+None
+}
 \description{
 Final outputs returned by the beam search after all decoding is finished.
 }

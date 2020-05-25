@@ -39,7 +39,7 @@
 #' register the shared objects files. Not that it might be useful to turn it off
 #' if your installation of Addons doesn't work well with custom ops.
 #'
-#' @return NULL
+#' @return None
 #'
 #'
 #' @export

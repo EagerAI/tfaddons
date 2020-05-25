@@ -50,3 +50,16 @@ Optimizer for use with `keras::compile()`
 \description{
 NovoGrad
 }
+\examples{
+
+\dontrun{
+keras_model_sequential() \%>\%
+  layer_dense(32, input_shape = c(784)) \%>\%
+  compile(
+    optimizer = optimizer_novograd(),
+    loss='binary_crossentropy',
+    metrics='accuracy'
+  )
+}
+
+}

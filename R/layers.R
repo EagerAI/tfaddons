@@ -82,21 +82,17 @@ layer_instance_normalization <- function(object,
 #'
 #' \dontrun{
 #'
-#' ```
 #' mha = layer_multi_head_attention(head_size=128, num_heads=128)
 #' query = tf$random$uniform(list(32L, 20L, 200L)) # (batch_size, query_elements, query_depth)
 #' key = tf$random$uniform(list(32L, 15L, 300L)) # (batch_size, key_elements, key_depth)
 #' value = tf$random$uniform(list(32L, 15L, 400L)) # (batch_size, key_elements, value_depth)
 #' attention = mha(list(query, key, value)) # (batch_size, query_elements, value_depth)
-#' ```
 #'
 #' # If `value` is not given then internally `value = key` will be used:
-#' ```
 #' mha = layer_multi_head_attention(head_size=128, num_heads=128)
 #' query = tf$random$uniform(list(32L, 20L, 200L)) # (batch_size, query_elements, query_depth)
 #' key = tf$random$uniform(list(32L, 15L, 300L)) # (batch_size, key_elements, key_depth)
 #' attention = mha(list(query, key)) # (batch_size, query_elements, value_depth)
-#' ```
 #'
 #' }
 #'
@@ -421,6 +417,16 @@ layer_poincare_normalize <- function(object,
 #' @param ... additional parameters to pass
 #'
 #' @importFrom keras create_layer
+#'
+#' @examples
+#'
+#' \dontrun{
+#' model = keras_model_sequential() %>%
+#'   layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
+#'                 activation = activation_gelu) %>%
+#'   layer_sparsemax()
+#' }
+#'
 #'
 #' @return A tensor
 #' @export

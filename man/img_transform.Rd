@@ -43,3 +43,12 @@ Applies the given transform(s) to the image(s).
 TypeError: If `image` is an invalid type. ValueError: If output shape is not 1-D int32 Tensor.
 }
 
+\examples{
+
+\dontrun{
+transform = img_transform(img, c(1.0, 1.0, -250, 0.0, 1.0, 0.0, 0.0, 0.0))
+}
+
+
+
+}

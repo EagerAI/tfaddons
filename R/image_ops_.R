@@ -25,6 +25,11 @@ img_from_4D <- function(image, ndims) {
 #'
 #' @description Convert 2/3/4D image to 4D image.
 #'
+#' @examples
+#'
+#' \dontrun{
+#' img_to_4D(img)
+#' }
 #'
 #' @param image 2/3/4D tensor.
 #'
@@ -52,7 +57,7 @@ img_to_4D <- function(image) {
 #' @return Image(s) with the same type and shape as `images`, sharper.
 #'
 #' @export
-sharpness <- function(image, factor) {
+img_sharpness <- function(image, factor) {
 
   args <- list(
     image = image,

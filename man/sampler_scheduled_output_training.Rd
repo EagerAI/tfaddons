@@ -24,7 +24,7 @@ they are assumed to be batch major.}
 input when sampling. If None (default), the RNN outputs will be used as the next inputs.}
 }
 \value{
-False for sample_ids where no sampling took place; True elsewhere.
+FALSE for sample_ids where no sampling took place; TRUE elsewhere.
 }
 \description{
 A training sampler that adds scheduled sampling directly to outputs.

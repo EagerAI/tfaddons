@@ -15,3 +15,10 @@ img_to_4D(image)
 \description{
 Convert 2/3/4D image to 4D image.
 }
+\examples{
+
+\dontrun{
+img_to_4D(img)
+}
+
+}

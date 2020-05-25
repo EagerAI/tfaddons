@@ -37,9 +37,9 @@ sample_bernoulli <- function(probs = NULL, logits = NULL,
 #'
 #' @param logits logits
 #' @param dtype dtype
-#' @param sample_shape sample_shape
-#' @param seed seed
-#'
+#' @param sample_shape the shape of sample
+#' @param seed random seed: integer
+#' @return a Tensor
 #' @export
 sample_categorical <- function(logits, dtype = tf$int32, sample_shape = list(), seed = NULL) {
 

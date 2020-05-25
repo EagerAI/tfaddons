@@ -47,3 +47,16 @@ and multi-label classification. F-1 = 2 * (precision * recall) / (precision + re
 ValueError: If the `average` has values other than [NULL, micro, macro, weighted].
 }
 
+\examples{
+
+\dontrun{
+model = keras_model_sequential() \%>\%
+  layer_dense(units = 10, input_shape = ncol(iris) - 1,activation = activation_lisht) \%>\%
+  layer_dense(units = 3)
+
+model \%>\% compile(loss = 'categorical_crossentropy',
+                  optimizer = optimizer_radam(),
+                  metrics = metrics_f1score(3))
+}
+
+}

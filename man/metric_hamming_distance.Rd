@@ -7,7 +7,7 @@
 metric_hamming_distance(actuals, predictions)
 }
 \arguments{
-\item{actuals}{actual target value}
+\item{actuals}{actual value}
 
 \item{predictions}{predicted value}
 }

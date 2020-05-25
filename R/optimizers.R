@@ -11,6 +11,20 @@
 #' @param decay is included for backward compatibility to allow time inverse decay of learning rate.
 #' @param lr is included for backward compatibility, recommended to use learning_rate instead.
 #' @return Optimizer for use with `keras::compile()`
+#'
+#' @examples
+#'
+#' \dontrun{
+#' keras_model_sequential() %>%
+#'   layer_dense(32, input_shape = c(784)) %>%
+#'   compile(
+#'     optimizer = optimizer_lazy_adam(),
+#'     loss='binary_crossentropy',
+#'     metrics='accuracy'
+#'   )
+#' }
+#'
+#'
 #' @export
 optimizer_lazy_adam <- function(learning_rate = 0.001, beta_1 = 0.9, beta_2 = 0.999, epsilon  = 1e-7,
                           amsgrad = FALSE, name = "LazyAdam", clipnorm = NULL, clipvalue = NULL,
@@ -94,6 +108,20 @@ attr(optimizer_conditional_gradient, "py_function_name") <- "conditional_gradien
 #' @param decay is included for backward compatibility to allow time inverse decay of learning rate.
 #' @param lr is included for backward compatibility, recommended to use learning_rate instead.
 #' @return Optimizer for use with `keras::compile()`
+#'
+#' @examples
+#'
+#' \dontrun{
+#' keras_model_sequential() %>%
+#'   layer_dense(32, input_shape = c(784)) %>%
+#'   compile(
+#'     optimizer = optimizer_lamb(),
+#'     loss='binary_crossentropy',
+#'     metrics='accuracy'
+#'   )
+#' }
+#'
+#'
 #' @export
 optimizer_lamb <- function(learning_rate = 0.001,
                            beta_1 = 0.9,
@@ -147,6 +175,19 @@ attr(optimizer_lamb, "py_function_name") <- "lamb"
 #' @param decay is included for backward compatibility to allow time inverse decay of learning rate.
 #' @param lr is included for backward compatibility, recommended to use learning_rate instead.
 #' @return Optimizer for use with `keras::compile()`
+#'
+#' @examples
+#'
+#' \dontrun{
+#' keras_model_sequential() %>%
+#'   layer_dense(32, input_shape = c(784)) %>%
+#'   compile(
+#'     optimizer = optimizer_novograd(),
+#'     loss='binary_crossentropy',
+#'     metrics='accuracy'
+#'   )
+#' }
+#'
 #' @export
 optimizer_novograd <- function(learning_rate = 0.001,
                                beta_1 = 0.9,

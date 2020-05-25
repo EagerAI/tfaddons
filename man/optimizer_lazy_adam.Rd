@@ -44,3 +44,17 @@ Optimizer for use with `keras::compile()`
 \description{
 Lazy Adam
 }
+\examples{
+
+\dontrun{
+keras_model_sequential() \%>\%
+  layer_dense(32, input_shape = c(784)) \%>\%
+  compile(
+    optimizer = optimizer_lazy_adam(),
+    loss='binary_crossentropy',
+    metrics='accuracy'
+  )
+}
+
+
+}

@@ -15,6 +15,9 @@ is `TRUE`). Beams are ordered from best to worst.}
 
 \item{parent_ids}{The parent ids of shape `[max_time, batch_size, beam_width]`.}
 }
+\value{
+None
+}
 \description{
 Beam Search Decoder Output
 }

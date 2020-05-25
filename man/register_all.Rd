@@ -17,6 +17,9 @@ Loading the SO files register them automatically. If `FALSE` doesn't load and
 register the shared objects files. Not that it might be useful to turn it off
 if your installation of Addons doesn't work well with custom ops.}
 }
+\value{
+None
+}
 \description{
 Register TensorFlow Addons' objects in TensorFlow global dictionaries.
 }

@@ -9,7 +9,18 @@
 #' @param verbose verbosity mode. Defaults to 0.
 #'
 #'
+#' @examples
 #'
+#' \dontrun{
+#' model %>% fit(
+#' x_train, y_train,
+#' batch_size = 128,
+#' epochs = 4,
+#' validation_split = 0.2,
+#' verbose = 0,
+#' callbacks = callback_time_stopping(seconds = 6, verbose = 1)
+#' )
+#' }
 #'
 #'
 #'
@@ -46,7 +57,18 @@ callback_time_stopping <- function(seconds = 86400, verbose = 0){
 #'
 #'
 #'
+#' @examples
 #'
+#' \dontrun{
+#' model %>% fit(
+#' x_train, y_train,
+#' batch_size = 128,
+#' epochs = 4,
+#' validation_split = 0.2,
+#' verbose = 0,
+#' callbacks = callback_tqdm_progress_bar()
+#' )
+#' }
 #'
 #'
 #'

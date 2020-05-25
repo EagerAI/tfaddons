@@ -53,3 +53,17 @@ loss = pinball_loss([0., 0., 1., 1.], [1., 1., 1., 0.], tau=.1) # loss = max(0.1
 - https://en.wikipedia.org/wiki/Quantile_regression - https://projecteuclid.org/download/pdfview_1/euclid.bj/1297173840
 }
 
+\examples{
+
+\dontrun{
+keras_model_sequential() \%>\%
+  layer_dense(4, input_shape = c(784)) \%>\%
+  compile(
+    optimizer = 'sgd',
+    loss=loss_pinball(),
+    metrics='accuracy'
+  )
+}
+
+
+}

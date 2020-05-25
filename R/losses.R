@@ -17,6 +17,19 @@
 #'
 #' @return contrastive_loss: 1-D float `Tensor` with shape [batch_size].
 #'
+#'
+#' @examples
+#'
+#' \dontrun{
+#' keras_model_sequential() %>%
+#'   layer_dense(4, input_shape = c(784)) %>%
+#'   compile(
+#'     optimizer = 'sgd',
+#'     loss=loss_contrastive(),
+#'     metrics='accuracy'
+#'   )
+#' }
+#'
 #' @export
 loss_contrastive <- function(margin = 1.0,
                              reduction = tf$keras$losses$Reduction$SUM_OVER_BATCH_SIZE,
@@ -195,6 +208,20 @@ attr(loss_npairs_multilabel, "py_function_name") <- "npairs_multilabel"
 #' @section References:
 #' - https://en.wikipedia.org/wiki/Quantile_regression - https://projecteuclid.org/download/pdfview_1/euclid.bj/1297173840
 #' @return pinball_loss: 1-D float `Tensor` with shape [batch_size].
+#'
+#' @examples
+#'
+#' \dontrun{
+#' keras_model_sequential() %>%
+#'   layer_dense(4, input_shape = c(784)) %>%
+#'   compile(
+#'     optimizer = 'sgd',
+#'     loss=loss_pinball(),
+#'     metrics='accuracy'
+#'   )
+#' }
+#'
+#'
 #' @export
 loss_pinball <- function(tau = 0.5,
                          reduction = tf$keras$losses$Reduction$AUTO,
@@ -224,6 +251,20 @@ attr(loss_pinball, "py_function_name") <- "pinball"
 #' @return Weighted loss float `Tensor`. If `reduction` is `NONE`,this has the same shape as `y_true`;
 #' otherwise, it is scalar.
 #' @param from_logits If logits are provided then convert the predictions into probabilities
+#'
+#' @examples
+#'
+#' \dontrun{
+#' keras_model_sequential() %>%
+#'   layer_dense(4, input_shape = c(784)) %>%
+#'   compile(
+#'     optimizer = 'sgd',
+#'     loss=loss_sigmoid_focal_crossentropy(),
+#'     metrics='accuracy'
+#'   )
+#' }
+#'
+#'
 #' @export
 loss_sigmoid_focal_crossentropy <- function(from_logits = FALSE,
                                             alpha = 0.25,
@@ -262,6 +303,7 @@ attr(loss_sigmoid_focal_crossentropy, "py_function_name") <- "sigmoid_focal_cros
 #' to loss. Default value is SUM_OVER_BATCH_SIZE.
 #' @param name Optional name for the op.
 #'
+#'
 #' @return A `Tensor`. Has the same type as `logits`.
 #'
 #' @export
@@ -290,6 +332,22 @@ attr(loss_sparsemax, "py_function_name") <- "sparsemax"
 #' @param name Optional name for the op.
 #' @param ... additional arguments to pass
 #'
+#' @examples
+#'
+#' \dontrun{
+#' model = keras_model_sequential() %>%
+#'   layer_conv_2d(filters = 64, kernel_size = 2, padding='same', input_shape=c(28,28,1)) %>%
+#'   layer_max_pooling_2d(pool_size=2) %>%
+#'   layer_flatten() %>%
+#'   layer_dense(256, activation= NULL) %>%
+#'   layer_lambda(f = function(x) tf$math$l2_normalize(x, axis = 1L))
+#'
+#' model %>% compile(
+#'   optimizer = optimizer_lazy_adam(),
+#'   # apply triplet semihard loss
+#'   loss = loss_triplet_hard())
+#' }
+#'
 #' @return triplet_loss: float scalar with dtype of y_pred.
 #' @export
 loss_triplet_hard <- function(margin = 1.0,
@@ -317,6 +375,24 @@ attr(loss_triplet_hard, "py_function_name") <- "triplet_hard"
 #' @param margin Float, margin term in the loss definition. Default value is 1.0.
 #' @param name Optional name for the op.
 #' @param ... additional arguments to pass
+#'
+#' @examples
+#'
+#' \dontrun{
+#' model = keras_model_sequential() %>%
+#'   layer_conv_2d(filters = 64, kernel_size = 2, padding='same', input_shape=c(28,28,1)) %>%
+#'   layer_max_pooling_2d(pool_size=2) %>%
+#'   layer_flatten() %>%
+#'   layer_dense(256, activation= NULL) %>%
+#'   layer_lambda(f = function(x) tf$math$l2_normalize(x, axis = 1L))
+#'
+#' model %>% compile(
+#'   optimizer = optimizer_lazy_adam(),
+#'   # apply triplet semihard loss
+#'   loss = loss_triplet_semihard())
+#' }
+#'
+#'
 #' @return triplet_loss: float scalar with dtype of y_pred.
 #' @export
 loss_triplet_semihard <- function(margin = 1.0,

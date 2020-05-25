@@ -31,3 +31,17 @@ otherwise, it is scalar.
 \description{
 Sigmoid focal crossentropy loss
 }
+\examples{
+
+\dontrun{
+keras_model_sequential() \%>\%
+  layer_dense(4, input_shape = c(784)) \%>\%
+  compile(
+    optimizer = 'sgd',
+    loss=loss_sigmoid_focal_crossentropy(),
+    metrics='accuracy'
+  )
+}
+
+
+}

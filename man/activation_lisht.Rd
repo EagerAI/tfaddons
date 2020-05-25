@@ -19,3 +19,14 @@ LiSHT: Non-Parameteric Linearly Scaled Hyperbolic Tangent Activation Function.
 Computes linearly scaled hyperbolic tangent (LiSHT): `x * tanh(x)`
 See [LiSHT: Non-Parameteric Linearly Scaled Hyperbolic Tangent Activation Function for Neural Networks](https://arxiv.org/abs/1901.05894).
 }
+\examples{
+
+\dontrun{
+library(keras)
+library(tfaddons)
+model = keras_model_sequential() \%>\%
+layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
+              activation = activation_lisht)
+}
+
+}

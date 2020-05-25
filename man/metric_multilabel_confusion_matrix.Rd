@@ -17,6 +17,9 @@ metric_multilabel_confusion_matrix(
 
 \item{dtype}{(Optional) Data type of the metric result. Defaults to `tf$int32`.}
 }
+\value{
+MultiLabelConfusionMatrix: float
+}
 \description{
 Computes Multi-label confusion matrix.
 }

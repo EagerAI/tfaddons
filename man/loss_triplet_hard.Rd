@@ -21,3 +21,20 @@ triplet_loss: float scalar with dtype of y_pred.
 \description{
 Computes the triplet loss with hard negative and hard positive mining.
 }
+\examples{
+
+\dontrun{
+model = keras_model_sequential() \%>\%
+  layer_conv_2d(filters = 64, kernel_size = 2, padding='same', input_shape=c(28,28,1)) \%>\%
+  layer_max_pooling_2d(pool_size=2) \%>\%
+  layer_flatten() \%>\%
+  layer_dense(256, activation= NULL) \%>\%
+  layer_lambda(f = function(x) tf$math$l2_normalize(x, axis = 1L))
+
+model \%>\% compile(
+  optimizer = optimizer_lazy_adam(),
+  # apply triplet semihard loss
+  loss = loss_triplet_hard())
+}
+
+}

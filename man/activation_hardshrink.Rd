@@ -28,3 +28,14 @@ Computes hard shrink function:
 `x if x < lower or x > upper else 0`.
 }
 
+\examples{
+
+\dontrun{
+library(keras)
+library(tfaddons)
+model = keras_model_sequential() \%>\%
+layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
+              activation = activation_hardshrink)
+}
+
+}

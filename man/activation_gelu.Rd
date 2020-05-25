@@ -31,3 +31,15 @@ and [BERT: Pre-training of Deep Bidirectional Transformers for Language Understa
 where P(X) ~ N(0, 1), depending on whether approximation is enabled.
 }
 
+\examples{
+
+\dontrun{
+library(keras)
+library(tfaddons)
+model = keras_model_sequential() \%>\%
+layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
+              activation = activation_gelu)
+}
+
+
+}

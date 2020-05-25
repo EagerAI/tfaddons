@@ -26,6 +26,9 @@ metric_rsquare(
 
 \item{multioutput}{one of the following: "raw_values", "uniform_average", "variance_weighted"}
 }
+\value{
+r squared score: float
+}
 \description{
 RSquare
 
@@ -46,5 +49,4 @@ result$update_state(actuals, preds)
 paste('R^2 score is: ', r1$result()$numpy()) # 0.57142866
 
 }
-
 }

@@ -22,3 +22,14 @@ Sparsemax activation function
 \details{
 The output shape is the same as the input shape. https://arxiv.org/abs/1602.02068
 }
+\examples{
+
+\dontrun{
+model = keras_model_sequential() \%>\%
+  layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
+                activation = activation_gelu) \%>\%
+  layer_sparsemax()
+}
+
+
+}

@@ -18,6 +18,17 @@
 #' `0.5 * x * (1 + tanh(sqrt(2 / pi) * (x + 0.044715 * x^3)))` or `x * P(X <= x) = 0.5 * x * (1 + erf(x / sqrt(2)))`,
 #' where P(X) ~ N(0, 1), depending on whether approximation is enabled.
 #'
+#' @examples
+#'
+#' \dontrun{
+#' library(keras)
+#' library(tfaddons)
+#' model = keras_model_sequential() %>%
+#' layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
+#'               activation = activation_gelu)
+#' }
+#'
+#'
 #' @export
 activation_gelu <- function(x, approximate = TRUE) {
 
@@ -48,6 +59,16 @@ attr(activation_gelu, "py_function_name") <- "gelu"
 #' @section Computes hard shrink function:
 #' `x if x < lower or x > upper else 0`.
 #'
+#' @examples
+#'
+#' \dontrun{
+#' library(keras)
+#' library(tfaddons)
+#' model = keras_model_sequential() %>%
+#' layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
+#'               activation = activation_hardshrink)
+#' }
+#'
 #' @export
 activation_hardshrink <- function(x, lower = -0.5, upper = 0.5) {
 
@@ -73,6 +94,16 @@ attr(activation_hardshrink, "py_function_name") <- "hardshrink"
 #' @param x A `Tensor`. Must be one of the following types: `float16`, `float32`, `float64`.
 #'
 #' @return A `Tensor`. Has the same type as `x`.
+#'
+#' @examples
+#'
+#' \dontrun{
+#' library(keras)
+#' library(tfaddons)
+#' model = keras_model_sequential() %>%
+#' layer_conv_2d(filters = 10, kernel_size = c(3,3),input_shape = c(28,28,1),
+#'               activation = activation_lisht)
+#' }
 #'
 #' @export
 activation_lisht <- function(x) {
