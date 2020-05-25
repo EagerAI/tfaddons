@@ -55,3 +55,19 @@ ValueError: if `max_delta`, `lower_saturation`, `upper_saturation`,
 `lower_value`, or `upper_value` is invalid.
 }
 
+\examples{
+
+\dontrun{
+delta = 0.5
+lower_saturation = 0.1
+upper_saturation = 0.9
+lower_value = 0.2
+upper_value = 0.8
+rand_hsvinyiq = img_random_hsv_in_yiq(img, delta,
+lower_saturation, upper_saturation,
+lower_value, upper_value)
+)
+}
+
+
+}

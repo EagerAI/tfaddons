@@ -11,7 +11,7 @@ Description: 'TensorFlow SIG Addons' <https://www.tensorflow.org/addons> is a re
              of community contributions that conform to well-established API patterns, 
              but implement new functionality not available in core 'TensorFlow'. 
              'TensorFlow' natively supports a large number of operators, layers, metrics, 
-             losses, optimizers, and more. However, in a fast moving field like ML, 
+             losses, optimizers, and more. However, in a fast moving field like Machine Learning, 
              there are many interesting new developments that cannot be integrated into 
              core 'TensorFlow' (because their broad applicability is not yet clear, or 
              it is mostly used by a smaller subset of the community).
