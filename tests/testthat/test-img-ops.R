@@ -113,7 +113,14 @@ test_succeeds('img_matrices_to_flat_transforms', {
   tfaddons::img_matrices_to_flat_transforms(matrix(1:9))
 })
 
+test_succeeds('img_shear_y', {
+  tfaddons::img_shear_y(tf$cast(img,'uint8'),1L,1L)
+})
 
+
+test_succeeds('img_shear_x', {
+  tfaddons::img_shear_x(tf$cast(img,'uint8'),1L,1L)
+})
 
 
 
