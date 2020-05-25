@@ -199,8 +199,6 @@ knitr::opts_chunk$set(echo = TRUE)
 #  
 #    })
 #    #Returns the list of all layer variables / weights.
-#    #variables = encoderNetwork$trainable_variables + decoderNetwork$trainable_variables
-#    #variables = tf$math$add(encoderNetwork$trainable_variables, decoderNetwork$trainable_variables)
 #    variables = c(encoderNetwork$trainable_variables, decoderNetwork$trainable_variables)
 #    # differentiate loss wrt variables
 #    gradients = tape$gradient(loss, variables)
