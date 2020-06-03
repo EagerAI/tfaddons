@@ -123,7 +123,13 @@ test_succeeds('img_shear_x', {
 })
 
 
+test_succeeds('img_connected_components', {
+  tfaddons::img_connected_components(img)
+})
 
+test_succeeds('img_flat_transforms_to_matrices', {
+  tfaddons::img_flat_transforms_to_matrices(tf$Variable(list(1,2,3,4,5,6,7,8)))
+})
 
 
 
