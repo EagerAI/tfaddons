@@ -1,31 +1,4 @@
 
-<style type="text/css">
-.colab-root {
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.75);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 11px!important;
-    text-decoration: none;
-    color: #aaa;
-    border: none;
-    font-weight: 300;
-    border: solid 1px rgba(0, 0, 0, 0.08);
-    border-bottom-color: rgba(0, 0, 0, 0.15);
-    text-transform: uppercase;
-    line-height: 16px;
-}
-span.colab-span {
-    background-image: url(https://www.vectorlogo.zone/logos/kaggle/kaggle-ar21.svg);
-    background-repeat: no-repeat;
-    background-size: 51px;
-    background-position-y: -4px;
-    display: inline-block;
-    padding-left: 24px;
-    border-radius: 4px;
-    text-decoration: none;
-}
-</style>
 
 ## R interface to useful extra functionality for TensorFlow 2.x by SIG-addons
 
@@ -135,7 +108,6 @@ Train on 48000 samples, validate on 12000 samples
 48000/48000 [==============================] - 24s 510us/sample - loss: 0.1193 - cohen_kappa: 0.8074 - 
 val_loss: 0.0583 - val_cohen_kappa: 0.9104
 ```
-<a href="https://colab.research.google.com/github/google-research/self-organising-systems/blob/master/notebooks/growing_ca.ipynb#scrollTo=4O4tzfe-GRJ7" class="colab-root">Reproduce in a<span class="colab-span">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Notebook</span></a>
 
 Let's apply ```Weight Normalization```, a Simple Reparameterization technique to Accelerate Training of Deep Neural Networks:
 
