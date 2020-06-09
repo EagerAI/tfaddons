@@ -11,6 +11,8 @@ __TensorFlow Addons__ is a repository of contributions that conform to well-esta
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Last commit](https://img.shields.io/github/last-commit/henry090/tfaddons.svg)](https://github.com/henry090/tfaddons/commits/master)
 
+![](https://img.shields.io/docker/cloud/build/turqut314/tfaddons?style=plastic)
+
 <img src="images/tfaddons.png" width=200 align=right style="margin-left: 15px;" alt="TF-addons"/>
 
 Addons provide the following features which are compatible with ```keras``` library.
