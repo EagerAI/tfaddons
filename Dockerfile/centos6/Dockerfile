@@ -21,24 +21,10 @@ RUN yum update && \
     yum upgrade -y && \
     yum install -y git
 
-# magick
-RUN yum install openssl-devel -y
-RUN yum install ImageMagick-c++-devel -y
-
-
-
 # Clone the files into the docker container
 RUN git clone https://github.com/henry090/tfaddons.git k
 
 WORKDIR k
-
-# dir
-RUN R -e "getwd()"
-RUN R -e "list.files()"
-
-# set cran
-RUN R -e "r = getOption('repos');r['CRAN'] = 'http://cran.us.r-project.org';options(repos = r)"
-
 
 # Install dependecies
 RUN R -e "install.packages('remotes', repos='http://cran.us.r-project.org')"
@@ -52,11 +38,11 @@ RUN R -e "try(reticulate::install_miniconda())"
 RUN R -e "reticulate::conda_create('r-reticulate', packages = 'python==3.6.10')"
 
 
-# Install Keras Tuner
+# Install TF Addons
 RUN R -e "remotes::install_local()"
 RUN R -e "tensorflow::install_tensorflow(version = '2.0')"
 RUN R -e "reticulate::py_install(c('setuptools', 'wheel', 'requests','tqdm'), pip = TRUE)"
-RUN R -e "kerastuneR::install_kerastuner()"
+RUN R -e "tfaddons::install_tfaddons()"
 
 # Check
 RUN R -e "rcmdcheck::rcmdcheck(args = '--no-manual', error_on = 'warning', check_dir = 'check')"
