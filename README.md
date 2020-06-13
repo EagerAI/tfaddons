@@ -9,6 +9,7 @@ __TensorFlow Addons__ is a repository of contributions that conform to well-esta
 [![Actions Status](https://github.com/henry090/tfaddons/workflows/tfaddons/badge.svg)](https://github.com/henry090/tfaddons)
 [![CRAN](https://www.r-pkg.org/badges/version/tfaddons?color=darkgreen)](https://cran.r-project.org/package=tfaddons)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Last month downloads](http://cranlogs.r-pkg.org/badges/last-month/tfaddons?color=green)](https://cran.r-project.org/package=tfaddons)
 [![Last commit](https://img.shields.io/github/last-commit/henry090/tfaddons.svg)](https://github.com/henry090/tfaddons/commits/master)
 
 ![](https://img.shields.io/docker/cloud/build/turqut314/tfaddons?style=plastic)
