@@ -27,8 +27,7 @@ Imports:
     tensorflow,
     rstudioapi,
     keras,
-    purrr,
-    rmarkdown
+    purrr
 Suggests:
     knitr,
     rmarkdown,
