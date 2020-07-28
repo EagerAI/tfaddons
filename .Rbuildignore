@@ -10,3 +10,4 @@
 ^NEWS\.md$
 ^\.github
 ^Dockerfile$
+^CODE_OF_CONDUCT\.md$
