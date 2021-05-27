@@ -13,8 +13,9 @@ target. It can also be negative if the model is worse.}
 metric_rsquare(
   name = "r_square",
   dtype = tf$float32,
-  ...,
-  multioutput = "uniform_average"
+  multioutput = "uniform_average",
+  y_shape = 1,
+  ...
 )
 }
 \arguments{
@@ -22,9 +23,11 @@ metric_rsquare(
 
 \item{dtype}{(Optional) Data type of the metric result. Defaults to `tf$float32`.}
 
+\item{multioutput}{one of the following: "raw_values", "uniform_average", "variance_weighted"}
+
 \item{...}{additional arguments to pass}
 
-\item{multioutput}{one of the following: "raw_values", "uniform_average", "variance_weighted"}
+\item{shape}{output tensor shape}
 }
 \value{
 r squared score: float
@@ -46,7 +49,7 @@ actuals = tf$constant(c(1, 4, 3), dtype=tf$float32)
 preds = tf$constant(c(2, 4, 4), dtype=tf$float32)
 result = metric_rsquare()
 result$update_state(actuals, preds)
-paste('R^2 score is: ', r1$result()$numpy()) # 0.57142866
+paste('R^2 score is: ', result$result()$numpy()) # 0.57142866
 
 }
 }
