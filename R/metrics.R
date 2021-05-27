@@ -406,7 +406,7 @@ metric_multilabel_confusion_matrix <- function(num_classes,
 #' @param dtype (Optional) Data type of the metric result. Defaults to `tf$float32`.
 #' @param ... additional arguments to pass
 #' @param multioutput one of the following: "raw_values", "uniform_average", "variance_weighted"
-#'
+#' @param y_shape output tensor shape
 #'
 #'
 #' @examples
@@ -417,24 +417,22 @@ metric_multilabel_confusion_matrix <- function(num_classes,
 #' preds = tf$constant(c(2, 4, 4), dtype=tf$float32)
 #' result = metric_rsquare()
 #' result$update_state(actuals, preds)
-#' paste('R^2 score is: ', r1$result()$numpy()) # 0.57142866
+#' paste('R^2 score is: ', result$result()$numpy()) # 0.57142866
 #'
 #' }
 #' @return r squared score: float
 #' @export
 metric_rsquare <- function(name = 'r_square',
                            dtype = tf$float32,
-                           ...,
-                           multioutput = 'uniform_average') {
+                           multioutput = 'uniform_average',
+                           y_shape = 1,
+                           ...) {
 
-  args = list(
-    name = name,
-    dtype = dtype,
-    ...,
-    multioutput = multioutput
-  )
-
-  do.call(tfa$metrics$RSquare, args)
+  tfa$metrics$RSquare(name = name,
+                      dtype = dtype,
+                      multioutput = multioutput,
+                      y_shape = reticulate::tuple(as.integer(y_shape)),
+                      ...)
 
 }
 
