@@ -406,7 +406,7 @@ metric_multilabel_confusion_matrix <- function(num_classes,
 #' @param dtype (Optional) Data type of the metric result. Defaults to `tf$float32`.
 #' @param ... additional arguments to pass
 #' @param multioutput one of the following: "raw_values", "uniform_average", "variance_weighted"
-#' @param shape output tensor shape
+#' @param y_shape output tensor shape
 #'
 #'
 #' @examples

@@ -25,9 +25,9 @@ metric_rsquare(
 
 \item{multioutput}{one of the following: "raw_values", "uniform_average", "variance_weighted"}
 
-\item{...}{additional arguments to pass}
+\item{y_shape}{output tensor shape}
 
-\item{shape}{output tensor shape}
+\item{...}{additional arguments to pass}
 }
 \value{
 r squared score: float
