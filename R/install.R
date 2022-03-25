@@ -10,13 +10,20 @@
 #' @export
 install_tfaddons <- function(version = NULL, ..., restart_session = TRUE) {
 
+  tfaddons_py_install = function(pkgs) {
+    system(paste(reticulate::py_discover_config()[['python']],'-m pip install',
+                 paste(pkgs,collapse = ' ')
+    ))
+  }
+
   if (is.null(version))
-    module_string <- paste0("tensorflow-addons==", '0.12.0')
+    module_string <- paste0("tensorflow-addons==", '0.16.1')
   else
     module_string <- paste0("tensorflow-addons==", version)
 
   invisible(py_config())
-  py_install(packages = paste(module_string), pip = TRUE, ...)
+  #py_install(packages = paste(module_string), pip = TRUE, ...)
+  tfaddons_py_install(module_string)
 
 
   if (restart_session && rstudioapi::hasFun("restartSession"))
