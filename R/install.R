@@ -17,7 +17,7 @@ install_tfaddons <- function(version = NULL, ..., restart_session = TRUE) {
   }
 
   if (is.null(version))
-    module_string <- paste0("tensorflow-addons==", '0.16.1')
+    module_string <- paste0("tensorflow-addons==", '0.21.0')
   else
     module_string <- paste0("tensorflow-addons==", version)
 
