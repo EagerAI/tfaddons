@@ -35,10 +35,8 @@ jobs:
       - name: Install dependencies Linux
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get install libcurl4-openssl-dev
-          sudo add-apt-repository -y ppa:cran/imagemagick
-          sudo apt-get update
-          sudo apt-get install -y libmagick++-dev
+          sudo apt-get update && sudo apt
+          sudo apt-get install curl
 
       - name: Install deps
         run: |
