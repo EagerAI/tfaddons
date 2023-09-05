@@ -276,7 +276,7 @@ optimizer_radam <- function(learning_rate = 0.001,
     # float for total_steps is here to be able to load models created before
     # https://github.com/tensorflow/addons/pull/1375 was merged. It should be
     # removed for Addons 0.11.
-    total_steps = total_steps,
+    total_steps = as.integer(total_steps),
     warmup_proportion = warmup_proportion,
     min_lr = min_lr,
     name = name,
