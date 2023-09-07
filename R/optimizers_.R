@@ -71,20 +71,14 @@ lookahead_mechanism <- function(optimizer,
 #'
 #' @param optimizer str or tf$keras$optimizers$Optimizer that will be used to compute
 #' and apply gradients.
-#' @param sequential_update Bool. If False, will compute the moving average at the same
-#' time as the model is updated, potentially doing benign data races. If True, will update
-#' the moving average after gradient updates.
 #' @param average_decay float. Decay to use to maintain the moving averages of trained variables.
 #' @param num_updates Optional count of the number of updates applied to variables.
 #' @param name Optional name for the operations created when applying gradients.
 #' Defaults to "MovingAverage".
 #'
-#' @param clipnorm is clip gradients by norm.
-#' @param clipvalue is clip gradients by value.
-#' @param decay is included for backward compatibility to allow time inverse decay of learning rate.
-#' @param lr is included for backward compatibility, recommended to use learning_rate instead.
-#'
-#'
+#' @param dynamic_decay bool. Whether to change the decay based on the number of optimizer updates. Decay will start at 0.1 and gradually increase up to average_decay after each optimizer update.
+#' @param start_step int. What step to start the moving average.
+#' @param ... keyword arguments. Allowed to be {clipnorm, clipvalue, lr, decay}. clipnorm is clip gradients by norm; clipvalue is clip gradients by value, decay is included for backward compatibility to allow time inverse decay of learning rate. lr is included for backward compatibility, recommended to use learning_rate instead.
 #' @examples
 #'
 #' \dontrun{
@@ -97,31 +91,29 @@ lookahead_mechanism <- function(optimizer,
 #' @return Optimizer for use with `keras::compile()`
 #' @export
 optimizer_moving_average <- function(optimizer,
-                           sequential_update = TRUE,
-                           average_decay = 0.99,
-                           num_updates = NULL,
-                           name = 'MovingAverage',
-                           clipnorm = NULL, clipvalue = NULL,
-                           decay = NULL, lr = NULL) {
+                                     average_decay = 0.99,
+                                     num_updates = NULL,
+                                     start_step = 0,
+                                     dynamic_decay = FALSE,
+                                     name = 'MovingAverage',
+                                     ...) {
 
   args = list(
     optimizer = optimizer,
-    sequential_update = sequential_update,
     average_decay = average_decay,
     num_updates = num_updates,
+    start_step = as.integer(start_step),
+    dynamic_decay = dynamic_decay,
     name = name,
-
-    clipnorm = clipnorm,
-    clipvalue = clipvalue,
-    decay = decay,
-    lr = lr
+    ...
 
   )
 
-  args$clipnorm <- clipnorm
-  args$clipvalue <- clipvalue
-  args$decay <- decay
-  args$lr <- lr
+  if(is.null(num_updates)) {
+    args$num_updates <- NULL
+  } else {
+    args$num_updates <- as.integer(args$num_updates)
+  }
 
   do.call(tfa$optimizers$MovingAverage, args)
 
@@ -152,16 +144,7 @@ optimizer_moving_average <- function(optimizer,
 #' @param average_period An integer. The synchronization period of SWA. The averaging occurs every
 #' average_period steps. Averaging period needs to be >= 1.
 #' @param name Optional name for the operations created when applying gradients. Defaults to 'SWA'.
-#' @param sequential_update Bool. If FALSE, will compute the moving average at the same time as the
-#' model is updated, potentially doing benign data races. If True, will update the moving average
-#' after gradient updates
-#'
-#'
-#' @param clipnorm is clip gradients by norm.
-#' @param clipvalue is clip gradients by value.
-#' @param decay is included for backward compatibility to allow time inverse decay of learning rate.
-#' @param lr is included for backward compatibility, recommended to use learning_rate instead.
-#'
+#' @param ... keyword arguments. Allowed to be {clipnorm, clipvalue, lr, decay}. clipnorm is clip gradients by norm; clipvalue is clip gradients by value, decay is included for backward compatibility to allow time inverse decay of learning rate. lr is included for backward compatibility, recommended to use learning_rate instead.
 #'
 #' @examples
 #'
@@ -176,28 +159,15 @@ optimizer_swa <- function(optimizer,
                           start_averaging = 0,
                           average_period = 10,
                           name = 'SWA',
-                          sequential_update=TRUE,
-                          clipnorm = NULL, clipvalue = NULL,
-                          decay = NULL, lr = NULL) {
+                          ...) {
 
   args = list(
     optimizer = optimizer,
     start_averaging = as.integer(start_averaging),
     average_period = as.integer(average_period),
     name = name,
-    sequential_update = sequential_update,
-
-    clipnorm = clipnorm,
-    clipvalue = clipvalue,
-    decay = decay,
-    lr = lr
-
+    ...
   )
-
-  args$clipnorm <- clipnorm
-  args$clipvalue <- clipvalue
-  args$decay <- decay
-  args$lr <- lr
 
   do.call(tfa$optimizers$SWA, args)
 
