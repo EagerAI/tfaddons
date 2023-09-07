@@ -4,30 +4,18 @@
 \alias{img_equalize}
 \title{Equalize}
 \usage{
-img_equalize(image, data_format = "channels_last", name = NULL)
+img_equalize(image, bins = 256, name = NULL)
 }
 \arguments{
-\item{image}{A tensor of shape (num_images, num_rows, num_columns, num_channels) (NHWC),
-or (num_images, num_channels, num_rows, num_columns) (NCHW), or
-(num_rows, num_columns, num_channels) (HWC), or (num_channels, num_rows, num_columns) (CHW),
-or (num_rows, num_columns) (HW). The rank must be statically known (the shape is
-not TensorShape(None)).}
+\item{image}{image}
 
-\item{data_format}{Either 'channels_first' or 'channels_last'}
+\item{bins}{The number of bins in the histogram.}
 
-\item{name}{The name of the op. Returns: Image(s) with the same type and
-shape as `images`, equalized.}
+\item{name}{The name of the op. Returns: Image(s) with the same type and shape as `images`, equalized.}
 }
 \value{
 Image(s) with the same type and shape as `images`, equalized.
 }
 \description{
 Equalize image(s)
-}
-\examples{
-
-\dontrun{
-img_equalize(img)
-}
-
 }

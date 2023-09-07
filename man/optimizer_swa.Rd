@@ -9,11 +9,7 @@ optimizer_swa(
   start_averaging = 0,
   average_period = 10,
   name = "SWA",
-  sequential_update = TRUE,
-  clipnorm = NULL,
-  clipvalue = NULL,
-  decay = NULL,
-  lr = NULL
+  ...
 )
 }
 \arguments{
@@ -28,17 +24,7 @@ average_period steps. Averaging period needs to be >= 1.}
 
 \item{name}{Optional name for the operations created when applying gradients. Defaults to 'SWA'.}
 
-\item{sequential_update}{Bool. If FALSE, will compute the moving average at the same time as the
-model is updated, potentially doing benign data races. If True, will update the moving average
-after gradient updates}
-
-\item{clipnorm}{is clip gradients by norm.}
-
-\item{clipvalue}{is clip gradients by value.}
-
-\item{decay}{is included for backward compatibility to allow time inverse decay of learning rate.}
-
-\item{lr}{is included for backward compatibility, recommended to use learning_rate instead.}
+\item{...}{keyword arguments. Allowed to be {clipnorm, clipvalue, lr, decay}. clipnorm is clip gradients by norm; clipvalue is clip gradients by value, decay is included for backward compatibility to allow time inverse decay of learning rate. lr is included for backward compatibility, recommended to use learning_rate instead.}
 }
 \value{
 Optimizer for use with `keras::compile()`

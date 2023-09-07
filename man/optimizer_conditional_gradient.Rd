@@ -6,14 +6,11 @@
 \usage{
 optimizer_conditional_gradient(
   learning_rate,
-  lambda_,
+  lambda_ = 0.01,
   epsilon = 1e-07,
-  use_locking = FALSE,
+  ord = "fro",
   name = "ConditionalGradient",
-  clipnorm = NULL,
-  clipvalue = NULL,
-  decay = NULL,
-  lr = NULL
+  ...
 )
 }
 \arguments{
@@ -23,17 +20,9 @@ optimizer_conditional_gradient(
 
 \item{epsilon}{A Tensor or a floating point value. A small constant for numerical stability when handling the case of norm of gradient to be zero.}
 
-\item{use_locking}{If True, use locks for update operations.}
-
 \item{name}{Optional name prefix for the operations created when applying gradients. Defaults to 'ConditionalGradient'.}
 
-\item{clipnorm}{is clip gradients by norm.}
-
-\item{clipvalue}{is clip gradients by value.}
-
-\item{decay}{is included for backward compatibility to allow time inverse decay of learning rate.}
-
-\item{lr}{is included for backward compatibility, recommended to use learning_rate instead.}
+\item{...}{keyword arguments. Allowed to be {clipnorm, clipvalue, lr, decay}. clipnorm is clip gradients by norm; clipvalue is clip gradients by value, decay is included for backward compatibility to allow time inverse decay of learning rate. lr is included for backward compatibility, recommended to use learning_rate instead.}
 }
 \value{
 Optimizer for use with `keras::compile()`
