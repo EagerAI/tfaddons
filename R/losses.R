@@ -242,7 +242,6 @@ attr(loss_pinball, "py_function_name") <- "pinball"
 
 #' @title Sigmoid focal crossentropy loss
 #'
-#'
 #' @param name (Optional) name for the loss.
 #' @param alpha balancing factor.
 #' @param gamma modulating factor.

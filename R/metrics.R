@@ -396,7 +396,7 @@ metric_multilabel_confusion_matrix <- function(num_classes,
 
 #' @title RSquare
 #'
-#' This is also called as coefficient of determination. It tells how close
+#' @description This is also called as coefficient of determination. It tells how close
 #' are data to the fitted regression line. Highest score can be 1.0 and it
 #' indicates that the predictors perfectly accounts for variation in the target.
 #' Score 0.0 indicates that the predictors do not account for variation in the

@@ -2,13 +2,7 @@
 % Please edit documentation in R/metrics.R
 \name{metric_rsquare}
 \alias{metric_rsquare}
-\title{RSquare
-
-This is also called as coefficient of determination. It tells how close
-are data to the fitted regression line. Highest score can be 1.0 and it
-indicates that the predictors perfectly accounts for variation in the target.
-Score 0.0 indicates that the predictors do not account for variation in the
-target. It can also be negative if the model is worse.}
+\title{RSquare}
 \usage{
 metric_rsquare(
   name = "r_square",
@@ -33,8 +27,6 @@ metric_rsquare(
 r squared score: float
 }
 \description{
-RSquare
-
 This is also called as coefficient of determination. It tells how close
 are data to the fitted regression line. Highest score can be 1.0 and it
 indicates that the predictors perfectly accounts for variation in the target.

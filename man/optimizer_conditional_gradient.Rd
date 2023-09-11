@@ -20,6 +20,8 @@ optimizer_conditional_gradient(
 
 \item{epsilon}{A Tensor or a floating point value. A small constant for numerical stability when handling the case of norm of gradient to be zero.}
 
+\item{ord}{Order of the norm. Supported values are 'fro' and 'nuclear'. Default is 'fro', which is frobenius norm.}
+
 \item{name}{Optional name prefix for the operations created when applying gradients. Defaults to 'ConditionalGradient'.}
 
 \item{...}{keyword arguments. Allowed to be {clipnorm, clipvalue, lr, decay}. clipnorm is clip gradients by norm; clipvalue is clip gradients by value, decay is included for backward compatibility to allow time inverse decay of learning rate. lr is included for backward compatibility, recommended to use learning_rate instead.}

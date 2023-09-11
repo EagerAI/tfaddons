@@ -53,7 +53,7 @@ optimizer_lazy_adam <- function(learning_rate = 0.001, beta_1 = 0.9, beta_2 = 0.
 attr(optimizer_lazy_adam, "py_function_name") <- "lazy_adam"
 
 #' @title Conditional Gradient
-#'
+#' @param ord Order of the norm. Supported values are 'fro' and 'nuclear'. Default is 'fro', which is frobenius norm.
 #' @param learning_rate A Tensor or a floating point value, or a schedule that is a tf$keras$optimizers$schedules$LearningRateSchedule The learning rate.
 #' @param lambda_ A Tensor or a floating point value. The constraint.
 #' @param epsilon A Tensor or a floating point value. A small constant for numerical stability when handling the case of norm of gradient to be zero.
