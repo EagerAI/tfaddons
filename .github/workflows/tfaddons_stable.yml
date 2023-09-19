@@ -13,7 +13,7 @@ jobs:
       matrix:
         config:
         - { os: windows-latest, tf: '2.10.0', tensorflow-addons: '0.21.0'}
-        - { os: macOS-latest, tf: '2.10.0', tensorflow-addons: '0.21.0'}
+        - { os: macos-11, tf: '2.10.0', tensorflow-addons: '0.21.0'}
         - { os: ubuntu-latest, tf: '2.10.0', tensorflow-addons: '0.21.0'}
 
     env:
