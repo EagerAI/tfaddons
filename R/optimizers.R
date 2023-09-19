@@ -53,38 +53,31 @@ optimizer_lazy_adam <- function(learning_rate = 0.001, beta_1 = 0.9, beta_2 = 0.
 attr(optimizer_lazy_adam, "py_function_name") <- "lazy_adam"
 
 #' @title Conditional Gradient
-#'
+#' @param ord Order of the norm. Supported values are 'fro' and 'nuclear'. Default is 'fro', which is frobenius norm.
 #' @param learning_rate A Tensor or a floating point value, or a schedule that is a tf$keras$optimizers$schedules$LearningRateSchedule The learning rate.
 #' @param lambda_ A Tensor or a floating point value. The constraint.
 #' @param epsilon A Tensor or a floating point value. A small constant for numerical stability when handling the case of norm of gradient to be zero.
-#' @param use_locking If True, use locks for update operations.
 #' @param name Optional name prefix for the operations created when applying gradients. Defaults to 'ConditionalGradient'.
-#' @param clipnorm is clip gradients by norm.
-#' @param clipvalue is clip gradients by value.
-#' @param decay is included for backward compatibility to allow time inverse decay of learning rate.
-#' @param lr is included for backward compatibility, recommended to use learning_rate instead.
+#' @param ... keyword arguments. Allowed to be {clipnorm, clipvalue, lr, decay}. clipnorm is clip gradients by norm; clipvalue is clip gradients by value, decay is included for backward compatibility to allow time inverse decay of learning rate. lr is included for backward compatibility, recommended to use learning_rate instead.
 #' @return Optimizer for use with `keras::compile()`
 #' @export
-optimizer_conditional_gradient <- function(learning_rate, lambda_, epsilon = 1e-07, use_locking = FALSE,
-                          name = 'ConditionalGradient',
-                          clipnorm = NULL, clipvalue = NULL,
-                          decay = NULL, lr = NULL) {
+optimizer_conditional_gradient <- function(
+    learning_rate,
+    lambda_ = 0.01,
+    epsilon = 1e-07,
+    ord = 'fro',
+    name = 'ConditionalGradient',
+    ...) {
 
   args <- list(
     learning_rate = learning_rate,
     lambda_ = lambda_,
     epsilon = epsilon,
-    use_locking = use_locking,
+    ord = ord,
     name = name,
-    clipnorm = clipnorm,
-    clipvalue = clipvalue,
-    decay = decay,
-    lr = lr
+    ...
   )
-  args$clipnorm <- clipnorm
-  args$clipvalue <- clipvalue
-  args$decay <- decay
-  args$lr <- lr
+
 
   do.call(tfa$optimizers$ConditionalGradient, args)
 }
@@ -276,7 +269,7 @@ optimizer_radam <- function(learning_rate = 0.001,
     # float for total_steps is here to be able to load models created before
     # https://github.com/tensorflow/addons/pull/1375 was merged. It should be
     # removed for Addons 0.11.
-    total_steps = total_steps,
+    total_steps = as.integer(total_steps),
     warmup_proportion = warmup_proportion,
     min_lr = min_lr,
     name = name,

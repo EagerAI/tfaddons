@@ -1,7 +1,5 @@
 #' @title Attention Wrapper
 #'
-#'
-#'
 #' @param object Model or layer object
 #' @param cell An instance of RNNCell.
 #' @param attention_mechanism A list of AttentionMechanism instances or a single instance.
@@ -348,8 +346,6 @@ decoder_basic <- function(object,
 
 #' @title Basic decoder output
 #'
-#'
-#'
 #' @param rnn_output the output of RNN cell
 #' @param sample_id the `id` of the sample
 #' @return None
@@ -429,8 +425,6 @@ decoder_beam_search <- function(object,
 
 #' @title Beam Search Decoder Output
 #'
-#'
-#'
 #' @param scores calculate the scores for each beam
 #' @param predicted_ids The final prediction. A tensor of shape
 #' `[batch_size, T, beam_width]` (or `[T, batch_size, beam_width]` if `output_time_major`
@@ -454,7 +448,6 @@ decoder_beam_search_output <- function(scores, predicted_ids, parent_ids) {
 
 
 #' @title Beam Search Decoder State
-#'
 #'
 #' @param cell_state cell_state
 #' @param log_probs log_probs
@@ -480,10 +473,6 @@ decoder_beam_search_state <- function(cell_state, log_probs,
 }
 
 #' @title Base abstract class that allows the user to customize sampling.
-#'
-#'
-#'
-#'
 #'
 #' @param initialize_fn callable that returns (finished, next_inputs) for the first iteration.
 #' @param sample_fn callable that takes (time, outputs, state) and emits tensor sample_ids.
@@ -623,7 +612,6 @@ decoder_final_beam_search_output <- function(predicted_ids, beam_search_decoder_
 
 #' @title Gather tree
 #'
-#'
 #' @param step_ids requires the step id
 #' @param parent_ids The parent ids of shape `[max_time, batch_size, beam_width]`.
 #' @param max_sequence_lengths get max_sequence_length across all beams for each batch.
@@ -733,9 +721,7 @@ hardmax <- function(logits, name = NULL) {
 
 #' @title Inference Sampler
 #'
-#'
 #' @details A helper to use during inference with a custom sampling function.
-#'
 #'
 #' @param sample_fn A callable that takes outputs and emits tensor sample_ids.
 #' @param sample_shape Either a list of integers, or a 1-D Tensor of type int32,
@@ -972,12 +958,9 @@ safe_cumprod <- function(x, ...) {
 
 #' @title Sample Embedding Sampler
 #'
-#'
-#'
 #' @description  A sampler for use during inference.
 #' @details Uses sampling (from a distribution) instead of argmax and passes
 #' the result through an embedding layer to get the next input.
-#'
 #'
 #' @param embedding_fn (Optional) A callable that takes a vector tensor of ids (argmax ids),
 #' or the params argument for embedding_lookup. The returned tensor will be passed to the
@@ -1011,10 +994,8 @@ sampler_sample_embedding <- function(embedding_fn = NULL,
 
 
 #' @title Sampler
+#'
 #' @description Interface for implementing sampling in seq2seq decoders.
-#'
-#'
-#'
 #'
 #' @param ... parametr to pass batch_size, initialize, next_inputs, sample, sample_ids_dtype, sample_ids_shape
 #'
@@ -1030,10 +1011,6 @@ sampler <- function(...) {
 
 
 #' @title A training sampler that adds scheduled sampling
-#'
-#'
-#'
-#'
 #'
 #' @param sampling_probability A float32 0-D or 1-D tensor: the probability of sampling
 #' categorically from the output ids instead of reading directly from the inputs.
@@ -1162,11 +1139,7 @@ tile_batch <- function(t, multiplier, name = NULL) {
 
 #' @title A Sampler for use during training.
 #'
-#'
 #' @description Only reads inputs.
-#'
-#'
-#'
 #'
 #' @param time_major bool. Whether the tensors in inputs are time major.
 #' If `FALSE` (default), they are assumed to be batch major.

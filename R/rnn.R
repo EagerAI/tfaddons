@@ -1,6 +1,5 @@
 #' @title LSTM cell with layer normalization and recurrent dropout.
 #'
-#'
 #' @details This class adds layer normalization and recurrent dropout to a LSTM unit. Layer
 #' normalization implementation is based on: https://arxiv.org/abs/1607.06450.
 #' "Layer Normalization" Jimmy Lei Ba, Jamie Ryan Kiros, Geoffrey E. Hinton and is

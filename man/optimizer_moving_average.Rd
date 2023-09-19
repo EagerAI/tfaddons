@@ -6,38 +6,30 @@
 \usage{
 optimizer_moving_average(
   optimizer,
-  sequential_update = TRUE,
   average_decay = 0.99,
   num_updates = NULL,
+  start_step = 0,
+  dynamic_decay = FALSE,
   name = "MovingAverage",
-  clipnorm = NULL,
-  clipvalue = NULL,
-  decay = NULL,
-  lr = NULL
+  ...
 )
 }
 \arguments{
 \item{optimizer}{str or tf$keras$optimizers$Optimizer that will be used to compute
 and apply gradients.}
 
-\item{sequential_update}{Bool. If False, will compute the moving average at the same
-time as the model is updated, potentially doing benign data races. If True, will update
-the moving average after gradient updates.}
-
 \item{average_decay}{float. Decay to use to maintain the moving averages of trained variables.}
 
 \item{num_updates}{Optional count of the number of updates applied to variables.}
 
+\item{start_step}{int. What step to start the moving average.}
+
+\item{dynamic_decay}{bool. Whether to change the decay based on the number of optimizer updates. Decay will start at 0.1 and gradually increase up to average_decay after each optimizer update.}
+
 \item{name}{Optional name for the operations created when applying gradients.
 Defaults to "MovingAverage".}
 
-\item{clipnorm}{is clip gradients by norm.}
-
-\item{clipvalue}{is clip gradients by value.}
-
-\item{decay}{is included for backward compatibility to allow time inverse decay of learning rate.}
-
-\item{lr}{is included for backward compatibility, recommended to use learning_rate instead.}
+\item{...}{keyword arguments. Allowed to be {clipnorm, clipvalue, lr, decay}. clipnorm is clip gradients by norm; clipvalue is clip gradients by value, decay is included for backward compatibility to allow time inverse decay of learning rate. lr is included for backward compatibility, recommended to use learning_rate instead.}
 }
 \value{
 Optimizer for use with `keras::compile()`
